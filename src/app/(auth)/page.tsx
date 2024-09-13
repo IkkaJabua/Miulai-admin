@@ -1,5 +1,4 @@
 'use client';
-import Menu from '../Components/Menu/Menu';
 import styles from './page.module.scss';
 
 
