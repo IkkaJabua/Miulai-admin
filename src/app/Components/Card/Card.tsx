@@ -1,7 +1,7 @@
 import styles from './Card.module.scss';
 import Image from 'next/image';
-// import ItemsUnion from '../CardItems/ItemsUnion/ItemsUnion';
 import { useState } from 'react';
+import CardItems from '../CardItems/CardItems';
 
 interface Props {
     header: string;
@@ -24,7 +24,7 @@ const Card = (props: Props) => {
                 <Image src={props.image} alt='image' width={190} height={162} className={radius.join(' ').trim()} />
 
                 <div className={styles.union}>
-                    {/* <ItemsUnion /> */}
+                    <CardItems />
                 </div>
                 
                 <span>{props.subtitle}</span>
