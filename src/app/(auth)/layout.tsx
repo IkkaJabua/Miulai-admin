@@ -1,3 +1,4 @@
+import Menu from '../Components/Menu/Menu';
 import styles from './layout.module.scss';
 
 
@@ -8,7 +9,10 @@ export default function RootLayout({
 }>) {
     return (
         <div className={styles.container}>
-            {children}
+            <div className={styles.wrapper}>
+                <Menu />
+                {children}
+            </div>
         </div>
     )
 }
