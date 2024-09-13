@@ -22,7 +22,7 @@ const Button = (props: Props) => {
                 &&
                 <Image src={`${props.image}`} alt='image' width={23} height={23} />
             }
-            
+
             <span className={styles.title}>
                 {props.title}
             </span>
