@@ -1,0 +1,27 @@
+.container {
+    height: 30px;
+    width: 100%;
+    outline: navajowhite;
+    border-radius: 8px;
+    border: navajowhite;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.fill {
+    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+}
+
+.outline {
+    background-color: unset;
+    border: 1px solid var(--Gradient-apolo, #F903D0);
+}
