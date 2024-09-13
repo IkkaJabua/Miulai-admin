@@ -7,7 +7,7 @@ export default function Home() {
 
     return(
         <main className={styles.main}>
-            <UserPopup userName={'dwdwa'} userGmail={'dwadwdwa'} />
+            
         </main>
     )
 }
