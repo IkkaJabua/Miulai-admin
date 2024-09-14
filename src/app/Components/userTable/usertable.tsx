@@ -97,6 +97,36 @@ const data = [
         totalStreams: 'dolores.chambers@example.com',
         Password: 'sandrooooo',
         totalSongs: 5,
+    }, {
+        key: '13',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    }, {
+        key: '14',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    }, {
+        key: '15',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    }, {
+        key: '16',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    },{
+        key: '17',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
     },
 ];
 
