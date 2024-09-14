@@ -9,6 +9,7 @@ interface Props {
     subtitle?: string;
     title: string;
     imageStyle: 'normal' | 'round';
+    id: number;
 }
 
 const Card = (props: Props) => {
