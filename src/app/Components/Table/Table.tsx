@@ -133,32 +133,69 @@ const data: DataType[] = [
 
 
 const MusicTable: React.FC = () => {
-    const [active, setActive] = useState(false)
+    const [selectedKey, setSelectedKey] = useState<string | null>(null);
+    const [all, setAll] = useState(false)
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+
+
+
+
     const onSubmit = (values: any) => {
-        console.log('Values', values)
+        console.log('Values', !!values)
     }
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const checkboxValues = watch();
+    const handleSelectAll = (checked: boolean) => {
+        if (checked) {
+            setSelectedKeys(new Set(data.map(item => item.key)));
+        } else {
+            setSelectedKeys(new Set());
+        }
+    };
 
+    const handleSelectOne = (key: string) => {
+        setSelectedKeys(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(key)) {
+                newSet.delete(key);
+            } else {
+                newSet.add(key);
+            }
+            return newSet;
+        });
+    };
 
 
 
     const columns: ColumnsType<DataType> = [
         {
             title: () =>
-                <form onSubmit={handleSubmit(onSubmit)} className={styles.inputWrapper}>
-                    {
-                        data.map((item, i) => (<PlaylistInput name={item.name} id={item.id} key={i} register={register} />))
-                    }
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <input
+                        type='checkbox'
+                        className={styles.inp}
+                        {...register('selectAll')}
+                        checked={selectedKeys.size === data.length}
+                        onChange={(e) => {
+                            handleSelectAll(e.target.checked);
+                            handleSubmit(onSubmit)();
+                        }}
+                    />
                 </form>,
             dataIndex: 'checkbox',
             key: 'checkbox',
-            render: () =>
-                <form onSubmit={handleSubmit(onSubmit)} className={styles.inputWrapper}>
-                    
-                    <PlaylistInput register={register} />
-                    
+            render: (text, record) =>
+                <form className={styles.wrapperTwo} onSubmit={handleSubmit(onSubmit)}>
+                    <input
+                        type='checkbox'
+                        className={styles.inp}
+                        {...register(`select-${record.key}`)}
+                        checked={selectedKeys.has(record.key)}
+                        onChange={() => {
+                            handleSelectOne(record.key);
+                            handleSubmit(onSubmit)();
+                        }}
+                    />
                 </form>,
             width: '5%',
         },
