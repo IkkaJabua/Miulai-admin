@@ -4,6 +4,9 @@ import Image from 'next/image';
 
 type Props = {
     email: string;
+    firstTitle: string;
+    secondTitle: string;
+    thirdTitle: string;
     registrationDate: string;
     createdPlaylists: number;
     userImage: string;
@@ -23,15 +26,15 @@ const ArtistPopupData = (props: Props) => {
             </div>
             <div className={styles.dataWrapper}>
                 <div className={styles.containerWrapper}>
-                    <span className={styles.title}>Email:</span>
+                    <span className={styles.title}>{props.firstTitle}:</span>
                     <span className={styles.data}>{props.email}</span>
                 </div>
                 <div className={styles.containerWrapper}>
-                    <span className={styles.title}>Registration Date:</span>
+                    <span className={styles.title}>{props.secondTitle}:</span>
                     <span className={styles.data}>{props.registrationDate}</span>
                 </div>
                 <div className={styles.containerWrapper}>
-                    <span className={styles.title}>Playlists Created:</span>
+                    <span className={styles.title}>{props.thirdTitle}:</span>
                     <span className={styles.data}>{props.createdPlaylists}</span>
                 </div>
             </div>
