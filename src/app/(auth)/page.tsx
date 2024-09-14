@@ -1,4 +1,6 @@
 'use client';
+import ArtistPopup from '../Components/ArtistPopup/ArtistPopup';
+import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopupBtn';
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
 import PopupHeader from '../Components/PopupHeader/PopupHeader';
@@ -9,8 +11,7 @@ export default function Home() {
 
     return(
         <main className={styles.main}>
-            <PopupHeader userName={'dwadwadwadw'} />
-            <ArtistPopupData email={'dwadawdawdwdaw'} registrationDate={'dawdawdawd'} createdPlaylists={0} userImage={''} />
+            <ArtistPopup />
         </main> 
     )
 }
