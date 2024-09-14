@@ -142,7 +142,7 @@ const MusicTable: React.FC = () => {
             render: () =>
                 <div onClick={() => setActive(!active)} className={active ? styles.activeInput : styles.input}>
                     {
-                        active && <Image src={} width={}  height={} alt='checkbox'   />
+                        active && <Image src={''} width={2}  height={2} alt='checkbox'   />
                     }
                 </div>,
             width: '5%',
