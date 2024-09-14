@@ -11,13 +11,16 @@ import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopup
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
 import PopupHeader from '../Components/PopupHeader/PopupHeader';
+import UserTable from '../Components/userTable/usertable'
 import styles from './page.module.scss';
+import Table from '../Components/Table/Table';
 
 export default function Home() {
 
     return(
         <main className={styles.main}>
-            <Tables />
+            <UserTable />
+            {/* <Table /> */}
          
         </main>
 
