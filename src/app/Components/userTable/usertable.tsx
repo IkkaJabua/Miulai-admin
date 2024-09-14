@@ -103,7 +103,7 @@ const data = [
 
 
 const MusicTable: React.FC = () => {
-    const [selectedKey, setSelectedKey] = useState<string | null>(null);
+    const [active, setActive] = useState<string>();
     const [all, setAll] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
@@ -196,10 +196,10 @@ const MusicTable: React.FC = () => {
             dataIndex: 'Password',
             key: 'Password',
             width: '15%',
-            render: (text) => (
+            render: (text, record) => (
                 <div className={styles.Password}>
-                    <input  type='password' value={text} className={styles.inputPassword}  />
-                    <div>
+                    <input type={active === record.key ? 'text' : 'password'}  value={text} className={styles.inputPassword} />
+                    <div onClick={() => setActive(record.key)}>
                         <Image src={`/icon/paswordhider.svg`} width={24} height={24} alt='trash' />
                     </div>
                 </div>
