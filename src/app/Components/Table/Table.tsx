@@ -4,7 +4,10 @@ import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import styles from './Table.module.scss';
-import { useForm } from 'antd/es/form/Form';
+import PlaylistInput from '../playlistinput/playlistinput';
+import { useForm, SubmitHandler } from "react-hook-form";
+
+
 
 interface DataType {
     key: string;
@@ -13,6 +16,8 @@ interface DataType {
     totalAlbums: number;
     totalSongs: number;
     image: string;
+    name?: any;
+    id?: any;
 }
 
 const data: DataType[] = [
@@ -129,22 +134,32 @@ const data: DataType[] = [
 
 const MusicTable: React.FC = () => {
     const [active, setActive] = useState(false)
+    const onSubmit = (values: any) => {
+        console.log('Values', values)
+    }
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const checkboxValues = watch();
+
+
 
 
     const columns: ColumnsType<DataType> = [
         {
             title: () =>
-                <div onClick={() => setActive(!active)} className={active ? styles.activeInput : styles.input}>
-
-                </div>,
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.inputWrapper}>
+                    {
+                        data.map((item, i) => (<PlaylistInput name={item.name} id={item.id} key={i} register={register} />))
+                    }
+                </form>,
             dataIndex: 'checkbox',
             key: 'checkbox',
             render: () =>
-                <div onClick={() => setActive(!active)} className={active ? styles.activeInput : styles.input}>
-                    {
-                        active && <Image src={''} width={2}  height={2} alt='checkbox'   />
-                    }
-                </div>,
+                <form onSubmit={handleSubmit(onSubmit)} className={styles.inputWrapper}>
+                    
+                    <PlaylistInput register={register} />
+                    
+                </form>,
             width: '5%',
         },
         {
