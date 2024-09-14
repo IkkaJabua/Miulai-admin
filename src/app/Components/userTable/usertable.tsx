@@ -135,6 +135,14 @@ const MusicTable: React.FC = () => {
         });
     };
 
+    const handlePasswordToggle = (key: any) => {
+        if (active === key) {
+            setActive(''); // If the same field is clicked, hide the password
+        } else {
+            setActive(key); // Show password for the clicked field
+        }
+    };
+
 
 
     const columns: ColumnsType<any> = [
@@ -199,7 +207,7 @@ const MusicTable: React.FC = () => {
             render: (text, record) => (
                 <div className={styles.Password}>
                     <input type={active === record.key ? 'text' : 'password'}  value={text} className={styles.inputPassword} />
-                    <div onClick={() => setActive(record.key)}>
+                    <div onClick={() => handlePasswordToggle(record.key)}>
                         <Image src={`/icon/paswordhider.svg`} width={24} height={24} alt='trash' />
                     </div>
                 </div>
@@ -215,6 +223,9 @@ const MusicTable: React.FC = () => {
                     </button>
                     <button className={styles.unBorder}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
+                    </button>
+                    <button className={styles.unBorder}>
+                        <Image src={`/icon/blockUnblock.svg`} width={24} height={24} alt='trash' />
                     </button>
                 </div>
             ),
