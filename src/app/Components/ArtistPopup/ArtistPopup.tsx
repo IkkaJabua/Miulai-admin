@@ -12,10 +12,15 @@ const ArtistPopup = () => {
         <div className={styles.container}>
             <PopupHeader userName={'Dolores Chambers'} />
             <div className={styles.wrapper}>
-                <ArtistPopupData email={'dolores.chambers@example.com'}
-                registrationDate={'September 17, 2024 11:22'}
-                createdPlaylists={4} userImage={'/icon/testUserImage.png'} 
-                imageStyle={'round'} />
+                <ArtistPopupData
+                    key1={'Email'}
+                    value1={'dolores.chambers@example.com'}
+                    key2={'Registration Date'}
+                    value2={'September 17, 2024 11:22'}
+                    key3={'Playlists Created'}
+                    value3={'4'}
+                    userImage={'/image/userTestImage.png'}
+                    imageStyle={'round'} />
                 <ArtistPopupBtn />
             </div>
             <ArtPopupCards />
