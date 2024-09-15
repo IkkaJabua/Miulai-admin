@@ -11,7 +11,7 @@ import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopup
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
 import PopupHeader from '../Components/PopupHeader/PopupHeader';
-import UserTable from '../Components/UserTable/Usertable'
+import UserTable from './'
 import styles from './page.module.scss';
 import Table from '../Components/Table/Table';
 import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
@@ -20,6 +20,7 @@ import Header from '../Components/Header/Header';
 import TotalUser from '../Components/TotalUser/TotalUser';
 import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
 import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
+import UserBlockBtn from '../Components/UserBlockBtn/UserBlockBtn';
 
 
 
@@ -35,6 +36,7 @@ export default function Home() {
             </div>
             <div className={styles.buttons}>
                 <UserAddBtn />
+                <UserBlockBtn />
                 <UserDeleteBtn />
             </div>
             <UserTable />
