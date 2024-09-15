@@ -1,6 +1,8 @@
 import ArtistPopupBtn from '../ArtistPopup/ArtistPopupBtn/ArtistPopupBtn';
 import ArtistPopupData from '../ArtistPopup/ArtistPopupData/ArtistPopupData';
+import PlaylistTable from '../PlaylistTable/PlaylistTable';
 import PopupHeader from '../PopupHeader/PopupHeader';
+import MusicTable from '../Table/Table';
 import styles from './PlaylistEditPopup.module.scss';
 
 
@@ -20,7 +22,8 @@ const PlaylistEditPopup = () => {
             value2={'September 17, 2024 11:22'}  
             value3={'5'} />
             <ArtistPopupBtn onClick={() => console.log('clicked')} /> 
-        </div>
+            <PlaylistTable />
+        </div>  
     )
 }
 
