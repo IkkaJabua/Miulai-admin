@@ -11,7 +11,8 @@ import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopup
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
 import PopupHeader from '../Components/PopupHeader/PopupHeader';
-import UserTable from '../Components/UserTable/Usertable'
+import Usertable from '../Components/userTable/usertable'
+
 import styles from './page.module.scss';
 import Table from '../Components/Table/Table';
 import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
@@ -37,7 +38,7 @@ export default function Home() {
                 <UserAddBtn />
                 <UserDeleteBtn />
             </div>
-            <UserTable />
+            <Usertable />
         </main>
     )
 }
