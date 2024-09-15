@@ -16,12 +16,28 @@ import styles from './page.module.scss';
 import Table from '../Components/Table/Table';
 import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
 import PlaylistEditPopup from '../Components/PlaylistEditPopup/PlaylistEditPopup';
+import Header from '../Components/Header/Header';
+import TotalUser from '../Components/TotalUser/TotalUser';
+import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
+import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
+
+
+
 
 export default function Home() {
 
-    return(
+    return (
         <main className={styles.main}>
-            
-        </main> 
+            <Header />
+            <div className={styles.user}>
+                <h1 className={styles.h1}>User Managment</h1>
+                <TotalUser totalUser={'211'} />
+            </div>
+            <div className={styles.buttons}>
+                <UserAddBtn />
+                <UserDeleteBtn />
+            </div>
+            <UserTable />
+        </main>
     )
 }
