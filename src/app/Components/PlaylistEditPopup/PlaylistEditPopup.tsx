@@ -19,7 +19,7 @@ const PlaylistEditPopup = () => {
             value1={'Playlist name 4'}  
             value2={'September 17, 2024 11:22'}  
             value3={'5'} />
-            <ArtistPopupBtn onClick={() => console.log('clicked')} />
+            <ArtistPopupBtn onClick={() => console.log('clicked')} /> 
         </div>
     )
 }
