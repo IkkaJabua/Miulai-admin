@@ -3,8 +3,8 @@ import styles from './PlaylistInput.module.scss';
 // import Button from '../../Button/Button';
 
 type Props = {
-    name: string;
-    id: number;
+    name?: string;
+    id?: number;
     onClick?: () => void;
     register?: any;
 }

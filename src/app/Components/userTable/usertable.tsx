@@ -3,129 +3,129 @@ import React, { useState } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
-import styles from './Table.module.scss';
 import PlaylistInput from '../playlistinput/playlistinput';
 import { useForm, SubmitHandler } from "react-hook-form";
+import styles from './usertable.module.scss'
+import type Password from 'antd/es/input/Password';
 
 
 
-interface DataType {
-    key: string;
-    artist: string;
-    totalStreams: number;
-    totalAlbums: number;
-    totalSongs: number;
-    image: string;
-    name?: any;
-    id?: any;
-}
 
-const data: DataType[] = [
+
+
+const data = [
     {
         key: '1',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-        totalStreams: 267400,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '2',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '3',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '4',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '5',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '6',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '7',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '8',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '9',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '10',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '11',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
     {
         key: '12',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    }, {
+        key: '13',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    }, {
+        key: '14',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    }, {
+        key: '15',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    }, {
+        key: '16',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
+        totalSongs: 5,
+    },{
+        key: '17',
+        artist: 'September 17, 2024  11:22',
+        totalStreams: 'dolores.chambers@example.com',
+        Password: 'sandrooooo',
         totalSongs: 5,
     },
 ];
@@ -133,7 +133,7 @@ const data: DataType[] = [
 
 
 const MusicTable: React.FC = () => {
-    const [selectedKey, setSelectedKey] = useState<string | null>(null);
+    const [active, setActive] = useState<string>();
     const [all, setAll] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
@@ -165,9 +165,17 @@ const MusicTable: React.FC = () => {
         });
     };
 
+    const handlePasswordToggle = (key: any) => {
+        if (active === key) {
+            setActive(''); // If the same field is clicked, hide the password
+        } else {
+            setActive(key); // Show password for the clicked field
+        }
+    };
 
 
-    const columns: ColumnsType<DataType> = [
+
+    const columns: ColumnsType<any> = [
         {
             title: () =>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -185,7 +193,7 @@ const MusicTable: React.FC = () => {
             dataIndex: 'checkbox',
             key: 'checkbox',
             render: (text, record) =>
-                <form className={styles.wrapperTwo} onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                         type='checkbox'
                         className={styles.inp}
@@ -200,22 +208,21 @@ const MusicTable: React.FC = () => {
             width: '5%',
         },
         {
-            title: 'Artist',
+            title: 'Registration Date',
             dataIndex: 'artist',
             key: 'artist',
             render: (text, record) => (
                 <div className={styles.artistCell}>
-                    <Image src={`image/${record.image}`} width={40} height={40} alt={text} />
-                    <span>{text}</span>
+                    <div>{text}</div>
                 </div>
             ),
-            width: '30%',
+            width: '20%',
         },
         {
-            title: 'Total Streams',
+            title: 'Email',
             dataIndex: 'totalStreams',
             key: 'totalStreams',
-            width: '20%',
+            width: '30%',
             render: (text) => (
                 <div>
                     {text}
@@ -223,24 +230,16 @@ const MusicTable: React.FC = () => {
             ),
         },
         {
-            title: 'Total Albums',
-            dataIndex: 'totalAlbums',
-            key: 'totalAlbums',
+            title: 'Password',
+            dataIndex: 'Password',
+            key: 'Password',
             width: '15%',
-            render: (text) => (
-                <div>
-                    {text}
-                </div>
-            ),
-        },
-        {
-            title: 'Total Songs',
-            dataIndex: 'totalSongs',
-            key: 'totalSongs',
-            width: '15%',
-            render: (text) => (
-                <div>
-                    {text}
+            render: (text, record) => (
+                <div className={styles.Password}>
+                    <input type={active === record.key ? 'text' : 'password'}  value={text} className={styles.inputPassword} />
+                    <div onClick={() => handlePasswordToggle(record.key)}>
+                        <Image src={`/icon/paswordhider.svg`} width={24} height={24} alt='trash' />
+                    </div>
                 </div>
             ),
         },
@@ -255,20 +254,14 @@ const MusicTable: React.FC = () => {
                     <button className={styles.unBorder}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
                     </button>
+                    <button className={styles.unBorder}>
+                        <Image src={`/icon/blockUnblock.svg`} width={24} height={24} alt='trash' />
+                    </button>
                 </div>
             ),
             width: '15%',
         },
     ];
-
-
-
-
-
-
-
-
-
 
 
     return (
@@ -284,3 +277,5 @@ const MusicTable: React.FC = () => {
 };
 
 export default MusicTable;
+
+

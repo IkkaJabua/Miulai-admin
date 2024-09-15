@@ -18,7 +18,7 @@
     align-items: center;
 }
 
-.wrapper :global tr .ant-table-cell {
+.wrapper :global  .ant-table-cell {
     text-align: center !important;
     font-size: 14px !important;
 }
@@ -112,10 +112,35 @@
 
 }
 
+.wrapper :global .ant-table-tbody .ant-table-row  .ant-table-cell div{
+    display: flex !important;
+    justify-content: center !important;
+    color: white !important;
+    
+}
 
-// .wrapper :global .ant-table-thead .ant-table-cell {
-//     font-size: 14px !important;
-// }
+
+
+.wrapper :global .ant-table-thead .ant-table-cell {
+    font-size: 14px !important;
+}
+.actions {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+}
+.Password {
+    display: flex;
+    gap: 8px;
+}
+
+.inputPassword {
+    background-color: unset;
+    border: none;
+    color: white;
+    width: 63px;
+    font-size: 18px;
+}
 
 
 
@@ -199,10 +224,6 @@
     background-color: unset;
 }
 
-.actions {
-    display: flex;
-    gap: 40px;
-}
 
 
 .input {
@@ -258,6 +279,8 @@
 
 .wrapperTwo {
     display: flex;
+    justify-content: center;
     gap: 5px;
     align-items: center;
+    margin-left: 10px;
 }
