@@ -3,12 +3,12 @@ import Image from 'next/image';
 
 
 type Props = {
-    email: string;
-    firstTitle: string;
-    secondTitle: string;
-    thirdTitle: string;
-    registrationDate: string;
-    createdPlaylists: number;
+    key1: string;
+    value1: string;
+    key2: string;
+    value2: string;
+    key3: string;
+    value3: string
     userImage: string;
     imageStyle: 'round' | 'normal'; 
 }
@@ -22,20 +22,20 @@ const ArtistPopupData = (props: Props) => {
         <div className={styles.container}>
             <div> 
                 {/* // <Image src={props.userImage} alt='image' width={152} height={152} className={styles.image} /> */}
-                <Image src={'/icon/userTestImage.png'} alt='image' width={152} height={152} className={styles.image} />
+                <Image src={props.userImage} alt='image' width={152} height={152} className={styles.image} />
             </div>
             <div className={styles.dataWrapper}>
                 <div className={styles.containerWrapper}>
-                    <span className={styles.title}>{props.firstTitle}:</span>
-                    <span className={styles.data}>{props.email}</span>
+                    <span className={styles.title}>{props.key1}:</span>
+                    <span className={styles.data}>{props.value1}</span>
                 </div>
                 <div className={styles.containerWrapper}>
-                    <span className={styles.title}>{props.secondTitle}:</span>
-                    <span className={styles.data}>{props.registrationDate}</span>
+                    <span className={styles.title}>{props.key2}:</span>
+                    <span className={styles.data}>{props.value2}</span>
                 </div>
                 <div className={styles.containerWrapper}>
-                    <span className={styles.title}>{props.thirdTitle}:</span>
-                    <span className={styles.data}>{props.createdPlaylists}</span>
+                    <span className={styles.title}>{props.key3}:</span>
+                    <span className={styles.data}>{props.value3}</span>
                 </div>
             </div>
         </div>
