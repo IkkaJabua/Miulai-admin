@@ -11,7 +11,7 @@ import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopup
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
 import PopupHeader from '../Components/PopupHeader/PopupHeader';
-import UserTable from '../Components/UserTable/Usertable'
+import UserTable from '../Components/UserTable/UserTable';
 import styles from './page.module.scss';
 import Table from '../Components/Table/Table';
 import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
