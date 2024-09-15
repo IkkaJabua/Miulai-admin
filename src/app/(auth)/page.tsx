@@ -20,6 +20,7 @@ import Header from '../Components/Header/Header';
 import TotalUser from '../Components/TotalUser/TotalUser';
 import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
 import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
+import UserBlockBtn from '../Components/UserBlockBtn/UserBlockBtn';
 
 
 
@@ -35,6 +36,7 @@ export default function Home() {
             </div>
             <div className={styles.buttons}>
                 <UserAddBtn />
+                <UserBlockBtn />
                 <UserDeleteBtn />
             </div>
             <UserTable />
