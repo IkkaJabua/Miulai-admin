@@ -5,7 +5,7 @@ import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import PlaylistInput from '../playlistinput/playlistinput';
 import { useForm, SubmitHandler } from "react-hook-form";
-import styles from './usertable.module.scss'
+import styles from './Usertable.module.scss';
 import type Password from 'antd/es/input/Password';
 
 
@@ -132,7 +132,7 @@ const data = [
 
 
 
-const MusicTable: React.FC = () => {
+const UserTable: React.FC = () => {
     const [active, setActive] = useState<string>();
     const [all, setAll] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -276,7 +276,7 @@ const MusicTable: React.FC = () => {
     );
 };
 
-export default MusicTable;
+export default UserTable;
 
 
 
