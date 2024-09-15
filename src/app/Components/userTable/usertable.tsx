@@ -248,7 +248,7 @@ const MusicTable: React.FC = () => {
             key: 'actions',
             render: () => (
                 <div className={styles.actions}>
-                    <button className={styles.unBorder}>
+                    <button className={styles.unBorder} /* on this button */>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
                     <button className={styles.unBorder}>
@@ -277,5 +277,9 @@ const MusicTable: React.FC = () => {
 };
 
 export default MusicTable;
+
+
+
+
 
 

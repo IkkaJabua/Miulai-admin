@@ -4,6 +4,10 @@ import Image from 'next/image';
 import ArtistPopupData from './ArtistPopupData/ArtistPopupData';
 import ArtistPopupBtn from './ArtistPopupBtn/ArtistPopupBtn';
 import ArtPopupCards from './ArtPopupCards/ArtPopupCards';
+import { useState } from 'react';
+import PlaylistEditPopup from '../PlaylistEditPopup/PlaylistEditPopup';
+
+
 
 
 const ArtistPopup = () => {
@@ -30,3 +34,4 @@ const ArtistPopup = () => {
 
 
 export default ArtistPopup;
+

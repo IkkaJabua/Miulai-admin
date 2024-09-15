@@ -20,6 +20,7 @@ import Header from '../Components/Header/Header';
 import TotalUser from '../Components/TotalUser/TotalUser';
 import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
 import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
+import UserPopup from '../Components/UserPopup/UserPopup';
 
 
 
@@ -38,6 +39,8 @@ export default function Home() {
                 <UserDeleteBtn />
             </div>
             <UserTable />
+            {/* <ArtistPopup />
+            <PlaylistEditPopup /> */}
         </main>
     )
 }
