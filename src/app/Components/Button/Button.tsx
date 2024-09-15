@@ -5,7 +5,7 @@ type Props = {
     onClick?: () => void;
     title: string;
     image?: string;
-    mode?: 'fill' | 'outline'
+    mode?: 'fill' | 'outline' | 'unset'
     className: string;
 }
 
@@ -13,14 +13,14 @@ const Button = (props: Props) => {
     const classes = [styles.container];
 
     if (props.mode === 'fill') classes.push(styles.fill)
-    else classes.push(styles.outline)
-
+    else if(props.mode === 'outline')classes.push(styles.outline)
+    else classes.push(styles.unset)
     return (
         <button className={`${classes.join(' ').trim()} ${props.className}`} onClick={props.onClick}>
             {
                 props.image
                 &&
-                <Image src={`${props.image}`} alt='image' width={23} height={23} />
+                <Image src={`${props.image}`} alt='image' width={25} height={25} />
             }
 
             <span className={styles.title}>
