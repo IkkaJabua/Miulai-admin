@@ -1,4 +1,11 @@
+'use client'
+import Header from '@/app/Components/Header/Header'
 import styles from './page.module.scss'
+import Table from '@/app/Components/Table/Table'
+import Button from '@/app/Components/Button/Button'
+import Image from 'next/image'
+import { useState } from 'react'
+import ArtistPopup from '@/app/Components/ArtistPopup/ArtistPopup'
 
 
 
@@ -7,9 +14,35 @@ import styles from './page.module.scss'
 
 const Managment = () => {
 
+    const [active, setActive] = useState(false)
+
 
     return (
-        <div>
+        <div className={styles.container}>
+            <Header />
+            <div className={styles.font}>
+                Content  Management
+            </div>
+            <div className={styles.containerButtons}>
+                <div>
+                    <Button title={'Add'}
+                        mode='fill'
+                        className={styles.button}
+                        onClick={() => setActive(!active)}
+                        image='/icon/user-add.svg'
+                    />
+                </div>
+                <div className={styles.export}>
+                    <Image src={'/icon/export.svg'} height={24} width={24} alt='export' />
+                </div>
+            </div>
+            <Table />
+            {active &&
+                <div className={styles.popup}>
+                    <ArtistPopup />
+
+                </div>
+            }
 
         </div>
 

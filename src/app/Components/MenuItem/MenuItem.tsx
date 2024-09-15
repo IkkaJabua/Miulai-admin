@@ -39,7 +39,7 @@ const MenuItem = () => {
             title: 'Content Management',
             icon: '/icon/menu-logo2.svg',
             activeIcon: '',
-            path: '/q',
+            path: '/management',
             key: '/q',
         },
         {

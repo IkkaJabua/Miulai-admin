@@ -14,8 +14,8 @@ const ArtistPopup = () => {
             <div className={styles.wrapper}>
                 <ArtistPopupData email={'dolores.chambers@example.com'}
                 registrationDate={'September 17, 2024 11:22'}
-                createdPlaylists={4} userImage={'/icon/testUserImage.png'} 
-                imageStyle={'round'} />
+                createdPlaylists={4} userImage={'/icon/testUserImage.png'}
+                imageStyle={'round'} firstTitle={''} secondTitle={''} thirdTitle={''} />
                 <ArtistPopupBtn />
             </div>
             <ArtPopupCards />
