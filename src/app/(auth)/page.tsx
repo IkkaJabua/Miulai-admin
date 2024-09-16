@@ -30,7 +30,7 @@ export default function Home() {
 
     return (
         <main className={styles.main}>
-            {/* <Header />
+            <Header />
             <div className={styles.user}>
                 <h1 className={styles.h1}>User Managment</h1>
                 <TotalUser totalUser={'211'} />
@@ -39,9 +39,7 @@ export default function Home() {
                 <UserAddBtn />
                 <UserDeleteBtn />
             </div>
-            <Usertable /> */}
-
-            <AddArtistPopup />
+            <Usertable />
         </main>
     )
 }

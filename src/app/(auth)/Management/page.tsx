@@ -6,7 +6,7 @@ import Button from '@/app/Components/Button/Button'
 import Image from 'next/image'
 import { useState } from 'react'
 import ArtistPopup from '@/app/Components/ArtistPopup/ArtistPopup'
-
+import AddArtistPopup from '@/app/Components/addArtistPopup/AddArtistPopup'
 
 
 
@@ -39,8 +39,7 @@ const Managment = () => {
             <Table />
             {active &&
                 <div className={styles.popup}>
-                    <ArtistPopup />
-
+                    <AddArtistPopup  setActive={setActive}/>
                 </div>
             }
 

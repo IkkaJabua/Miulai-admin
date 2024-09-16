@@ -1,13 +1,18 @@
 import styles from './AddArtistPopup.module.scss'
 import Button from '../Button/Button'
-
 import Image from 'next/image'
+import Card from '../Card/Card'
+import UserPlaylist from '../UserPlaylist/UserPlaylist'
+import { useState, type Dispatch, type SetStateAction } from 'react'
+
+type Props = {
+    setActive: Dispatch<SetStateAction<boolean>>;
+}
 
 
-
-
-const AddArtistPopup = () => {
-
+const AddArtistPopup = (props:Props) => {
+    const [albums, setAlbums] = useState(true)
+    const [biography, setBiography] = useState(false)
 
 
     const AddArtistPopupData = [
@@ -25,8 +30,6 @@ const AddArtistPopup = () => {
 
 
 
-
-
     return (
         <div className={styles.container}>
             {
@@ -36,9 +39,9 @@ const AddArtistPopup = () => {
                             <div>
                                 <Image src={'/icon/back.svg'} width={24} height={24} alt='back' />
                             </div>
-                            <div>{item.name}</div>
+                            <div className={styles.font}>{item.name}</div>
                             <div>
-                                <Image src={'/icon/delete.svg'} width={24} height={24} alt='back' />
+                                <Image onClick={() =>props.setActive(false)}  src={'/icon/delete.svg'} width={24} height={24} alt='back' />
 
                             </div>
                         </div>
@@ -64,8 +67,18 @@ const AddArtistPopup = () => {
                         <div className={styles.footer}>
                             <div className={styles.foterHeader}>
                                 <div className={styles.footerMode}>
-                                    <div className={styles.footerModeFont}>Albums</div>
-                                    <div className={styles.footerModeFont}>Biography</div>
+                                    <div onClick={() => {
+                                        setAlbums(true)
+                                        setBiography(false)
+
+                                    }} className={albums ? styles.activefooterModeFont : styles.footerModeFont}>Albums</div>
+                                    <div onClick={() => {
+                                        setAlbums(false)
+                                        setBiography(true)
+                                    }}
+                                        className={biography ? styles.activefooterModeFont : styles.footerModeFont}>
+                                        Biography
+                                    </div>
                                 </div>
                                 <div className={styles.buttonMain}>
                                     <Button mode={'fill'}
@@ -76,12 +89,18 @@ const AddArtistPopup = () => {
                                 </div>
 
                             </div>
+                            <div className={styles.footerPLaylist}>
+                                {
+                                    albums ? <UserPlaylist /> : <div>{item.Biography}</div>
+                                }
 
-                        </div>
+                            </div>
+
+                        </div >
                     </>
                 ))
             }
-        </div>
+        </div >
 
     )
 }

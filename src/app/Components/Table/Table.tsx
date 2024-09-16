@@ -6,6 +6,7 @@ import Image from 'next/image';
 import styles from './Table.module.scss';
 import PlaylistInput from '../playlistinput/playlistinput';
 import { useForm, SubmitHandler } from "react-hook-form";
+import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
 
 
 
@@ -137,6 +138,8 @@ const MusicTable: React.FC = () => {
     const [all, setAll] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+    const [active, setActive] = useState(false)
+
 
 
 
@@ -204,10 +207,14 @@ const MusicTable: React.FC = () => {
             dataIndex: 'artist',
             key: 'artist',
             render: (text, record) => (
-                <div className={styles.artistCell}>
+                <div
+                    onClick={() => setActive(!active)}
+
+                    className={styles.artistCell}>
                     <Image src={`image/${record.image}`} width={40} height={40} alt={text} />
                     <span>{text}</span>
                 </div>
+
             ),
             width: '30%',
         },
@@ -272,14 +279,27 @@ const MusicTable: React.FC = () => {
 
 
     return (
-        <Table
-            className={styles.wrapper}
-            columns={columns}
-            dataSource={data}
-            pagination={{
-                position: ['bottomCenter']
-            }}
-        />
+        <>
+            <Table
+                className={styles.wrapper}
+                columns={columns}
+                dataSource={data}
+                pagination={{
+                    position: ['bottomCenter']
+                }}
+            />
+
+
+            {
+
+                active &&
+                <div className={styles.popup}>
+                    <AddArtistPopup setActive={setActive} />
+                </div>
+
+            }
+        </>
+
     );
 };
 
