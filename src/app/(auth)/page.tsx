@@ -21,6 +21,7 @@ import Header from '../Components/Header/Header';
 import TotalUser from '../Components/TotalUser/TotalUser';
 import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
 import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
+import AddArtistPopup from '../Components/addArtistPopup/AddArtistPopup';
 
 
 
@@ -29,7 +30,7 @@ export default function Home() {
 
     return (
         <main className={styles.main}>
-            <Header />
+            {/* <Header />
             <div className={styles.user}>
                 <h1 className={styles.h1}>User Managment</h1>
                 <TotalUser totalUser={'211'} />
@@ -38,7 +39,9 @@ export default function Home() {
                 <UserAddBtn />
                 <UserDeleteBtn />
             </div>
-            <Usertable />
+            <Usertable /> */}
+
+            <AddArtistPopup />
         </main>
     )
 }
