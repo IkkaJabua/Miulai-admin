@@ -10,7 +10,7 @@ import ArtistPopup from '../Components/ArtistPopup/ArtistPopup';
 import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopupBtn';
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
-import UserTable from '../Components/UserTable/Usertable'
+import UserTable from '../Components/UserTable/Usertable';
 import styles from './page.module.scss';
 import Table from '../Components/Table/Table';
 import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
