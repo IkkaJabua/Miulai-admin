@@ -30,7 +30,7 @@ const MenuItem = () => {
         {
             title: 'User Management',
             icon: '/icon/menu-icon-1.svg',
-            activeIcon: '/icon/menu-logo-1active.svg',
+            activeIcon: '/icon/clicked-first-menu-icon.svg',
             path: '/',
             key: '/',
         },
