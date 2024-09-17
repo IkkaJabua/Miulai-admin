@@ -5,12 +5,13 @@ import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import PlaylistInput from '../playlistinput/playlistinput';
 import { useForm, SubmitHandler } from "react-hook-form";
-import styles from './Usertable.module.scss';
+import styles from './UserTable.module.scss';
 import type Password from 'antd/es/input/Password';
+import ArtistPopup from '../ArtistPopup/ArtistPopup';
 
+// const [seeAll, setSeeAll] = useState(false)
 
-
-
+// artists.slice(0, seeAll ? artists.lenght : 4).map(() => <Card></Card>)
 
 
 const data = [
@@ -121,7 +122,7 @@ const data = [
         totalStreams: 'dolores.chambers@example.com',
         Password: 'sandrooooo',
         totalSongs: 5,
-    },{
+    }, {
         key: '17',
         artist: 'September 17, 2024  11:22',
         totalStreams: 'dolores.chambers@example.com',
@@ -137,6 +138,18 @@ const UserTable: React.FC = () => {
     const [all, setAll] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
+
+
 
 
 
@@ -236,7 +249,7 @@ const UserTable: React.FC = () => {
             width: '15%',
             render: (text, record) => (
                 <div className={styles.Password}>
-                    <input type={active === record.key ? 'text' : 'password'}  value={text} className={styles.inputPassword} />
+                    <input type={active === record.key ? 'text' : 'password'} value={text} className={styles.inputPassword} />
                     <div onClick={() => handlePasswordToggle(record.key)}>
                         <Image src={`/icon/paswordhider.svg`} width={24} height={24} alt='trash' />
                     </div>
@@ -248,7 +261,7 @@ const UserTable: React.FC = () => {
             key: 'actions',
             render: () => (
                 <div className={styles.actions}>
-                    <button className={styles.unBorder}>
+                    <button className={styles.unBorder} onClick={openModal}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
                     <button className={styles.unBorder}>
@@ -265,14 +278,27 @@ const UserTable: React.FC = () => {
 
 
     return (
-        <Table
-            className={styles.wrapper}
-            columns={columns}
-            dataSource={data}
-            pagination={{
-                position: ['bottomCenter']
-            }}
-        />
+
+        <div>
+            <Table
+                className={styles.wrapper}
+                columns={columns}
+                dataSource={data}
+                pagination={{
+                    position: ['bottomCenter']
+                }}
+            />
+             {isOpen && (
+                <ArtistPopup
+                    name={'Artist Name'}
+                    closeModal={closeModal}  // Pass the closeModal function
+                /> 
+            )}
+        </div>
+
+
+
+
     );
 };
 

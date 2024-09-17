@@ -8,12 +8,25 @@
     background: #29292E;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
     padding: 20px;
-
+    position: absolute;
+    top: 174px;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 100px;
     justify-content: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
