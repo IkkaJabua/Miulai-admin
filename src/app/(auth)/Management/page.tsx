@@ -10,7 +10,8 @@ import AddArtistPopup from '@/app/Components/addArtistPopup/AddArtistPopup'
 import AddNewArtistPopup from '../../Components/addNewArtistPopup/addNewArtistPopup'
 import ArtistForm from '@/app/Components/addNewArtistPopup/artistForm/artistForm'
 import AddAlbum from '@/app/Components/addNewArtistPopup/addAlbum/addAlbum'
-// import NewTreck from '@/app/Components/addNewArtistPopup/newTreck/newTreck'
+import NewTreck from '@/app/Components/addNewArtistPopup/newTreck/NewTreck'
+// import NewTreck from '@/app/Components/addNewArtistPopup/newTreck/NewTreck'
 
 
 
@@ -64,8 +65,8 @@ const management = () => {
                 <div className={styles.popup}>
                     <AddNewArtistPopup >
                         {/* <ArtistForm /> */}
-                            <AddAlbum />
-                            {/* <NewTreck/> */}
+                            {/* <AddAlbum /> */}
+                            <NewTreck/>
 
                     </AddNewArtistPopup>
 

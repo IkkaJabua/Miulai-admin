@@ -11,7 +11,7 @@ const AddNewArtistPopup = (props: Props) => {
 
     return(
         <div className={styles.container}>
-            <div>Add New Artist</div>
+            <div className={styles.font}>Add New Artist</div>
             {props.children}
             <Button title={'Save'} className={styles.button} />
 

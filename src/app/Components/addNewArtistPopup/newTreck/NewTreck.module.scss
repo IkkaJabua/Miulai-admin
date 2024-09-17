@@ -1,8 +1,30 @@
-
-
 .contaienr {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+
+.name {
+    width: 396px;
+    height: 52px;
+    border-radius: 8px;
+    border: 0.5px solid #363636;
+    background: #141414;
+
+}
+
+
+.file {
+    display: flex;
+    width: 396px;
+    height: 52px;
+    align-items: flex-start;
+    border-radius: 8px;
+    border: 0.5px solid #363636;
+    background: #141414;
+}
+.twoFile {
+    margin-top: 24px;
 }
