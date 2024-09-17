@@ -17,12 +17,17 @@ const ArtistPopup = (props: Props) => {
     console.log('Props', props)
     return (
         <div className={styles.container}>
+
             <div className={styles.header}>
                 <div onClick={() => setPlaylistEdit(false)} className={styles.img}>
                     <Image src={'/icon/marcxniv-isari.svg'} alt='image' width={20} height={20} />
                 </div>
-                <span>{props.name}</span>
-                <div className={styles.img} onClick={props.closeModal}> {/* Call closeModal here */}
+
+                <span className={styles.font}>
+                    {props.name}
+                </span>
+
+                <div className={styles.img} onClick={props.closeModal}>
                     <Image src={'/icon/x-gatishva.svg'} alt='close' width={20} height={20} />
                 </div>
             </div>

@@ -10,6 +10,7 @@ const PlaylistEditPopup = () => {
 
     return(
         <div className={styles.container}>
+
             <ArtistPopupData 
             userImage={'/image/card-default-image.png'} 
             imageStyle={'normal'} 
