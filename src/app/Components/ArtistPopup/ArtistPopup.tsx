@@ -19,7 +19,7 @@ const ArtistPopup = (props: Props) => {
         <div className={styles.container}>
             <div className={styles.header}>
                 <div onClick={() => setPlaylistEdit(false)} className={styles.img}>
-                    <Image  src={'/icon/marcxniv-isari.svg'} alt='image' width={20} height={20} />
+                    <Image src={'/icon/marcxniv-isari.svg'} alt='image' width={20} height={20} />
                 </div>
                 <span>{props.name}</span>
                 <div className={styles.img} onClick={props.closeModal}> {/* Call closeModal here */}
@@ -40,7 +40,7 @@ const ArtistPopup = (props: Props) => {
                 />
                 <ArtistPopupBtn onClick={() => { setPlaylistEdit(true) }} />
             </div>
-            {!isPlaylistEdit ? 
+            {!isPlaylistEdit ?
                 <ArtPopupCards /> :
                 <PlaylistTable />
             }

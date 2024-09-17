@@ -10,7 +10,7 @@ const Managment = () => {
 
     return (
         <div>
-
+            
         </div>
 
     )
