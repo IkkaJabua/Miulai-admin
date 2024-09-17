@@ -19,6 +19,7 @@
 .photoInput {
     height: 287px;
     height: 287px;
+    color: white;
 
 }
 
@@ -30,9 +31,10 @@
     border: 1px solid #363636;
 
     background: #141414;
+    color: white;
 }
 
-.date {
+.data {
     width: 335px;
     height: 52px;
     border-radius: 8px;
@@ -56,12 +58,25 @@
     border-radius: 8px;
 
     border: 1px solid #757575;
-    margin-top: 75px;
+    margin-top: 30px;
     background: #141414;
 }
+
 .inputWrapper {
     display: flex;
     flex-direction: column;
     gap: 8px;
     font-size: 20px;
+}
+
+.date {
+    border-radius: 8px;
+
+    border: 1px solid #363636;
+
+    background: #141414;
+    height: 52px;
+    padding: 0px 16px;
+    color: white;
+
 }

@@ -16,7 +16,7 @@ import NewTreck from '@/app/Components/addNewArtistPopup/newTreck/NewTreck'
 
 
 
-const management = () => {
+const Management = () => {
     const [active, setActive] = useState(true)
 
 
@@ -63,10 +63,11 @@ const management = () => {
             {
                 active &&
                 <div className={styles.popup}>
+
                     <AddNewArtistPopup >
                         {/* <ArtistForm /> */}
-                            {/* <AddAlbum /> */}
-                            <NewTreck/>
+                            <AddAlbum />
+                            {/* <NewTreck/> */}
 
                     </AddNewArtistPopup>
 
@@ -81,4 +82,4 @@ const management = () => {
 }
 
 
- export  default management
+ export  default Management
