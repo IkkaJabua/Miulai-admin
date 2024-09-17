@@ -24,12 +24,16 @@ const data = [
     },
 ]
 
-const ArtPopupCards = () => {
+type Props = {
+    onEdit?: () => void;
+}
+
+const ArtPopupCards = (props: Props) => {
 
     return(
         <div className={styles.container}>
             {
-                data.map((item) => <Card header={''} image={item.image} title={item.title} id={item.id} imageStyle={'normal'} /> )
+                data.map((item) => <Card header={''} onEdit={props.onEdit} image={item.image} title={item.title} id={item.id} imageStyle={'normal'} /> )
             }
         </div>
     )
