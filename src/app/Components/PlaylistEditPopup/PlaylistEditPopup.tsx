@@ -1,7 +1,6 @@
 import ArtistPopupBtn from '../ArtistPopup/ArtistPopupBtn/ArtistPopupBtn';
 import ArtistPopupData from '../ArtistPopup/ArtistPopupData/ArtistPopupData';
 import PlaylistTable from '../PlaylistTable/PlaylistTable';
-import PopupHeader from '../PopupHeader/PopupHeader';
 import MusicTable from '../Table/Table';
 import styles from './PlaylistEditPopup.module.scss';
 
@@ -11,7 +10,6 @@ const PlaylistEditPopup = () => {
 
     return(
         <div className={styles.container}>
-            <PopupHeader userName={'Dolores Chambers'} />
             <ArtistPopupData 
             userImage={'/image/card-default-image.png'} 
             imageStyle={'normal'} 
