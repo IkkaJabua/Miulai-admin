@@ -15,9 +15,28 @@ import AddAlbum from '@/app/Components/addNewArtistPopup/addAlbum/addAlbum'
 
 
 const Managment = () => {
-
     const [active, setActive] = useState(true)
 
+
+    const [popupActive, setPopupActive] = useState(0)
+
+    // const onForward = () => {
+
+    //     setPopupActive(popupActive + 1)
+    // }
+
+    // const onBackward = () => {
+
+    //     setPopupActive(popupActive - 1)
+
+    // }
+
+    // if (popupActive === 0) {
+    //     return <ArtistForm />
+    // } else if (popupActive === 1) {
+    //     return <AddAlbum />
+
+    // }
 
     return (
         <div className={styles.container}>
@@ -43,9 +62,11 @@ const Managment = () => {
                 active &&
                 <div className={styles.popup}>
                     <AddNewArtistPopup >
-                        {/* <ArtistForm /> */}
-                        <AddAlbum />
+                        <ArtistForm />
+                            {/* <AddAlbum /> */}
+
                     </AddNewArtistPopup>
+
 
 
                 </div>

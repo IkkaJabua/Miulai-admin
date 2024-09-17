@@ -8,8 +8,9 @@ import Button from '../../Button/Button'
 
 
 
-
 const ArtistForm = () => {
+
+
 
     const {
         register,
