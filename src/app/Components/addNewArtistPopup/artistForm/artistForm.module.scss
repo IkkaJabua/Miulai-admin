@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nameInput {
+    width: 335px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #363636;
+    background: #141414;
+}
+
+.formBody {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.biographyInput {
+    width: 334px;
+    height: 251.5px;
+    border-radius: 8px;
+    border: 1px solid #363636;
+    background: #141414;
+}
+
+
+// .wrapperPhoto {
+//     display: flex;
+//     padding: 97px 110px;
+//     width: 200px;
+//     max-width: 200px;
+//     height: 270px;
+//     align-items: flex-start;
+//     border-radius: 8px;
+//     border: 1px solid #363636;
+//     background: #141414;
+
+// }
+
+.wrapper {
+    display: flex;
+    width: 334px;
+    padding: 92px 92px;
+    height: 270px;
+    align-items: flex-start;
+    border-radius: 8px;
+    border: 1px solid #363636;
+    background: #141414;
+
+}
+
+.photoInput {
+    height: 287px;
+    height: 287px;
+
+}
+
+.button {
+    display: flex;
+    padding: 16px 16px 16px 12px;
+    align-items: center;
+
+    border-radius: 8px;
+
+    border: 1px solid #757575;
+
+    background: #141414;
+}

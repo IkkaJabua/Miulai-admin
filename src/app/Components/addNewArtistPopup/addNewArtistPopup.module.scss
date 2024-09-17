@@ -1,0 +1,23 @@
+.container {
+    width: 781px;
+    height: 600px;
+    border-radius: 8px;
+    background: #29292E;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button {
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+}

@@ -7,14 +7,16 @@ import Image from 'next/image'
 import { useState } from 'react'
 import ArtistPopup from '@/app/Components/ArtistPopup/ArtistPopup'
 import AddArtistPopup from '@/app/Components/addArtistPopup/AddArtistPopup'
-
+import AddNewArtistPopup from '../../Components/addNewArtistPopup/addNewArtistPopup'
+import ArtistForm from '@/app/Components/addNewArtistPopup/artistForm/artistForm'
+import AddAlbum from '@/app/Components/addNewArtistPopup/addAlbum/addAlbum'
 
 
 
 
 const Managment = () => {
 
-    const [active, setActive] = useState(false)
+    const [active, setActive] = useState(true)
 
 
     return (
@@ -37,9 +39,15 @@ const Managment = () => {
                 </div>
             </div>
             <Table />
-            {active &&
+            {
+                active &&
                 <div className={styles.popup}>
-                    <AddArtistPopup  setActive={setActive}/>
+                    <AddNewArtistPopup >
+                        {/* <ArtistForm /> */}
+                        <AddAlbum />
+                    </AddNewArtistPopup>
+
+
                 </div>
             }
 

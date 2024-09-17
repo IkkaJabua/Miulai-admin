@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    gap: 32px;
+}
+
+
+.wrapper {
+    display: flex;
+    width: 334px;
+    padding: 92px 92px;
+    height: 270px;
+    align-items: flex-start;
+    border-radius: 8px;
+    border: 1px solid #363636;
+    background: #141414;
+
+}
+
+.photoInput {
+    height: 287px;
+    height: 287px;
+
+}
+
+.inputName {
+    width: 335px;
+    height: 52px;
+    border-radius: 8px;
+
+    border: 1px solid #363636;
+
+    background: #141414;
+}
+
+.date {
+    width: 335px;
+    height: 52px;
+    border-radius: 8px;
+
+    border: 1px solid #363636;
+
+    background: #141414;
+}
+
+.inputGap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.button {
+    display: flex;
+    padding: 16px 16px 16px 12px;
+    align-items: center;
+
+    border-radius: 8px;
+
+    border: 1px solid #757575;
+    margin-top: 75px;
+    background: #141414;
+}
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 20px;
+}
