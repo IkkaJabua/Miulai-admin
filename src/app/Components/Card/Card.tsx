@@ -10,6 +10,8 @@ interface Props {
     title: string;
     imageStyle: 'normal' | 'round';
     id: number;
+    onEdit?: () => void;
+    onDelete?: () => void;
 }
 
 const Card = (props: Props) => {
@@ -25,7 +27,7 @@ const Card = (props: Props) => {
                 <Image src={props.image} alt='image' width={190} height={162} className={radius.join(' ').trim()} />
 
                 <div className={styles.union}>
-                    <CardItems />
+                    <CardItems onEdit={props.onEdit} onDelete={props.onDelete} />
                 </div>
                 
                 <span>{props.subtitle}</span>
