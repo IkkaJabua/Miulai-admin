@@ -10,11 +10,12 @@ import AddArtistPopup from '@/app/Components/addArtistPopup/AddArtistPopup'
 import AddNewArtistPopup from '../../Components/addNewArtistPopup/addNewArtistPopup'
 import ArtistForm from '@/app/Components/addNewArtistPopup/artistForm/artistForm'
 import AddAlbum from '@/app/Components/addNewArtistPopup/addAlbum/addAlbum'
+// import NewTreck from '@/app/Components/addNewArtistPopup/newTreck/newTreck'
 
 
 
 
-const Managment = () => {
+const management = () => {
     const [active, setActive] = useState(true)
 
 
@@ -62,8 +63,9 @@ const Managment = () => {
                 active &&
                 <div className={styles.popup}>
                     <AddNewArtistPopup >
-                        <ArtistForm />
-                            {/* <AddAlbum /> */}
+                        {/* <ArtistForm /> */}
+                            <AddAlbum />
+                            {/* <NewTreck/> */}
 
                     </AddNewArtistPopup>
 
@@ -76,4 +78,6 @@ const Managment = () => {
 
     )
 }
-export default Managment
+
+
+ export  default management
