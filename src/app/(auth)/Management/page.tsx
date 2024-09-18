@@ -7,38 +7,13 @@ import Image from 'next/image'
 import { useState } from 'react'
 import ArtistPopup from '@/app/Components/ArtistPopup/ArtistPopup'
 import AddArtistPopup from '@/app/Components/addArtistPopup/AddArtistPopup'
-import AddNewArtistPopup from '../../Components/addNewArtistPopup/addNewArtistPopup'
-import ArtistForm from '@/app/Components/addNewArtistPopup/artistForm/artistForm'
-import AddAlbum from '@/app/Components/addNewArtistPopup/addAlbum/addAlbum'
-import NewTreck from '@/app/Components/addNewArtistPopup/newTreck/NewTreck'
-// import NewTreck from '@/app/Components/addNewArtistPopup/newTreck/NewTreck'
-
-
+import AddAlbum from '@/app/Components/popups/addAlbum/addAlbum'
+import ArtistForm from '@/app/Components/popups/artistForm/artistForm'
 
 
 const Management = () => {
-    const [active, setActive] = useState(true)
-
-
+    const [active, setActive] = useState(false)
     const [popupActive, setPopupActive] = useState(0)
-
-    // const onForward = () => {
-
-    //     setPopupActive(popupActive + 1)
-    // }
-
-    // const onBackward = () => {
-
-    //     setPopupActive(popupActive - 1)
-
-    // }
-
-    // if (popupActive === 0) {
-    //     return <ArtistForm />
-    // } else if (popupActive === 1) {
-    //     return <AddAlbum />
-
-    // }
 
     return (
         <div className={styles.container}>
@@ -63,16 +38,7 @@ const Management = () => {
             {
                 active &&
                 <div className={styles.popup}>
-
-                    <AddNewArtistPopup >
-                        {/* <ArtistForm /> */}
-                            <AddAlbum />
-                            {/* <NewTreck/> */}
-
-                    </AddNewArtistPopup>
-
-
-
+                    <ArtistForm onClick={() => setActive(false)}/>
                 </div>
             }
 
@@ -82,4 +48,4 @@ const Management = () => {
 }
 
 
- export  default Management
+export default Management

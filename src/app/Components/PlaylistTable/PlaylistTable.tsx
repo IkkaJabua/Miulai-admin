@@ -6,6 +6,9 @@ import { render } from "sass";
 import { text } from "stream/consumers";
 import Image from "next/image";
 // import { useWindowSize } from "react-use";
+
+
+
 const Tables = () => {
 
     // const { width, height } = useWindowSize();

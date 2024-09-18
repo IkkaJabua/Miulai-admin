@@ -39,7 +39,7 @@
 }
 
 .font {
-    font-style: normal  !important;
+    font-style: normal !important;
     font-size: 24px;
     font-weight: 600;
 }
@@ -49,6 +49,14 @@
 .popup {
     position: absolute;
     top: 233px;
-    left: 21%;
+    left: 29%;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    background: #29292E;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
 
 }

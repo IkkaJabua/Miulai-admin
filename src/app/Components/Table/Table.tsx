@@ -7,6 +7,7 @@ import styles from './Table.module.scss';
 import PlaylistInput from '../playlistinput/playlistinput';
 import { useForm, SubmitHandler } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
+import AddAlbum from '../popups/addAlbum/addAlbum';
 
 
 
@@ -139,7 +140,7 @@ const MusicTable: React.FC = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
     const [active, setActive] = useState(false)
-
+    const [createAlbum, setCreateAlbum] = useState(true)
 
 
 
@@ -207,10 +208,7 @@ const MusicTable: React.FC = () => {
             dataIndex: 'artist',
             key: 'artist',
             render: (text, record) => (
-                <div
-                    onClick={() => setActive(!active)}
-
-                    className={styles.artistCell}>
+                <div className={styles.artistCell}>
                     <Image src={`image/${record.image}`} width={40} height={40} alt={text} />
                     <span>{text}</span>
                 </div>
@@ -256,7 +254,7 @@ const MusicTable: React.FC = () => {
             key: 'actions',
             render: () => (
                 <div className={styles.actions}>
-                    <button className={styles.unBorder}>
+                    <button onClick={() => setActive(!active)} className={styles.unBorder}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
                     <button className={styles.unBorder}>
@@ -267,14 +265,6 @@ const MusicTable: React.FC = () => {
             width: '15%',
         },
     ];
-
-
-
-
-
-
-
-
 
 
 
@@ -294,7 +284,11 @@ const MusicTable: React.FC = () => {
 
                 active &&
                 <div className={styles.popup}>
-                    <AddArtistPopup setActive={setActive} />
+                    <AddArtistPopup onClick={() => setActive(false)}
+                        setActive={setActive} key1={'Album Name:'}
+                        key2={'Release Date:'} key3={'Number Of Tracks:'}
+                        value1={'I Hear You'} value2={'January 15, 2015'}
+                        value3={'5'} image={'popupImage.svg'} />
                 </div>
 
             }

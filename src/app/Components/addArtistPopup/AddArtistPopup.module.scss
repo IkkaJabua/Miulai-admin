@@ -1,6 +1,7 @@
 .container {
     width: 936px;
-    height: 558px;
+    height: fit-content;
+    min-height: 558px;
     border-radius: 8px;
     background: #29292E;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
@@ -99,4 +100,29 @@
     padding: 12px 24px;
     border-bottom: 4px solid var(--Gradient-apolo, #F903D0);
 
+}
+
+.newTreck {
+    position: absolute;
+    top: 150px;
+    left: 250px;
+    z-index: 1;
+    width: 461px;
+    height: 416px;
+    background-color: #252528;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.20);
+    border-radius: 8px;
+}
+
+.edit {
+    display: flex;
+    padding: 8px 12px 8px 8px;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    border: 1px solid #35353B;
+    background: #151519;
 }

@@ -1,9 +1,22 @@
 .container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+
+
+}
+
+.wrapper {
+    display: flex;
     gap: 32px;
-    justify-content: space-between;
     width: 100%;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nameInput {
@@ -20,7 +33,7 @@
 .formBody {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 8px;
 }
 
 .biographyInput {
@@ -29,37 +42,27 @@
     border-radius: 8px;
     border: 1px solid #363636;
     background: #141414;
+    gap: 8px;
+}
+.inputGap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-
-// .wrapperPhoto {
-//     display: flex;
-//     padding: 97px 110px;
-//     width: 200px;
-//     max-width: 200px;
-//     height: 270px;
-//     align-items: flex-start;
-//     border-radius: 8px;
-//     border: 1px solid #363636;
-//     background: #141414;
-
-// }
-
-.wrapper {
-    display: flex;
-    width: 334px;
-    padding: 92px 92px;
-    height: 270px;
-    align-items: flex-start;
+.photoFile {
     border-radius: 8px;
     border: 1px solid #363636;
     background: #141414;
-
+    width: 334px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .photoInput {
-    height: 287px;
-    height: 287px;
+    height: 270px;
+    width: 334px;
 
 }
 
@@ -67,10 +70,17 @@
     display: flex;
     padding: 16px 16px 16px 12px;
     align-items: center;
-
     border-radius: 8px;
-
     border: 1px solid #757575;
-
     background: #141414;
+
+}
+
+.buttonTwo {
+    border-radius: 8px;
+    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+}
+
+.cursor {
+    cursor: pointer;
 }
