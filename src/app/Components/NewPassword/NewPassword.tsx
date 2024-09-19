@@ -21,18 +21,16 @@ const NewPassword = (props: Props) => {
     const newPassword = watch('newPassword');
     const confirmPassword = watch('confirmPassword');
 
-    const onPassswordClick = (values: any) => {
-        console.log('values', values);
+    const onPassswordClick = async (values: any) => {
         if (newPassword === confirmPassword) {
-            axios.patch(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`, {
+            await axios.patch(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`, {
                 password: values.newPassword
             })
+            props.closeModal?.()
 
         }
 
     }
-
-
 
     return (
         <div className={styles.container}>
@@ -63,7 +61,7 @@ const NewPassword = (props: Props) => {
                     })} />
                     {errors.confirmPassword && <span className={styles.errorMessage}>{errors.confirmPassword.message}</span>}
                 </div>
-                <input type="submit" value={'Save'} className={styles.btn} onClick={props.closeModal} />
+                <input type="submit" value={'Save'} className={styles.btn} />
             </form>
         </div>
     )

@@ -17,7 +17,7 @@ import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
 import PlaylistEditPopup from '../Components/PlaylistEditPopup/PlaylistEditPopup';
 import Header from '../Components/Header/Header';
 import TotalUser from '../Components/TotalUser/TotalUser';
-import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
+import UserAddBtn from '../Components/UserTable/usertable';
 import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
 import UserBlockBtn from '../Components/UserBlockBtn/UserBlockBtn';
 import NewPassword from '../Components/NewPassword/NewPassword';
@@ -36,7 +36,6 @@ export default function Home() {
                 <TotalUser totalUser={'211'} />
             </div>
             <div className={styles.buttons}>
-                <UserAddBtn />
                 <UserBlockBtn />
                 <UserDeleteBtn />
             </div>

@@ -11,140 +11,164 @@ import ArtistPopup from '../ArtistPopup/ArtistPopup';
 import NewPassword from '../NewPassword/NewPassword';
 import axios from 'axios';
 import SureToDelete from '../SureToDelete/SureToDelete';
+import { TableRowSelection } from 'antd/es/table/interface';
 
 // const [seeAll, setSeeAll] = useState(false)
 
 // artists.slice(0, seeAll ? artists.lenght : 4).map(() => <Card></Card>)
 
 
-const data = [
-    {
-        key: '1',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '2',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '3',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '4',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '5',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '6',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '7',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '8',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '9',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '10',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '11',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '12',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '13',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '14',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '15',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '16',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '17',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-];
+// const data = [
+//     {
+//         key: '1',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '2',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '3',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '4',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '5',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '6',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '7',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '8',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '9',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '10',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '11',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+//     {
+//         key: '12',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     }, {
+//         key: '13',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     }, {
+//         key: '14',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     }, {
+//         key: '15',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     }, {
+//         key: '16',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     }, {
+//         key: '17',
+//         artist: 'September 17, 2024  11:22',
+//         totalStreams: 'dolores.chambers@example.com',
+//         Password: 'sandrooooo',
+//         totalSongs: 5,
+//     },
+// ];
 
 
 
 const UserTable: React.FC = () => {
     const [active, setActive] = useState<string>();
-    const [all, setAll] = useState(false)
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
     const [selectedId, setSelectedId] = useState();
+
+    console.log(selectedId, 'selectedId');
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+        setSelectedRowKeys(newSelectedRowKeys);
+    };
+
+    const rowSelection: TableRowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange,
+    };
+
+
     const [isOpen, setIsOpen] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    console.log(selectedId, 'selectedId');
+    const [artistPopup, setArtistPopup] = useState(false);
+
+    const openPop = () => {
+        console.log('111')
+        setArtistPopup(true)
+    }
+
+    const closePop = () => {
+        setArtistPopup(false)
+    }
 
     const deletingShow = () => {
         setDeleteModal(true)
@@ -153,6 +177,7 @@ const UserTable: React.FC = () => {
     const deletingHide = () => {
         setDeleteModal(false)
     }
+
 
     const openModal = (record: any) => {
         setSelectedId(record.id)
@@ -170,13 +195,13 @@ const UserTable: React.FC = () => {
         console.log('Values', !!values)
     }
 
-    const handleSelectAll = (checked: boolean) => {
-        if (checked) {
-            setSelectedKeys(new Set(data.map(item => item.key)));
-        } else {
-            setSelectedKeys(new Set());
-        }
-    };
+    // const handleSelectAll = (checked: boolean) => {
+    //     if (checked) {
+    //         setSelectedKeys(new Set(data.map(item => item.key)));
+    //     } else {
+    //         setSelectedKeys(new Set());
+    //     }
+    // };
 
     const handleSelectOne = (key: string) => {
         setSelectedKeys(prev => {
@@ -213,41 +238,13 @@ const UserTable: React.FC = () => {
                 console.log('there is an error');
             })
     }, [])
+    console.log(users, 'zd');
+
 
 
 
     const columns: ColumnsType<any> = [
-        {
-            title: () =>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        type='checkbox'
-                        className={styles.inp}
-                        {...register('selectAll')}
-                        checked={selectedKeys.size === data.length}
-                        onChange={(e) => {
-                            handleSelectAll(e.target.checked);
-                            handleSubmit(onSubmit)();
-                        }}
-                    />
-                </form>,
-            dataIndex: 'checkbox',
-            key: 'checkbox',
-            render: (text, record) =>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        type='checkbox'
-                        className={styles.inp}
-                        {...register(`select-${record.key}`)}
-                        checked={selectedKeys.has(record.key)}
-                        onChange={() => {
-                            handleSelectOne(record.key);
-                            handleSubmit(onSubmit)();
-                        }}
-                    />
-                </form>,
-            width: '5%',
-        },
+
         {
             title: 'Registration Date',
             dataIndex: '',
@@ -267,7 +264,7 @@ const UserTable: React.FC = () => {
             render: (text, record) => (
                 console.log(record, 'record'),
                 <div onClick={() => {
-                    isOpen ? closeModal : openModal;
+                    artistPopup ? closePop() : openPop();
                     setSelectedId(record.key);
                 }}>
                     {record.email}
@@ -292,7 +289,7 @@ const UserTable: React.FC = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: (text , record) => (
+            render: (text, record) => (
                 // console.log(text , 'text'),
                 // console.log(record , 'record'),
                 <div className={styles.actions}>
@@ -316,6 +313,7 @@ const UserTable: React.FC = () => {
 
         <div className={styles.tableContainer}>
             <Table
+                rowSelection={rowSelection}
                 className={styles.wrapper}
                 columns={columns}
                 dataSource={users}
@@ -323,14 +321,17 @@ const UserTable: React.FC = () => {
                     position: ['bottomCenter']
                 }}
             />
-            {/* {isOpen && <ArtistPopup closeModal={closeModal} name={'dolores'} />} */}
-            {isOpen && (
-                <div className={styles.positioned}><NewPassword closeModal={closeModal} id={selectedId} /></div>
-            )}
-            
             {
-                deleteModal && 
-                <div className={styles.positioned}><SureToDelete onDeleteClick={deletingHide} /></div>
+                artistPopup && <ArtistPopup closeModal={closePop} name={'dawdwad'} />
+            }
+
+            {isOpen &&
+                <NewPassword closeModal={closeModal} id={selectedId} />
+            }
+
+            {
+                deleteModal &&
+                <SureToDelete onCancelClick={deletingHide} onDeleteClick={deletingHide} id={selectedId} />
             }
         </div>
 

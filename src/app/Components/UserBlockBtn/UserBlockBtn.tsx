@@ -6,7 +6,7 @@ import Image from 'next/image';
 const UserBlockBtn = () => {
 
     return(
-        <Button title={'Delete'} className={styles.button} image={'/icon/klite.svg'} mode='unset' />
+        <Button title={'Block'} className={styles.button} image={'/icon/klite.svg'} mode='unset' />
     )
 }
 

@@ -288,4 +288,13 @@
 
 .positioned {
     position: relative;
+    
+}
+
+.tableContainer :global .ant-select-selector {
+    background-color: #000 !important;
+} 
+
+.wrapper :global .ant-select-selection-item {
+    color: #fff !important;
 }
