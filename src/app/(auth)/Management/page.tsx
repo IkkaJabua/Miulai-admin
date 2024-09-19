@@ -5,9 +5,6 @@ import Table from '@/app/Components/Table/Table'
 import Button from '@/app/Components/Button/Button'
 import Image from 'next/image'
 import { useState } from 'react'
-import ArtistPopup from '@/app/Components/ArtistPopup/ArtistPopup'
-import AddArtistPopup from '@/app/Components/addArtistPopup/AddArtistPopup'
-import AddAlbum from '@/app/Components/popups/addAlbum/addAlbum'
 import ArtistForm from '@/app/Components/popups/artistForm/artistForm'
 
 
