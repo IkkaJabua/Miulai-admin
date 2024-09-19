@@ -1,7 +1,7 @@
 @import '../colors/colors.scss';
 
 .wrapper {
-    max-width: 1112px;
+    max-width: 100%;
     width: 100%;
 
 }
@@ -260,4 +260,10 @@
     display: flex;
     gap: 5px;
     align-items: center;
+}
+
+.popup {
+    position: absolute;
+    top: 233px;
+    left: 21%;
 }

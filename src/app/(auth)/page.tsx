@@ -11,6 +11,8 @@ import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopup
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
 import UserTable from '../Components/UserTable/Usertable';
+import PopupHeader from '../Components/PopupHeader/PopupHeader';
+import Usertable from '../Components/userTable/usertable'
 import styles from './page.module.scss';
 import Table from '../Components/Table/Table';
 import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
@@ -20,6 +22,7 @@ import TotalUser from '../Components/TotalUser/TotalUser';
 import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
 import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
 import UserBlockBtn from '../Components/UserBlockBtn/UserBlockBtn';
+import AddArtistPopup from '../Components/addArtistPopup/AddArtistPopup';
 
 
 
@@ -38,7 +41,7 @@ export default function Home() {
                 <UserBlockBtn />
                 <UserDeleteBtn />
             </div>
-            <UserTable />
+            <Usertable />
         </main>
     )
 }

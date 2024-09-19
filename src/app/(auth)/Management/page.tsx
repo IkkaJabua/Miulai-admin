@@ -1,18 +1,51 @@
+'use client'
+import Header from '@/app/Components/Header/Header'
 import styles from './page.module.scss'
+import Table from '@/app/Components/Table/Table'
+import Button from '@/app/Components/Button/Button'
+import Image from 'next/image'
+import { useState } from 'react'
+import ArtistPopup from '@/app/Components/ArtistPopup/ArtistPopup'
+import AddArtistPopup from '@/app/Components/addArtistPopup/AddArtistPopup'
+import AddAlbum from '@/app/Components/popups/addAlbum/addAlbum'
+import ArtistForm from '@/app/Components/popups/artistForm/artistForm'
 
 
-
-
-
-
-const Managment = () => {
-
+const Management = () => {
+    const [active, setActive] = useState(false)
+    const [popupActive, setPopupActive] = useState(0)
 
     return (
-        <div>
-            
+        <div className={styles.container}>
+            <Header />
+            <div className={styles.font}>
+                Content  Management
+            </div>
+            <div className={styles.containerButtons}>
+                <div>
+                    <Button title={'Add'}
+                        mode='fill'
+                        className={styles.button}
+                        onClick={() => setActive(!active)}
+                        image='/icon/user-add.svg'
+                    />
+                </div>
+                <div className={styles.export}>
+                    <Image src={'/icon/export.svg'} height={24} width={24} alt='export' />
+                </div>
+            </div>
+            <Table />
+            {
+                active &&
+                <div className={styles.popup}>
+                    <ArtistForm onClick={() => setActive(false)}/>
+                </div>
+            }
+
         </div>
 
     )
 }
-export default Managment
+
+
+export default Management
