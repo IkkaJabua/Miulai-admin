@@ -50,11 +50,13 @@ const AddAlbum = (props: Props) => {
         <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
             <div className={styles.header}>
                 <div className={styles.cursor}
-                    onClick={props.onClick} >
-                    <Image src={'/icon/back.svg'} height={24} width={24} alt='pen' />
+                    onClick={props.onClick}>
+                    <div onClick={() => setArtistForm(true)}>
+                        <Image src={'/icon/back.svg'} height={24} width={24} alt='pen' />
+                    </div>
                 </div>
                 <div>Add New Album</div>
-                <div className={styles.cursor} onClick={props.onDelete}  >
+                <div className={styles.cursor} onClick={props.onDelete}>
                     <Image src={'/icon/delete.svg'} height={24} width={24} alt='pen' />
                 </div>
 

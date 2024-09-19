@@ -27,7 +27,7 @@ const AddArtistPopup = (props: Props) => {
     const [active, setActive] = useState(false)
     const [newTrack, setNewTrack] = useState(false)
     const [createAlbum, setCreateAlbum] = useState(false)
-    const [backWard, setBackWord] = useState(false)
+    const [deleted, setDeleted] = useState(false)
 
 
     const AddArtistPopupData = [
@@ -43,9 +43,13 @@ const AddArtistPopup = (props: Props) => {
         }
     ]
 
+    if (deleted) {
+        return 
+    }
+
     if (createAlbum) {
         return  <div className={styles.container}>
-            <AddAlbum onClick={() => setCreateAlbum(false)} />
+            <AddAlbum onClick={() => setCreateAlbum(false)} onDelete={() => setDeleted(true)} />
         </div>
     }
 
@@ -61,6 +65,7 @@ const AddArtistPopup = (props: Props) => {
                             <div onClick={() => {
                                 setActive(false)
                                 setAlbums(true)
+                                setBiography(false)
                             }}>
                                 <Image src={'/icon/back.svg'} width={24} height={24} alt='back' />
                             </div>
