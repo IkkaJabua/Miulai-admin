@@ -103,3 +103,22 @@
     border-radius: 8px;
     background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
 }
+
+
+.wrapper {
+    height: 270px;
+    width: 334px;
+
+    input[type='file'] {
+        display: none;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        height: 270px;
+        width: 334px;
+
+    }
+
+}

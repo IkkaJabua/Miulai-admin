@@ -10,6 +10,8 @@ import AddAlbum from '../popups/addAlbum/addAlbum'
 
 type Props = {
     setActive: Dispatch<SetStateAction<boolean>>;
+    secondOnDelete: () => void,
+
     key1: string,
     key2: string,
     key3: string,

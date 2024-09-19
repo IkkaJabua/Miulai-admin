@@ -14,7 +14,7 @@ interface Props {
 
 
 const ArtistForm = (props: Props) => {
-
+    const [deleted, setDeleted] = useState(false)
     const [addAlbum , setAddAlbum] = useState(false)
 
     const {
@@ -23,9 +23,13 @@ const ArtistForm = (props: Props) => {
         watch,
         formState: { errors },
     } = useForm<any>()
+    if (deleted) {
+        return 
+
+    }
 
     if (addAlbum) {
-        return  <AddAlbum  />
+        return <AddAlbum onDelete={() => setDeleted(true)} />
     }
 
 
@@ -66,7 +70,10 @@ const ArtistForm = (props: Props) => {
                     <div className={styles.formBody}>
                         <div>Artist Photo</div>
                         <div className={styles.photoFile}>
-                            <input className={styles.photoInput} type='file' />
+                            <input className={styles.photoInput} id='file-upload-file' type='file' />
+                            <label htmlFor="file-upload-file">
+                                <Image src={'/icon/Screenshots.svg'} width={90} height={90}  alt='screenshot'/>
+                            </label>
                         </div>
                     </div>
                     <Button onClick={() => setAddAlbum(true)} mode='fill' title={'New Album'} image='/icon/plus.svg' className={styles.button} />

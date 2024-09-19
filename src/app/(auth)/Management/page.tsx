@@ -35,7 +35,7 @@ const Management = () => {
             {
                 active &&
                 <div className={styles.popup}>
-                    <ArtistForm onClick={() => setActive(false)}/>
+                    <ArtistForm onClick={() => setActive(false)}   />
                 </div>
             }
 

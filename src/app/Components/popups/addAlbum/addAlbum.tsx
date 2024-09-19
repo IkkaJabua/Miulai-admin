@@ -9,7 +9,7 @@ import ArtistForm from '../artistForm/artistForm'
 interface Props {
     onClick?: () => void,
     onDelete?: () => void,
-
+    secondOnDelete?: () => void
 }
 const AddAlbum = (props: Props) => {
     const [artistForm, setArtistForm] = useState(false)
@@ -67,7 +67,11 @@ const AddAlbum = (props: Props) => {
                         Album Cover Photo
                     </div>
                     <div className={styles.wrapper}>
-                        <input className={styles.photoInput} type='file'
+                        <label htmlFor="file-upload-file">
+                            <Image src={'/icon/Screenshots.svg'} width={90} height={90} alt='screenshot' />
+
+                        </label>
+                        <input className={styles.photoInput} id='file-upload-file' type='file'
                             {...register('file')}
                         />
                     </div>

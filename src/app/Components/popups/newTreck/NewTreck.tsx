@@ -53,7 +53,10 @@ const NewTreck = (props: Props) => {
             </div>
             <div className={styles.twoFile}>
                 <div>Upload Music file</div>
-                <input className={styles.file} type="file"  {...register('file')}/>
+                <label htmlFor="upload-file">
+                    <Image  src={'/icon/Upload.svg'} width={24} height={24} alt='upload' />
+                </label>
+                <input id={'upload-file'} className={styles.file} type="file"  {...register('file')}/>
             </div>
             <input type='submit' value={'Save'} className={styles.button} />
         </form>
