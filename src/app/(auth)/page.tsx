@@ -10,7 +10,7 @@ import ArtistPopup from '../Components/ArtistPopup/ArtistPopup';
 import ArtistPopupBtn from '../Components/ArtistPopup/ArtistPopupBtn/ArtistPopupBtn';
 import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPopupData';
 import Menu from '../Components/Menu/Menu';
-import UserTable from '../Components/UserTable/Usertable';
+import UserTable from '../Components/UserTable/usertable';
 import styles from './page.module.scss';
 import Table from '../Components/Table/Table';
 import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
@@ -20,6 +20,8 @@ import TotalUser from '../Components/TotalUser/TotalUser';
 import UserAddBtn from '../Components/UserAddBtn/UserAddBtn';
 import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
 import UserBlockBtn from '../Components/UserBlockBtn/UserBlockBtn';
+import NewPassword from '../Components/NewPassword/NewPassword';
+import SureToDelete from '../Components/SureToDelete/SureToDelete';
 
 
 
@@ -27,7 +29,7 @@ import UserBlockBtn from '../Components/UserBlockBtn/UserBlockBtn';
 export default function Home() {
 
     return (
-        <main className={styles.main}>
+        <main className={styles.main}>       
             <Header />
             <div className={styles.user}>
                 <h1 className={styles.h1}>User Managment</h1>

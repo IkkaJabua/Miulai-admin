@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
@@ -8,6 +8,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import styles from './UserTable.module.scss';
 import type Password from 'antd/es/input/Password';
 import ArtistPopup from '../ArtistPopup/ArtistPopup';
+import NewPassword from '../NewPassword/NewPassword';
+import axios from 'axios';
+import SureToDelete from '../SureToDelete/SureToDelete';
 
 // const [seeAll, setSeeAll] = useState(false)
 
@@ -138,18 +141,27 @@ const UserTable: React.FC = () => {
     const [all, setAll] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
-
+    const [selectedId, setSelectedId] = useState();
     const [isOpen, setIsOpen] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    console.log(selectedId, 'selectedId');
 
-    const openModal = () => {
+    const deletingShow = () => {
+        setDeleteModal(true)
+    }
+
+    const deletingHide = () => {
+        setDeleteModal(false)
+    }
+
+    const openModal = (record: any) => {
+        setSelectedId(record.id)
         setIsOpen(true);
     };
 
     const closeModal = () => {
         setIsOpen(false);
     };
-
-
 
 
 
@@ -188,6 +200,22 @@ const UserTable: React.FC = () => {
 
 
 
+
+
+    const [users, setUsers] = useState([])
+    useEffect(() => {
+        axios.get('https://interstellar-1-pdzj.onrender.com/user')
+            .then((result) => {
+                setUsers(result.data)
+
+            })
+            .catch(() => {
+                console.log('there is an error');
+            })
+    }, [])
+
+
+
     const columns: ColumnsType<any> = [
         {
             title: () =>
@@ -222,11 +250,11 @@ const UserTable: React.FC = () => {
         },
         {
             title: 'Registration Date',
-            dataIndex: 'artist',
+            dataIndex: '',
             key: 'artist',
             render: (text, record) => (
                 <div className={styles.artistCell}>
-                    <div>{text}</div>
+                    <div>{record.createdAt}</div>
                 </div>
             ),
             width: '20%',
@@ -236,9 +264,13 @@ const UserTable: React.FC = () => {
             dataIndex: 'totalStreams',
             key: 'totalStreams',
             width: '30%',
-            render: (text) => (
-                <div>
-                    {text}
+            render: (text, record) => (
+                console.log(record, 'record'),
+                <div onClick={() => {
+                    isOpen ? closeModal : openModal;
+                    setSelectedId(record.key);
+                }}>
+                    {record.email}
                 </div>
             ),
         },
@@ -251,6 +283,7 @@ const UserTable: React.FC = () => {
                 <div className={styles.Password}>
                     <input type={active === record.key ? 'text' : 'password'} value={text} className={styles.inputPassword} />
                     <div onClick={() => handlePasswordToggle(record.key)}>
+                        {record.password}
                         <Image src={`/icon/paswordhider.svg`} width={24} height={24} alt='trash' />
                     </div>
                 </div>
@@ -259,12 +292,14 @@ const UserTable: React.FC = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: () => (
+            render: (text , record) => (
+                // console.log(text , 'text'),
+                // console.log(record , 'record'),
                 <div className={styles.actions}>
-                    <button className={styles.unBorder} onClick={openModal}>
+                    <button className={styles.unBorder} onClick={() => openModal(record)}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
-                    <button className={styles.unBorder}>
+                    <button className={styles.unBorder} onClick={deletingShow}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
                     </button>
                     <button className={styles.unBorder}>
@@ -279,21 +314,24 @@ const UserTable: React.FC = () => {
 
     return (
 
-        <div>
+        <div className={styles.tableContainer}>
             <Table
                 className={styles.wrapper}
                 columns={columns}
-                dataSource={data}
+                dataSource={users}
                 pagination={{
                     position: ['bottomCenter']
                 }}
             />
-             {isOpen && (
-                <ArtistPopup
-                    name={'Artist Name'}
-                    closeModal={closeModal}  // Pass the closeModal function
-                /> 
+            {/* {isOpen && <ArtistPopup closeModal={closeModal} name={'dolores'} />} */}
+            {isOpen && (
+                <div className={styles.positioned}><NewPassword closeModal={closeModal} id={selectedId} /></div>
             )}
+            
+            {
+                deleteModal && 
+                <div className={styles.positioned}><SureToDelete onDeleteClick={deletingHide} /></div>
+            }
         </div>
 
 
