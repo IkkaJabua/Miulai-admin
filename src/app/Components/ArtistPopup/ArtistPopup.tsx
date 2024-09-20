@@ -45,12 +45,18 @@ const ArtistPopup = (props: Props) => {
                         userImage={'/image/userTestImage.png'}
                         imageStyle={'round'}
                     />
-                    <ArtistPopupBtn />
+                    {
+                        !isPlaylistEdit ?
+                            <ArtistPopupBtn title={'New Playlist'} btnTitle={'New Playlist'} /> :
+                            <ArtistPopupBtn title={'New Track'} btnTitle={'New Track'} />
+                    }
+
                 </div>
                 {!isPlaylistEdit ?
                     <ArtPopupCards onEdit={() => { setPlaylistEdit(true) }} /> :
                     <PlaylistTable />
                 }
+
             </div>
         </div>
     );

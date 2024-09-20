@@ -4,15 +4,17 @@ import Image from 'next/image';
 
 type Props = {
     onClick?: () => void;
+    title: string;
+    btnTitle: string;
 }
 
 const ArtistPopupBtn = (props: Props) => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.header}>Playlists</h2>
+            <h2 className={styles.header}>{props.title}</h2>
             <Button
-                title={'New Playlist'}
+                title={props.btnTitle}
                 image={'/icon/plus-img.svg'}
                 mode='fill'
                 className={styles.button}
