@@ -8,6 +8,8 @@ import PlaylistInput from '../playlistinput/playlistinput';
 import { useForm, SubmitHandler } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
 import AddAlbum from '../popups/addAlbum/addAlbum';
+import { useRecoilState , useRecoilValue } from 'recoil';
+import { authorIdStates } from '@/app/states';
 
 
 
@@ -142,11 +144,13 @@ const MusicTable: React.FC = () => {
     const [active, setActive] = useState(false)
     const [createAlbum, setCreateAlbum] = useState(true)
 
+    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
+
 
 
 
     const onSubmit = (values: any) => {
-        console.log('Values', !!values)
+        // console.log('Values', !values)
     }
 
     const handleSelectAll = (checked: boolean) => {
@@ -254,7 +258,7 @@ const MusicTable: React.FC = () => {
             key: 'actions',
             render: () => (
                 <div className={styles.actions}>
-                    <button onClick={() => setActive(!active)} className={styles.unBorder}>
+                    <button className={styles.unBorder}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
                     <button className={styles.unBorder}>
@@ -277,6 +281,16 @@ const MusicTable: React.FC = () => {
                 pagination={{
                     position: ['bottomCenter']
                 }}
+
+                onRow={(record: any, rowIndex) => {
+
+                    return {
+                        onClick: () => {
+                            setActive(!active)
+                            setAuthorId(record.key)
+                        },
+                    };
+                }}
             />
 
 
@@ -284,7 +298,7 @@ const MusicTable: React.FC = () => {
 
                 active &&
                 <div className={styles.popup}>
-                    <AddArtistPopup onClick={() => setActive(false)}
+                    <AddArtistPopup   onClick={() => setActive(false)}
                         setActive={setActive} key1={'Album Name:'}
                         key2={'Release Date:'} key3={'Number Of Tracks:'}
                         value1={'I Hear You'} value2={'January 15, 2015'}

@@ -5,14 +5,30 @@ import styles from './PlaylistTable.module.scss'
 import { render } from "sass";
 import { text } from "stream/consumers";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import axios from "axios";
 // import { useWindowSize } from "react-use";
 
 
 
 const Tables = () => {
 
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        axios.get('https://interstellar-1-pdzj.onrender.com/music').
+            then((r) => {
+                setData(r.data)
+                console.log(r)
+            })
+    })
+
     // const { width, height } = useWindowSize();
     // const isMobile = width > 767
+
+
+
+
 
 
 
@@ -46,7 +62,7 @@ const Tables = () => {
             album: 'Zaba',
             time: '3:54',
             id: 4
-        }, 
+        },
         {
             icon: '/table-icon4.svg',
             title: 'Human',
@@ -54,7 +70,7 @@ const Tables = () => {
             album: 'Zaba',
             time: '3:54',
             id: 5
-        }, 
+        },
     ]
 
 
@@ -81,10 +97,10 @@ const Tables = () => {
             width: '30%',
             render: (text: any, item: any) => (
                 <div className={styles.cellSongname}>
-                    <Image src={'/image/imagesrc.png'} width={48} height={48} alt={text} />
+                    <img src={item.files[0]?.url} width={48} height={48} alt={text} />
                     <div className={styles.fontGap}>
-                        <div className={styles.songTitle}>{text}</div>
-                        <div className={styles.songArtist}>{item.author}</div>
+                        <div className={styles.songTitle}>{item.name}</div>
+                        <div className={styles.songArtist}>{item.authorName}</div>
                     </div>
                 </div>
             ),
@@ -119,9 +135,13 @@ const Tables = () => {
         <div className={styles.wrapper}>
             <Table
                 className={styles.container}
-                dataSource={tableData}
+                dataSource={data}
                 columns={columns}
-                pagination={false}
+                pagination={{
+                    pageSize: 5,
+                    position: ['bottomCenter'],
+
+                }}
                 rowClassName={styles.row111111}
 
             />

@@ -3,14 +3,17 @@ import Button from '../Button/Button'
 import Image from 'next/image'
 import Card from '../Card/Card'
 import UserPlaylist from '../UserPlaylist/UserPlaylist'
-import { useState, type Dispatch, type SetStateAction } from 'react'
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import Tables from '../PlaylistTable/PlaylistTable'
 import NewTreck from '../popups/newTreck/NewTreck'
 import AddAlbum from '../popups/addAlbum/addAlbum'
+import axios from 'axios'
+import { useRecoilState } from 'recoil'
+import { authorIdStates, cardDataStates } from '@/app/states'
 
 type Props = {
     setActive: Dispatch<SetStateAction<boolean>>;
-    secondOnDelete: () => void,
+    secondOnDelete?: () => void,
 
     key1: string,
     key2: string,
@@ -19,9 +22,15 @@ type Props = {
     value2: string,
     value3: string,
     image: string,
-    onClick: () => void
+    onClick?: () => void
 }
 
+interface album {
+    title: string;
+    img: string;
+    id: number
+
+}
 
 const AddArtistPopup = (props: Props) => {
     const [albums, setAlbums] = useState(true)
@@ -30,6 +39,16 @@ const AddArtistPopup = (props: Props) => {
     const [newTrack, setNewTrack] = useState(false)
     const [createAlbum, setCreateAlbum] = useState(false)
     const [deleted, setDeleted] = useState(false)
+    const [album, setAlbum] = useState<album>()
+    const [albumButton, setAlbumButton] = useState(false)
+
+    const [playlistData, setPlaylistData] = useRecoilState(cardDataStates)
+    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
+
+
+    const [albumData, setAlbumData] = useState()
+
+
 
 
     const AddArtistPopupData = [
@@ -45,12 +64,37 @@ const AddArtistPopup = (props: Props) => {
         }
     ]
 
+
+    useEffect(() => {
+
+        // axios.get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`).
+        //     then(r => {
+        //         console.log('============', authorId)
+        //         setAlbum(r.data.album)
+        //         // setAlbumData()
+        //         console.log(r)
+
+        //     })
+
+        axios.get(`https://fakestoreapi.com/products/${authorId}`).
+            then((r) => {
+
+                setPlaylistData(r.data)
+
+            },).
+            catch(error => {
+                console.log('there is something error', error)
+            })
+
+
+    }, [])
+
     if (deleted) {
-        return 
+        return
     }
 
     if (createAlbum) {
-        return  <div className={styles.container}>
+        return <div className={styles.container}>
             <AddAlbum onClick={() => setCreateAlbum(false)} onDelete={() => setDeleted(true)} />
         </div>
     }
@@ -68,6 +112,7 @@ const AddArtistPopup = (props: Props) => {
                                 setActive(false)
                                 setAlbums(true)
                                 setBiography(false)
+                                setAlbumButton(false)
                             }}>
                                 <Image src={'/icon/back.svg'} width={24} height={24} alt='back' />
                             </div>
@@ -109,6 +154,7 @@ const AddArtistPopup = (props: Props) => {
                                         <div onClick={() => {
                                             setAlbums(true)
                                             setBiography(false)
+                                                setAlbumButton(false)
 
                                         }} className={albums ? styles.activefooterModeFont : styles.footerModeFont}>
                                             Albums
@@ -120,6 +166,7 @@ const AddArtistPopup = (props: Props) => {
                                             <div onClick={() => {
                                                 setAlbums(false)
                                                 setBiography(true)
+                                                setAlbumButton(false)
 
                                             }}
                                                 className={biography ? styles.activefooterModeFont : styles.footerModeFont}>
@@ -138,20 +185,34 @@ const AddArtistPopup = (props: Props) => {
                                 </div>
                                 <div className={styles.buttonMain}>
                                     {
-                                        albums ?
-                                            <Button mode={'fill'}
-                                                onClick={() => setCreateAlbum(true)}
-                                                title={'New Album'}
-                                                className={'button'}
-                                                image='/icon/plus.svg'
-                                            /> :
-                                            <Button
-                                                onClick={() => setNewTrack(!newTrack)}
-                                                mode={'fill'}
-                                                title={'New Track'}
-                                                className={'button'}
-                                                image='/icon/plus.svg'
-                                            />
+                                        albums &&
+                                        <Button mode={'fill'}
+                                            onClick={() => setCreateAlbum(true)}
+                                            title={'New Album'}
+                                            className={'button'}
+                                            image='/icon/plus.svg'
+                                        />
+                                    }
+                                    {
+                                        albumButton &&
+                                        <Button
+                                            onClick={() => setNewTrack(!newTrack)}
+                                            mode={'fill'}
+                                            title={'New Track'}
+                                            className={'button'}
+                                            image='/icon/plus.svg'
+                                        />
+
+                                    }
+                                    {
+                                        biography &&
+
+                                        <Button
+                                            // onClick={() => setNewTrack(!newTrack)}
+                                            title={'Edit'}
+                                            className={styles.biographyButton}
+                                            image='/icon/pen.svg'
+                                        />
 
                                     }
 
@@ -159,7 +220,9 @@ const AddArtistPopup = (props: Props) => {
                             </div>
                             <div className={styles.footerPLaylist}>
                                 {
-                                    albums && <UserPlaylist setAlbums={setAlbums} setActive={setActive} />
+                                    albums &&
+                                    <UserPlaylist setAlbumButton={setAlbumButton} setAlbums={setAlbums} setActive={setActive} />
+
                                 }
                                 {
                                     biography &&

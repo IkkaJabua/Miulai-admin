@@ -32,6 +32,7 @@ const AddAlbum = (props: Props) => {
         const data: any = new FormData()
         data.append('file', values.file[0])
         data.append('albumName', values.albumName)
+        data.append('artistName', values.artistName)
         data.append('releaseDate', values.releaseDate)
 
 
@@ -69,7 +70,6 @@ const AddAlbum = (props: Props) => {
                     <div className={styles.wrapper}>
                         <label htmlFor="file-upload-file">
                             <Image src={'/icon/Screenshots.svg'} width={90} height={90} alt='screenshot' />
-
                         </label>
                         <input className={styles.photoInput} id='file-upload-file' type='file'
                             {...register('file')}
@@ -82,6 +82,14 @@ const AddAlbum = (props: Props) => {
                         <div>
                             <input className={styles.inputName} type='text'
                                 {...register('albumName')}
+                            />
+                        </div>
+                    </div>
+                    <div className={styles.inputWrapper}>
+                        <div>Artist Name</div>
+                        <div>
+                            <input className={styles.inputName} type='text'
+                                {...register('artistName')}
                             />
                         </div>
                     </div>

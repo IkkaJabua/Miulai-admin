@@ -76,7 +76,7 @@ const ArtistForm = (props: Props) => {
                             </label>
                         </div>
                     </div>
-                    <Button onClick={() => setAddAlbum(true)} mode='fill' title={'New Album'} image='/icon/plus.svg' className={styles.button} />
+                    <Button onClick={() => setAddAlbum(true)}  title={'New Album'} image='/icon/plus.svg' className={styles.button} />
                 </div>
             </div>
             <Button title={'Save'} className={styles.buttonTwo}   />

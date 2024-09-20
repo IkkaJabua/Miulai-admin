@@ -27,12 +27,13 @@ const NewTreck = (props: Props) => {
     const onSubmit = (value: any) => {
         const data = new FormData()
         data.append('name', value.name)
+        data.append('artistName', value.artistName)
         data.append('file', value.file[0])
 
 
         axios.post('https://interstellar-1-pdzj.onrender.com/music',data).
         then((r) => {
-            console.log(r)
+            
         })
 
         console.log(value)
@@ -50,6 +51,10 @@ const NewTreck = (props: Props) => {
             <div className={styles.gap}>
                 <div>Track Names</div>
                 <input className={styles.name} type="text"  {...register('name')}/>
+            </div>
+            <div className={styles.gap}>
+                <div>Artist Name</div>
+                <input className={styles.name} type="text"  {...register('artistName')} />
             </div>
             <div className={styles.twoFile}>
                 <div>Upload Music file</div>
