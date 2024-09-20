@@ -1,7 +1,7 @@
 'use client';
 
 
-// import { Table } from 'antd';
+import { Table } from 'antd';
 import Tables from '../Components/Table/Table'
 import Button from '../Components/Button/Button';
 import Card from '../Components/Card/Card';
@@ -12,9 +12,6 @@ import ArtistPopupData from '../Components/ArtistPopup/ArtistPopupData/ArtistPop
 import Menu from '../Components/Menu/Menu';
 import UserTable from '../Components/UserTable/usertable';
 import styles from './page.module.scss';
-import Table from '../Components/Table/Table';
-import PlaylistTable from '../Components/PlaylistTable/PlaylistTable';
-import PlaylistEditPopup from '../Components/PlaylistEditPopup/PlaylistEditPopup';
 import Header from '../Components/Header/Header';
 import TotalUser from '../Components/TotalUser/TotalUser';
 import UserAddBtn from '../Components/UserTable/usertable';
@@ -39,7 +36,7 @@ export default function Home() {
                 <UserBlockBtn />
                 <UserDeleteBtn />
             </div>
-            <UserTable />
+            <Usertable />
         </main>
     )
 }
