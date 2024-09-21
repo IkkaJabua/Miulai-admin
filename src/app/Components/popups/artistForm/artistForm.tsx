@@ -3,8 +3,9 @@ import styles from './artistForm.module.scss'
 import { useForm, SubmitHandler } from "react-hook-form"
 import Button from '../../Button/Button'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddAlbum from '../addAlbum/addAlbum'
+import axios from 'axios'
 
 interface Props {
     onClick?: () => void
@@ -15,7 +16,7 @@ interface Props {
 
 const ArtistForm = (props: Props) => {
     const [deleted, setDeleted] = useState(false)
-    const [addAlbum , setAddAlbum] = useState(false)
+    const [addAlbum, setAddAlbum] = useState(false)
 
     const {
         register,
@@ -24,7 +25,7 @@ const ArtistForm = (props: Props) => {
         formState: { errors },
     } = useForm<any>()
     if (deleted) {
-        return 
+        return
 
     }
 
@@ -33,16 +34,27 @@ const ArtistForm = (props: Props) => {
     }
 
 
-    const onSubmit = (values: any) => {
-        console.log(values)
 
+
+    const onSubmit = (values: any) => {
+        axios.post("https://interstellar-1-pdzj.onrender.com/author").
+            then(r => {
+
+                console.log('gaeshva informaciaaaaaa',r)
+            })
+
+        const data = new FormData()
+        data.append('firstName', values.artistName)
+        data.append('lastName', values.lastName)
+        data.append('biography', values.biography)
+        data.append('file', values.file[0])
 
     }
 
 
     return (
 
-        <form className={styles.container}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
             <div className={styles.header}>
                 <div>
                     {/* <Image src={'/icon/back.svg'} width={24} height={24} alt='back' /> */}
@@ -58,28 +70,41 @@ const ArtistForm = (props: Props) => {
                 <div className={styles.formBody}>
                     <div className={styles.inputGap}>
                         <div>Artist Name </div>
-                        <input className={styles.nameInput} type='text' />
+                        <input className={styles.nameInput}
+                            {...register('artistName')}
+                            type='text' />
+
+                    </div>
+                    <div className={styles.inputGap}>
+                        <div>Last Name </div>
+                        <input className={styles.nameInput}
+                            {...register('lastName')}
+                            type='text' />
 
                     </div>
                     <div className={styles.inputGap}>
                         <div>Biography</div>
-                        <input className={styles.biographyInput} type='text' />
+                        <input className={styles.biographyInput}
+                            {...register('biography')}
+                            type='text' />
                     </div>
                 </div>
                 <div className={styles.formBody}>
                     <div className={styles.formBody}>
                         <div>Artist Photo</div>
                         <div className={styles.photoFile}>
-                            <input className={styles.photoInput} id='file-upload-file' type='file' />
+                            <input className={styles.photoInput}
+                                {...register('file')}
+                                id='file-upload-file' type='file' />
                             <label htmlFor="file-upload-file">
-                                <Image src={'/icon/Screenshots.svg'} width={90} height={90}  alt='screenshot'/>
+                                <Image src={'/icon/Screenshots.svg'} width={90} height={90} alt='screenshot' />
                             </label>
                         </div>
                     </div>
-                    <Button onClick={() => setAddAlbum(true)}  title={'New Album'} image='/icon/plus.svg' className={styles.button} />
+                    <Button onClick={() => setAddAlbum(true)} title={'New Album'} image='/icon/plus.svg' className={styles.button} />
                 </div>
             </div>
-            <Button title={'Save'} className={styles.buttonTwo}   />
+            <Button title={'Save'} className={styles.buttonTwo} />
         </form>
     )
 }

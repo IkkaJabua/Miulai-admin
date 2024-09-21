@@ -2,7 +2,6 @@
 import { Table } from "antd";
 // import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
 import styles from './PlaylistTable.module.scss'
-import { render } from "sass";
 import { text } from "stream/consumers";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -16,7 +15,7 @@ const Tables = () => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get('https://interstellar-1-pdzj.onrender.com/music').
+        axios.get('https://interstellar-1-pdzj.onrender.com/author').
             then((r) => {
                 setData(r.data)
                 console.log(r)

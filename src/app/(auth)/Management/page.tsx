@@ -13,7 +13,7 @@ const Management = () => {
     const [popupActive, setPopupActive] = useState(0)
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} >
             <Header />
             <div className={styles.font}>
                 Content  Management

@@ -17,7 +17,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "recoil": "^0.7.7",
-    "sass": "^1.78.0"
+    "sass": "^1.79.2"
   },
   "devDependencies": {
     "@types/node": "^20",

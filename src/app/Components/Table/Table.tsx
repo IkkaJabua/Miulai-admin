@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
@@ -8,9 +8,9 @@ import PlaylistInput from '../playlistinput/playlistinput';
 import { useForm, SubmitHandler } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
 import AddAlbum from '../popups/addAlbum/addAlbum';
-import { useRecoilState , useRecoilValue } from 'recoil';
-import { authorIdStates } from '@/app/states';
-
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { authorIdStates, deleteStates } from '@/app/states';
+import axios from 'axios';
 
 
 interface DataType {
@@ -22,118 +22,10 @@ interface DataType {
     image: string;
     name?: any;
     id?: any;
+    files?: any;
+    firstName?: any
+    lastName?: any
 }
-
-const data: DataType[] = [
-    {
-        key: '1',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '2',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '3',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '4',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '5',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '6',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '7',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '8',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '9',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '10',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '11',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '12',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-];
-
 
 
 const MusicTable: React.FC = () => {
@@ -143,8 +35,34 @@ const MusicTable: React.FC = () => {
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
     const [active, setActive] = useState(false)
     const [createAlbum, setCreateAlbum] = useState(true)
+    const [tableData, setTableData] = useState<any>()
 
     const [authorId, setAuthorId] = useRecoilState(authorIdStates)
+
+    const [deletes, setDeletes] = useRecoilState(deleteStates)
+
+
+
+    useEffect(() => {
+
+        axios.get(`https://interstellar-1-pdzj.onrender.com/author`).
+            then(r => {
+                setTableData(r.data)
+
+            }).catch((error) => {
+                console.log('ar modiiiiiis', error)
+            })
+    }, [tableData])
+
+
+    const TableDelete = (id: any) => {
+
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`).
+            then((r : any) => {
+                alert('do you really want to delete?')
+                console.log('waishala', id)
+            },)
+    }
 
 
 
@@ -155,7 +73,7 @@ const MusicTable: React.FC = () => {
 
     const handleSelectAll = (checked: boolean) => {
         if (checked) {
-            setSelectedKeys(new Set(data.map(item => item.key)));
+            setSelectedKeys(new Set(tableData.map((item: any) => item.key)));
         } else {
             setSelectedKeys(new Set());
         }
@@ -177,13 +95,13 @@ const MusicTable: React.FC = () => {
 
     const columns: ColumnsType<DataType> = [
         {
-            title: () =>
+            title: (record) =>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                         type='checkbox'
                         className={styles.inp}
                         {...register('selectAll')}
-                        checked={selectedKeys.size === data.length}
+                        // checked={selectedKeys.size === .length}
                         onChange={(e) => {
                             handleSelectAll(e.target.checked);
                             handleSubmit(onSubmit)();
@@ -197,8 +115,8 @@ const MusicTable: React.FC = () => {
                     <input
                         type='checkbox'
                         className={styles.inp}
-                        {...register(`select-${record.key}`)}
-                        checked={selectedKeys.has(record.key)}
+                        {...register(`select-${record.id}`)}
+                        checked={selectedKeys.has(record.id)}
                         onChange={() => {
                             handleSelectOne(record.key);
                             handleSubmit(onSubmit)();
@@ -213,8 +131,8 @@ const MusicTable: React.FC = () => {
             key: 'artist',
             render: (text, record) => (
                 <div className={styles.artistCell}>
-                    <Image src={`image/${record.image}`} width={40} height={40} alt={text} />
-                    <span>{text}</span>
+                    <img src={record.files[0]?.url} width={40} height={40} alt={text} />
+                    <span>{record.firstName} {record.lastName}</span>
                 </div>
 
             ),
@@ -225,9 +143,9 @@ const MusicTable: React.FC = () => {
             dataIndex: 'totalStreams',
             key: 'totalStreams',
             width: '20%',
-            render: (text) => (
+            render: (text, record) => (
                 <div>
-                    {text}
+
                 </div>
             ),
         },
@@ -256,14 +174,17 @@ const MusicTable: React.FC = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: () => (
+            render: (text, record) => (
                 <div className={styles.actions}>
-                    <button className={styles.unBorder}>
+                    <button onClick={() => setActive(!active)} className={styles.unBorderPen}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
-                    <button className={styles.unBorder}>
+                    {/* =====================-> */}
+                    <button onClick={() => TableDelete(record.id)} className={styles.unBorder}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
                     </button>
+                    {/* =====================-> */}
+
                 </div>
             ),
             width: '15%',
@@ -277,7 +198,7 @@ const MusicTable: React.FC = () => {
             <Table
                 className={styles.wrapper}
                 columns={columns}
-                dataSource={data}
+                dataSource={tableData}
                 pagination={{
                     position: ['bottomCenter']
                 }}
@@ -286,8 +207,7 @@ const MusicTable: React.FC = () => {
 
                     return {
                         onClick: () => {
-                            setActive(!active)
-                            setAuthorId(record.key)
+                            setAuthorId(record.id)
                         },
                     };
                 }}
@@ -298,11 +218,8 @@ const MusicTable: React.FC = () => {
 
                 active &&
                 <div className={styles.popup}>
-                    <AddArtistPopup   onClick={() => setActive(false)}
-                        setActive={setActive} key1={'Album Name:'}
-                        key2={'Release Date:'} key3={'Number Of Tracks:'}
-                        value1={'I Hear You'} value2={'January 15, 2015'}
-                        value3={'5'} image={'popupImage.svg'} />
+                    <AddArtistPopup onClick={() => setActive(false)}
+                        setActive={setActive} />
                 </div>
 
             }

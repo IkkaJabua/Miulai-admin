@@ -9,3 +9,8 @@ export const cardDataStates = atom<any>({
     key: 'cardDataStates',
     default: [],
 })
+
+export const deleteStates = atom<any>({
+    key: 'deleteStates',
+    default: 0
+})
