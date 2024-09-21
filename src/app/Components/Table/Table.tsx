@@ -52,7 +52,7 @@ const MusicTable: React.FC = () => {
             }).catch((error) => {
                 console.log('ar modiiiiiis', error)
             })
-    }, [tableData])
+    },[tableData])
 
 
     const TableDelete = (id: any) => {
