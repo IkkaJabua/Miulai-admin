@@ -192,6 +192,13 @@ const UserTable: React.FC = (props: Props) => {
     };
 
 
+    const [block, setBlock] = useState(true); // Default is open (true)
+
+  // Function to toggle the block state
+  const handleToggle = () => {
+    setBlock(!block); // Switch between true (open) and false (closed)
+  };
+
 
 
     const onSubmit = (values: any) => {
@@ -313,8 +320,8 @@ const UserTable: React.FC = (props: Props) => {
                     <button className={styles.unBorder} onClick={()=> deletingShow(record.id)}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
                     </button>
-                    <button className={styles.unBorder}>
-                        <Image src={`/icon/blockUnblock.svg`} width={24} height={24} alt='trash' />
+                    <button className={styles.unBorder} onClick={handleToggle}>
+                        <Image src={block ? '/icon/blockUnblock.svg' : '/icon/block-icon.svg'}  width={24} height={24} alt='trash' />
                     </button>
                 </div>
             ),
