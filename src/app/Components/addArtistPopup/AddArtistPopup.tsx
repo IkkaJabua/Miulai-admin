@@ -46,6 +46,9 @@ const AddArtistPopup = (props: Props) => {
                 setAuthorData(r.data)
 
                 // console.log('aq mere albomshi chavwer , recoil albomis cvladshi informacias iqiT waviReb da davmapav amis mixedviiiiiT')
+                
+                // aq rac weria heshi am heshze gavushveb albomis damatgebas aidit da chavamateb aqedan,
+                // am aids recoil rame cvladshi chaviwer da albomshi wavigeb 
 
             },).
             catch(error => {
