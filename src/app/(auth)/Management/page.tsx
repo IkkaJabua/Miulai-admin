@@ -38,7 +38,6 @@ const Management = () => {
                     <ArtistForm onClick={() => setActive(false)}   />
                 </div>
             }
-
         </div>
 
     )
