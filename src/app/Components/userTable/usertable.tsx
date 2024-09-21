@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
@@ -135,15 +135,16 @@ import { TableRowSelection } from 'antd/es/table/interface';
 //     },
 // ];
 
+type Props = {
+    id?: number;
+}
 
-
-const UserTable: React.FC = () => {
+const UserTable: React.FC = (props: Props) => {
     const [active, setActive] = useState<string>();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
     const [selectedId, setSelectedId] = useState();
 
-    console.log(selectedId, 'selectedId');
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -161,6 +162,7 @@ const UserTable: React.FC = () => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [artistPopup, setArtistPopup] = useState(false);
 
+
     const openPop = () => {
         console.log('111')
         setArtistPopup(true)
@@ -170,7 +172,8 @@ const UserTable: React.FC = () => {
         setArtistPopup(false)
     }
 
-    const deletingShow = () => {
+    const deletingShow = (record: any) => {        
+        setSelectedId(record.id)        
         setDeleteModal(true)
     }
 
@@ -223,12 +226,10 @@ const UserTable: React.FC = () => {
         }
     };
 
+    
 
 
-
-
-    const [users, setUsers] = useState([])
-    useEffect(() => {
+    const fetching = () => {
         axios.get('https://interstellar-1-pdzj.onrender.com/user')
             .then((result) => {
                 setUsers(result.data)
@@ -237,9 +238,22 @@ const UserTable: React.FC = () => {
             .catch(() => {
                 console.log('there is an error');
             })
-    }, [])
-    console.log(users, 'zd');
+    }
 
+    const [users, setUsers] = useState([])
+    useEffect(fetching, [])
+
+    
+   
+  
+    const memoizedUsers = useMemo(() => 
+        users.map((user: any) => ({
+            ...user,   
+            key: user.id, 
+        })), [users]
+    );
+
+    
 
 
 
@@ -296,7 +310,7 @@ const UserTable: React.FC = () => {
                     <button className={styles.unBorder} onClick={() => openModal(record)}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
-                    <button className={styles.unBorder} onClick={deletingShow}>
+                    <button className={styles.unBorder} onClick={()=> deletingShow(record.id)}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
                     </button>
                     <button className={styles.unBorder}>
@@ -309,36 +323,37 @@ const UserTable: React.FC = () => {
     ];
 
 
-    return (
 
-        <div className={styles.tableContainer}>
-            <Table
-                rowSelection={rowSelection}
-                className={styles.wrapper}
-                columns={columns}
-                dataSource={users}
-                pagination={{
-                    position: ['bottomCenter']
-                }}
-            />
-            {
-                artistPopup && <ArtistPopup closeModal={closePop} name={'dawdwad'} />
-            }
+return (
 
-            {isOpen &&
-                <NewPassword closeModal={closeModal} id={selectedId} />
-            }
+    <div className={styles.tableContainer}>
+        <Table
+            rowSelection={rowSelection}
+            className={styles.wrapper}
+            columns={columns}
+            dataSource={memoizedUsers}
+            pagination={{
+                position: ['bottomCenter']
+            }}
+        />
+        {
+            artistPopup && <ArtistPopup closeModal={closePop} name={'Dolores'} />
+        }
 
-            {
-                deleteModal &&
-                <SureToDelete onCancelClick={deletingHide} onDeleteClick={deletingHide} id={selectedId} />
-            }
-        </div>
+        {isOpen &&
+            <NewPassword closeModal={closeModal} id={selectedId} />
+        }
+
+        {
+            deleteModal &&
+            <SureToDelete onCancelClick={deletingHide} onDeleteClick={fetching} id={selectedId} />
+        }
+    </div>
 
 
 
 
-    );
+);
 };
 
 export default UserTable;

@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import styles from './ArtistPopupData.module.scss';
 import Image from 'next/image';
+import axios from 'axios';
 
 
 type Props = {
@@ -11,9 +13,12 @@ type Props = {
     value3: string
     userImage: string;
     imageStyle: 'round' | 'normal'; 
+    id: number;
 }
 
 const ArtistPopupData = (props: Props) => {
+    
+
     const classes = [];
     if(props.imageStyle === 'round') classes.push(styles.round)
     else classes.push(styles.normal)

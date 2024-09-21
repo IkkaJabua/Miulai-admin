@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 interface Props {
 
-    onClick: () => void
+    onClick?: () => void
 }
 
 const NewTreck = (props: Props) => {

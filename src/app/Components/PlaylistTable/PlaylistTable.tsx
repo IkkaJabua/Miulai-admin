@@ -5,58 +5,56 @@ import styles from './PlaylistTable.module.scss'
 import { render } from "sass";
 import { text } from "stream/consumers";
 import Image from "next/image";
-// import { useWindowSize } from "react-use";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import SureToDelete from "../SureToDelete/SureToDelete";
+import SureToDeleteSong from "../SureToDeleteSong/SureToDeleteSong";
+
+type Props = {
+    name?: string;
+    id?: number;
+}
+
+const Tables = (props: Props) => {
 
 
+    // const tableData = [
+    //     {
+    //         icon: '/table-icon.png',
+    //         title: 'Girls Are Fascinating',
+    //         author: 'By Anetha',
+    //         album: 'Mothearth',
+    //         time: '3:54',
+    //         id: 1,
+    //     }, ]
 
-const Tables = () => {
+    const [music, setMusic] = useState([]);
+    const [open, setOpen] = useState(false);
 
-    // const { width, height } = useWindowSize();
-    // const isMobile = width > 767
+    const closeModal = () => {
+        setOpen(false)
+    }
+
+    const openModal = () => {
+        setOpen(true)
+    }
 
 
+    useEffect(() => {
+        axios.get(`https://interstellar-1-pdzj.onrender.com/playlist/${props.id}`)
+        .then((r) => {
+            setMusic(r.data.files)         
+        })
+    }, [])
+    
 
-
-    const tableData = [
-        {
-            icon: '/table-icon.png',
-            title: 'Girls Are Fascinating',
-            author: 'By Anetha',
-            album: 'Mothearth',
-            time: '3:54',
-            id: 1,
-        }, {
-            icon: '/table-icon2.svg',
-            title: 'Smash My Heart',
-            author: 'By Anetha',
-            album: 'Pink',
-            time: '3:54',
-            id: 2
-        }, {
-            icon: '/table-icon3.svg',
-            title: 'Blackbird',
-            author: 'By Anetha',
-            album: 'Cowboy Carter',
-            time: '3:54',
-            id: 3
-        }, {
-            icon: '/table-icon4.svg',
-            title: 'Human',
-            author: 'By Anetha',
-            album: 'Zaba',
-            time: '3:54',
-            id: 4
-        }, 
-        {
-            icon: '/table-icon4.svg',
-            title: 'Human',
-            author: 'By Anetha',
-            album: 'Zaba',
-            time: '3:54',
-            id: 5
-        }, 
-    ]
-
+    const deleteSong = async (values: any) => {
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/music/${props.id}`)
+         .then((r) => {
+            setMusic(r.data.id)
+            //  alert('music has deleted')   
+         })
+    }
 
 
 
@@ -69,7 +67,7 @@ const Tables = () => {
             width: '1%',
             render: (text: any, item: any) => (
                 <div className={styles.cellId}>
-                    {text}
+                {props.id}
                 </div>
             )
         },
@@ -83,7 +81,7 @@ const Tables = () => {
                 <div className={styles.cellSongname}>
                     <Image src={'/image/imagesrc.png'} width={48} height={48} alt={text} />
                     <div className={styles.fontGap}>
-                        <div className={styles.songTitle}>{text}</div>
+                        <div className={styles.songTitle}>{props.name}</div>
                         <div className={styles.songArtist}>{item.author}</div>
                     </div>
                 </div>
@@ -105,7 +103,7 @@ const Tables = () => {
             key: 'like',
             width: '3%',
             render: (() =>
-                <div className={styles.center}>
+                <div className={styles.center} onClick={deleteSong}>
                     <Image src={'/icon/trashsh.svg'} width={24} height={24} alt="trash" />
 
                 </div>
@@ -119,12 +117,14 @@ const Tables = () => {
         <div className={styles.wrapper}>
             <Table
                 className={styles.container}
-                dataSource={tableData}
+                dataSource={music}
                 columns={columns}
                 pagination={false}
                 rowClassName={styles.row111111}
-
             />
+            {/* {
+                open && <SureToDeleteSong onCancelClick={closeModal} id={props.id} />
+            } */}
         </div>
 
     )

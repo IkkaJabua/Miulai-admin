@@ -3,19 +3,24 @@ import Image from 'next/image';
 import ArtistPopupData from './ArtistPopupData/ArtistPopupData';
 import ArtistPopupBtn from './ArtistPopupBtn/ArtistPopupBtn';
 import ArtPopupCards from './ArtPopupCards/ArtPopupCards';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PlaylistTable from '../PlaylistTable/PlaylistTable';
+import NewTreck from '../popups/newTreck/NewTreck';
+import axios from 'axios';
 
 interface Props {
+    [x: string]: any;
     name: string;
     closeModal?: () => void;  // Accept closeModal function
 }
 
 const ArtistPopup = (props: Props) => {
     const [isPlaylistEdit, setPlaylistEdit] = useState(false)
+    const [editPlaylistId, setEditPlaylistId] = useState(0)
 
 
-    console.log('Props', props)
+   
+
     return (
         <div className={styles.sss}>
             <div className={styles.container}>
@@ -43,18 +48,15 @@ const ArtistPopup = (props: Props) => {
                         key3={'Playlists Created'}
                         value3={'4'}
                         userImage={'/image/userTestImage.png'}
-                        imageStyle={'round'}
-                    />
-                    {
-                        !isPlaylistEdit ?
-                            <ArtistPopupBtn title={'New Playlist'} btnTitle={'New Playlist'} /> :
-                            <ArtistPopupBtn title={'New Track'} btnTitle={'New Track'} />
-                    }
+                        imageStyle={'round'} id={0}                    />
+
 
                 </div>
                 {!isPlaylistEdit ?
-                    <ArtPopupCards onEdit={() => { setPlaylistEdit(true) }} /> :
-                    <PlaylistTable />
+                    <ArtPopupCards onEdit={(playlistId) => { 
+                        setPlaylistEdit(true); 
+                        setEditPlaylistId(playlistId) }} /> :
+                    <PlaylistTable id={editPlaylistId} />
                 }
 
             </div>

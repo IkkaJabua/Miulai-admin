@@ -1,22 +1,36 @@
 import axios from 'axios';
 import Button from '../Button/Button';
 import styles from './SureToDelete.module.scss';
+import { useState, useEffect } from 'react';
 
 type Props = {
     onDeleteClick?: () => void;
     onCancelClick?: () => void;
-    id?: number;
+    id: number | string;
 }
 
 const SureToDelete = (props: Props) => {
 
+    const [users, setUsers] = useState([])
+    const fetching = () => {
+        axios.get('https://interstellar-1-pdzj.onrender.com/user')
+            .then((result) => {
+                setUsers(result.data)
+
+            })
+    }
+    useEffect(fetching, [])
+
+
     const userDelete = async (values: any) => {
-       await axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`)
-        .then(() => {
-            alert('User has deleted')
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`)
+        .then(r => {
+            fetching()
         })
         props.onDeleteClick?.()
+    
     }
+
 
     return (
         <div className={styles.container}>
@@ -33,3 +47,10 @@ const SureToDelete = (props: Props) => {
 }
 
 export default SureToDelete;
+
+
+
+
+
+
+

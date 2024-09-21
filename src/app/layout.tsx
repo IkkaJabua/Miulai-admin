@@ -8,6 +8,9 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 export const metadata: Metadata = {
   title: "Miulai Admin",
   description: "Music App",
+  icons: {
+    icon: '/icon/tab-icon.svg',
+  },
 };
 
 
@@ -17,7 +20,6 @@ const PlusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-Plus-Jakarta-sans'
 })
-
 
 
 
