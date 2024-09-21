@@ -18,125 +18,6 @@ import { TableRowSelection } from 'antd/es/table/interface';
 // artists.slice(0, seeAll ? artists.lenght : 4).map(() => <Card></Card>)
 
 
-// const data = [
-//     {
-//         key: '1',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '2',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '3',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '4',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '5',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '6',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '7',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '8',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '9',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '10',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '11',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-//     {
-//         key: '12',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     }, {
-//         key: '13',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     }, {
-//         key: '14',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     }, {
-//         key: '15',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     }, {
-//         key: '16',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     }, {
-//         key: '17',
-//         artist: 'September 17, 2024  11:22',
-//         totalStreams: 'dolores.chambers@example.com',
-//         Password: 'sandrooooo',
-//         totalSongs: 5,
-//     },
-// ];
-
-
-
 const UserTable: React.FC = () => {
     const [active, setActive] = useState<string>();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -155,6 +36,13 @@ const UserTable: React.FC = () => {
         selectedRowKeys,
         onChange: onSelectChange,
     };
+
+
+
+    const [users, setUsers] = useState([])
+    const [takeID, setTakeId] = useState()
+
+
 
 
     const [isOpen, setIsOpen] = useState(false);
@@ -225,20 +113,31 @@ const UserTable: React.FC = () => {
 
 
 
-
-
-    const [users, setUsers] = useState([])
     useEffect(() => {
         axios.get('https://interstellar-1-pdzj.onrender.com/user')
-            .then((result) => {
-                setUsers(result.data)
+            .then((r) => {
+                setUsers(r.data)
+                
 
             })
             .catch(() => {
-                console.log('there is an error');
+                // console.log('there is an error');
             })
     }, [])
-    console.log(users, 'zd');
+
+    const deleteUser = () => {
+
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${takeID}`).
+            then(r => {
+                alert('wavshalo tu ara')
+                // console.log('waishalaaaaaaa', takeID)
+            })
+
+
+    }
+
+
+
 
 
 
@@ -296,7 +195,10 @@ const UserTable: React.FC = () => {
                     <button className={styles.unBorder} onClick={() => openModal(record)}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
                     </button>
-                    <button className={styles.unBorder} onClick={deletingShow}>
+                    <button className={styles.unBorder} onClick={() => {
+                        setTakeId(record.id)
+                        deleteUser
+                    }}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
                     </button>
                     <button className={styles.unBorder}>
@@ -320,6 +222,15 @@ const UserTable: React.FC = () => {
                 pagination={{
                     position: ['bottomCenter']
                 }}
+            // onRow={(record) => {
+            //     return {
+            //         onClick: () => {
+            //             setTakeId(record.id)
+            //             console.log('wamoigoooooooooooooooooooooo', record.id);  // Log the row's `id`
+            //             // Perform any other actions you want to handle for the row
+            //         },
+            //     };
+            // }}
             />
             {
                 artistPopup && <ArtistPopup closeModal={closePop} name={'dawdwad'} />
