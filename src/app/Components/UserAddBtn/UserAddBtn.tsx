@@ -1,6 +1,5 @@
 import Button from '../Button/Button';
 import styles from './UserAddBtn.module.scss';
-import Image from 'next/image';
 
 
 const UserAddBtn = () => {
