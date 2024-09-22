@@ -2,7 +2,7 @@ import styles from './Button.module.scss';
 import Image from 'next/image';
 
 type Props = {
-    onClick?: () => void;
+    onClick?: (() => void) | undefined;
     title: string;
     image?: string;
     mode?: 'fill' | 'outline' | 'unset'

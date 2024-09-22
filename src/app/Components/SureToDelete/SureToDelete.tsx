@@ -28,7 +28,7 @@ const SureToDelete = (props: Props) => {
             fetching()
         })
         props.onDeleteClick?.()
-    
+        props.onCancelClick?.()
     }
 
 

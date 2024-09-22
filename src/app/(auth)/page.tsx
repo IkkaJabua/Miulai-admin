@@ -21,21 +21,22 @@ import SureToDelete from '../Components/SureToDelete/SureToDelete';
 import Usertable from '../Components/UserTable/usertable';
 
 
+type Props = {
+    onButtonsOnclick?: () => void;
+}
 
-
-export default function Home() {
+export default function Home(props: Props) {
 
     return (
         <main className={styles.main}>       
             <Header />
             <div className={styles.user}>
                 <h1 className={styles.h1}>User Managment</h1>
-                <TotalUser totalUser={'211'} />
             </div>
-            <div className={styles.buttons}>
+            {/* <div className={styles.buttons}>
                 <UserBlockBtn />
                 <UserDeleteBtn />
-            </div>
+            </div> */}
             <Usertable />
         </main>
     )
