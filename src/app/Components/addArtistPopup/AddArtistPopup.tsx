@@ -9,7 +9,8 @@ import NewTreck from '../popups/newTreck/NewTreck'
 import AddAlbum from '../popups/addAlbum/addAlbum'
 import axios from 'axios'
 import { useRecoilState } from 'recoil'
-import { authorIdStates, cardDataStates } from '@/app/states'
+import { albumDataState, authorIdStates, cardDataStates } from '@/app/states'
+import { Divider } from 'antd'
 
 type Props = {
     setActive: Dispatch<SetStateAction<boolean>>;
@@ -33,10 +34,24 @@ const AddArtistPopup = (props: Props) => {
     const [deleted, setDeleted] = useState(false)
     const [albumButton, setAlbumButton] = useState(false)
     const [playlistData, setPlaylistData] = useRecoilState(cardDataStates)
-    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
-    const [albumData, setAlbumData] = useState()
 
+    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
+
+    const [albumData, setAlbumdata] = useRecoilState(albumDataState)
     const [authorData, setAuthorData] = useState<any>()
+    const [songs, setSongs] = useState<any>([])
+
+    const [image, setimage] = useRecoilState<Props>(cardDataStates)
+    const [edited, setEdited] = useState<boolean>(false)
+    const [editedBiography, setEditedBiography] = useState<string>()
+
+
+
+
+    const [releaseDate, setReleaseDate] = useState<any[]>([])
+
+
+
 
 
     useEffect(() => {
@@ -44,9 +59,18 @@ const AddArtistPopup = (props: Props) => {
         axios.get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`).
             then((r) => {
                 setAuthorData(r.data)
+                setAlbumdata(r.data.albums)
+
+
+                setimage(r.data)
+                setSongs(r.data.albums.map((album: any) => album.musics.length))
+                setReleaseDate(r.data.albums.map((album: any) => album.releaseDate))
+                // console.log('=====================', r.data.albums[0].releaseDate)
 
                 // console.log('aq mere albomshi chavwer , recoil albomis cvladshi informacias iqiT waviReb da davmapav amis mixedviiiiiT')
-                
+
+
+
                 // aq rac weria heshi am heshze gavushveb albomis damatgebas aidit da chavamateb aqedan,
                 // am aids recoil rame cvladshi chaviwer da albomshi wavigeb 
 
@@ -79,29 +103,29 @@ const AddArtistPopup = (props: Props) => {
                     setBiography(false)
                     setAlbumButton(false)
                 }}>
-                    <img src={'/icon/back.svg'} width={24} height={24} alt='back' />
+                    <Image className={styles.cursor} src={'/icon/back.svg'} width={24} height={24} alt='back' />
                 </div>
                 <div className={styles.font}>{authorData?.firstName} {authorData?.lastName}</div>
                 <div>
-                    <img onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='back' />
+                    <Image className={styles.cursor} onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='back' />
                 </div>
             </div>
             <div className={styles.body}>
                 <div className={styles.bodyTexture}>
-                    <img src={authorData?.files[0]?.url} width={267} height={152} alt='artist name' />
+                    <img className={styles.image} src={authorData?.files[0]?.url} width={267} height={152} alt='artist name' />
                 </div>
                 <div className={styles.bodyTextureTwo}>
                     <div className={styles.artistInformation}>
-                        <div className={styles.text}>tolat album</div>
-                        <div>I Hear You</div>
+                        <div className={styles.text}>Tolat album</div>
+                        <div>{albumData.length}</div>
                     </div>
                     <div className={styles.artistInformation}>
-                        <div className={styles.text}>release date</div>
-                        <div>  January 15, 2015</div>
+                        <div className={styles.text}>Release date</div>
+                        <div>{releaseDate}</div>
                     </div>
                     <div className={styles.artistInformation}>
-                        <div className={styles.text}> songs</div>
-                        <div>5</div>
+                        <div className={styles.text}>Songs</div>
+                        <div>{songs}</div>
                     </div>
                 </div>
             </div>
@@ -132,6 +156,7 @@ const AddArtistPopup = (props: Props) => {
                                     setAlbums(false)
                                     setBiography(true)
                                     setAlbumButton(false)
+
 
                                 }}
                                     className={biography ? styles.activefooterModeFont : styles.footerModeFont}>
@@ -168,8 +193,12 @@ const AddArtistPopup = (props: Props) => {
                         }
                         {
                             biography &&
+                            // there is button con can i make that edit
                             <Button
-                                // onClick={() => setNewTrack(!newTrack)}
+                                onClick={() => {
+                                    setEditedBiography(authorData?.biography)
+                                    setEdited(!edited)
+                                }}
                                 title={'Edit'}
                                 className={styles.biographyButton}
                                 image='/icon/pen.svg'
@@ -185,10 +214,23 @@ const AddArtistPopup = (props: Props) => {
 
                     }
                     {
-                        biography &&
-                        <div>
-                            {authorData?.biography}
-                        </div>
+                        biography && (
+                            edited ?
+                                // <div className={styles.biographyFont}>
+                                //     {authorData?.biography}
+                                // </div>
+                                <textarea
+                                    className={styles.inputText}
+                                    value={editedBiography}
+                                    rows={9}
+                                    onChange={(e) => setEditedBiography(e.target.value)}
+
+                                /> :
+                                <div className={styles.biographyFont}>
+                                    {authorData?.biography}
+                                </div>
+
+                        )
                     }
                     {
                         active && <Tables />

@@ -19,3 +19,14 @@ export const clikcState = atom({
     key: 'clikc',
     default: false
 })
+
+
+export const albumDataState = atom({
+    key: 'albumDataState',
+    default: []
+})
+
+export const albumIDState = atom({
+    key: 'albumIDState',
+    default: 0
+})

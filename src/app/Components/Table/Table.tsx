@@ -126,7 +126,7 @@ const MusicTable: React.FC = () => {
             key: 'artist',
             render: (text, record) => (
                 <div className={styles.artistCell}>
-                    <img src={record.files[0]?.url} width={40} height={40} alt={text} />
+                    <img className={styles.image} src={record.files[0]?.url} width={40} height={40} alt={text} />
                     <span>{record.firstName} {record.lastName}</span>
                 </div>
             ),

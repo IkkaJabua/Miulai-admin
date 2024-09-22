@@ -6,75 +6,45 @@ import { text } from "stream/consumers";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { albumDataState, albumIDState, authorIdStates, cardDataStates } from "@/app/states";
+import { useRecoilState } from "recoil";
+import type { Props } from "next/script";
 // import { useWindowSize } from "react-use";
 
 
 
 const Tables = () => {
+    const [data, setData] = useState<any>([])
+    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
+    const [albumID, setAlbumID] = useRecoilState(albumIDState)
+    const [image, setimage] = useRecoilState<any>(cardDataStates)
 
-    const [data, setData] = useState([])
+    const [deletes, setDeletes] = useState<any>()
 
     useEffect(() => {
-        axios.get('https://interstellar-1-pdzj.onrender.com/author').
+        axios.get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums/${albumID}/musics`).
             then((r) => {
-                setData(r.data)
-                console.log(r)
+                const musicData = r.data.musics;
+                setData(musicData);  
+                // console.log(r.data.musics.name)
+            }).catch((errors : any) => {
+                console.log('ar moaqvs musikebi ')
             })
-    })
 
-    // const { width, height } = useWindowSize();
-    // const isMobile = width > 767
+    }, [authorId,albumID])
 
-
-
-
-
-
-
-
-    const tableData = [
-        {
-            icon: '/table-icon.png',
-            title: 'Girls Are Fascinating',
-            author: 'By Anetha',
-            album: 'Mothearth',
-            time: '3:54',
-            id: 1,
-        }, {
-            icon: '/table-icon2.svg',
-            title: 'Smash My Heart',
-            author: 'By Anetha',
-            album: 'Pink',
-            time: '3:54',
-            id: 2
-        }, {
-            icon: '/table-icon3.svg',
-            title: 'Blackbird',
-            author: 'By Anetha',
-            album: 'Cowboy Carter',
-            time: '3:54',
-            id: 3
-        }, {
-            icon: '/table-icon4.svg',
-            title: 'Human',
-            author: 'By Anetha',
-            album: 'Zaba',
-            time: '3:54',
-            id: 4
-        },
-        {
-            icon: '/table-icon4.svg',
-            title: 'Human',
-            author: 'By Anetha',
-            album: 'Zaba',
-            time: '3:54',
-            id: 5
-        },
-    ]
+    const onDelete = (id: number) => {
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums/${albumID}/musics/${id}`).
+        then(r => {
+            alert('are shure you want to delete?')
+            console.log('waishalaaaaa',id)
+        }).catch((error) => {
+            console.log('ver waishalaaaaa', error)
+        })
 
 
 
-
+    }
 
     const columns = [
         {
@@ -96,7 +66,7 @@ const Tables = () => {
             width: '30%',
             render: (text: any, item: any) => (
                 <div className={styles.cellSongname}>
-                    <img src={item.files[0]?.url} width={48} height={48} alt={text} />
+                    <img className={styles.image} src={image?.files[0]?.url} width={48} height={48} alt={text} />
                     <div className={styles.fontGap}>
                         <div className={styles.songTitle}>{item.name}</div>
                         <div className={styles.songArtist}>{item.authorName}</div>
@@ -111,7 +81,7 @@ const Tables = () => {
             width: '15%',
             render: (text: any, item: any) => (
                 <div className={styles.cellTimeName}>
-                    {text}
+                    3.35
                 </div>
             )
         },
@@ -119,8 +89,8 @@ const Tables = () => {
             title: 'Actions',
             key: 'like',
             width: '3%',
-            render: (() =>
-                <div className={styles.center}>
+            render: ((record : any) =>
+                <div onClick={() => onDelete(record.id)}  className={styles.center}>
                     <Image src={'/icon/trashsh.svg'} width={24} height={24} alt="trash" />
 
                 </div>

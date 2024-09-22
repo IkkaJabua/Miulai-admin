@@ -81,7 +81,11 @@
 }
 
 .footerModeFont {
+    cursor: pointer;
     padding: 12px 24px;
+    color: #818385;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .footerPLaylist {
@@ -97,6 +101,7 @@
 }
 
 .activefooterModeFont {
+    cursor: pointer;
     padding: 12px 24px;
     border-bottom: 4px solid var(--Gradient-apolo, #F903D0);
 
@@ -137,4 +142,28 @@
     border: 1px solid #35353B;
     background: #151519;
 
+}
+
+.image {
+    border-radius: 8px;
+}
+
+.biographyFont {
+    color: #9E9A9F;
+    text-align: justify;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.inputText {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-style: normal;
+    background: #29292E;
+    color: #9E9A9F;
 }

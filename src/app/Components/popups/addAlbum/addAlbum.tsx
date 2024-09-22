@@ -5,6 +5,8 @@ import axios from 'axios'
 import Image from 'next/image'
 import { useState } from 'react'
 import ArtistForm from '../artistForm/artistForm'
+import { useRecoilState } from 'recoil'
+import { authorIdStates } from '@/app/states'
 
 interface Props {
     onClick?: () => void,
@@ -13,6 +15,10 @@ interface Props {
 }
 const AddAlbum = (props: Props) => {
     const [artistForm, setArtistForm] = useState(false)
+
+    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
+    const [message, setMessage] = useState<string>()
+
 
 
     const {
@@ -28,20 +34,19 @@ const AddAlbum = (props: Props) => {
 
 
     const onSubmit = (values: any) => {
-
         const data: any = new FormData()
-        data.append('file', values.file[0])
         data.append('albumName', values.albumName)
-        data.append('artistName', values.artistName)
+        // data.append('artistName', values.artistName)
         data.append('releaseDate', values.releaseDate)
+        data.append('file', values.file[0])
 
-
-
-        axios.post('https://interstellar-1-pdzj.onrender.com/album', data).
+        axios.post(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums`, data).
             then((r) => {
+                setMessage('Album are created')
                 console.log(r)
-            })
-
+            }).catch((errors : string) => {
+                setMessage('The album could not be created')
+            }) 
     }
 
 
@@ -72,7 +77,9 @@ const AddAlbum = (props: Props) => {
                             <Image src={'/icon/Screenshots.svg'} width={90} height={90} alt='screenshot' />
                         </label>
                         <input className={styles.photoInput} id='file-upload-file' type='file'
-                            {...register('file')}
+                            {...register('file',{
+                                required: true
+                            })}
                         />
                     </div>
                 </div>
@@ -81,7 +88,9 @@ const AddAlbum = (props: Props) => {
                         <div>Album Name </div>
                         <div>
                             <input className={styles.inputName} type='text'
-                                {...register('albumName')}
+                                {...register('albumName',{
+                                    required: true
+                                })}
                             />
                         </div>
                     </div>
@@ -96,11 +105,15 @@ const AddAlbum = (props: Props) => {
                     <div>Album Release Date</div>
 
                     <input className={styles.date} type='text'
-                        {...register('releaseDate')}
+                        {...register('releaseDate',{
+                            required: true
+                        })}
 
                     />
+                    <div >
+                        {message}
+                    </div>
                 </div>
-
             </div>
             <Button title={'Save'} className={styles.buttonTwo} />
         </form>

@@ -7,7 +7,7 @@ import styles from './UserPlaylist.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useRecoilState } from 'recoil'
-import { cardDataStates } from '@/app/states'
+import { albumDataState, albumIDState, cardDataStates } from '@/app/states'
 
 
 interface Props {
@@ -25,53 +25,39 @@ interface Props {
 
 const UserPlaylist = (props: Props) => {
     const router = useRouter()
-    const [playlistData, setPlaylistData] = useRecoilState<Props>(cardDataStates)
     const [albumButton, setAlbumButton] = useState(false)
+    const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
+
+    const [albumID, setAlbumID] = useRecoilState(albumIDState)
+
+
+    const [image, setimage] = useRecoilState<any>(cardDataStates)
+
+
+    
 
 
     const [active, setActive] = useState()
 
-    // const playListData = [
-    //     {
-    //         title: 'Playlist name 1',
-    //         icon: 'albumicon1.svg',
-    //         id: 1,
-    //     }, {
-    //         title: 'Playlist name 2',
-    //         icon: 'albumicon2.svg',
-    //         id: 2,
-    //     }, {
-    //         title: 'Playlist name 3',
-    //         icon: 'albumicon3.svg',
-    //         id: 3,
-    //     }, {
-    //         title: 'Playlist name 4',
-    //         icon: 'albumicon4.svg',
-    //         id: 4,
-    //     },
-        //     {
-        //         title: 'Playlist name 5',
-        //         icon: 'albumicon5.svg',
-        //         id: 5
-        //     }
-    // ]
 
 
     return (
-        // <>
-        //     {
-        //         playlistData.map((item) =>
-                    <div className={styles.container} key={playlistData.id}
-                    >
+        <>
+            {
+                albumData?.map((item: any) => (
+                    <div className={styles.container} key={item.id}>
                         <div className={styles.hoveredImage} >
                             {/* <Image className={styles.cellImage} src={`./icon/cardImage.svg`} width={170} height={136} alt='image' /> */}
-                            <img className={styles.cellImage} src={playlistData.image} width={170} height={136} alt='image' />
+                            <img className={styles.cellImage} src={image?.files[0]?.url} width={170} height={136} alt='image' />
 
                             <div className={styles.buttons}>
                                 <div onClick={() => {
                                     props.setAlbums(false)
                                     props.setActive(true)
                                     props.setAlbumButton(true)
+                                    setAlbumID(item.id)
+                                    console.log('=====================',item.id)
+
                                 }} className={styles.cellEdit}>
                                     <img src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
@@ -80,11 +66,11 @@ const UserPlaylist = (props: Props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={styles.font}>{playlistData.id}</div>
+                        <div className={styles.font}>{item.albumName}</div>
                     </div>
-//                 )
-//             }
-//         </>
+                ))
+            }
+        </>
     )
 }
 

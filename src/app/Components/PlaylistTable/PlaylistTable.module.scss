@@ -117,6 +117,7 @@
 .center {
     display: flex;
     padding-left: 15px;
+    cursor: pointer;
 }
 
 
@@ -192,4 +193,7 @@
 .cellLike {
     display: flex;
     align-items: center;
+}
+.image {
+    border-radius: 8px;
 }
