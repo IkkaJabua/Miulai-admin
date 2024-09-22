@@ -14,7 +14,7 @@ interface Props {
 
 
 const ArtistForm = (props: Props) => {
- 
+
     const [addAlbum , setAddAlbum] = useState(false)
 
     const {

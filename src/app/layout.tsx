@@ -1,25 +1,18 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.scss";
 import styles from './layout.module.scss';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
-
+import { Plus_Jakarta_Sans } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: "Miulai Admin",
   description: "Music App",
 };
 
-
-const inter = Inter({ subsets: ["latin"] });
 const PlusJakartaSans = Plus_Jakarta_Sans({
   weight: [],
   subsets: ['latin'],
   variable: '--font-Plus-Jakarta-sans'
-})
-
-
-
+});
 
 export default function RootLayout({
   children,
