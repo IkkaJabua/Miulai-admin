@@ -22,21 +22,28 @@ const data = [
         id: 4,
         image: '/image/card-default-image.png',
     },
-]
+];
 
 type Props = {
     onEdit?: () => void;
-}
+};
 
 const ArtPopupCards = (props: Props) => {
-
-    return(
+    return (
         <div className={styles.container}>
-            {
-                data.map((item) => <Card header={''} onEdit={props.onEdit} image={item.image} title={item.title} id={item.id} imageStyle={'normal'} /> )
-            }
+            {data.map((item) => (
+                <Card 
+                    key={item.id} 
+                    header={''} 
+                    onEdit={props.onEdit} 
+                    image={item.image} 
+                    title={item.title} 
+                    id={item.id} 
+                    imageStyle={'normal'} 
+                />
+            ))}
         </div>
-    )
-}
+    );
+};
 
 export default ArtPopupCards;

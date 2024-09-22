@@ -7,20 +7,19 @@ import Image from 'next/image'
 import { useState } from 'react'
 import ArtistForm from '@/app/Components/popups/artistForm/artistForm'
 
-
 const Management = () => {
     const [active, setActive] = useState(false)
-    const [popupActive, setPopupActive] = useState(0)
 
     return (
         <div className={styles.container}>
             <Header />
             <div className={styles.font}>
-                Content  Management
+                Content Management
             </div>
             <div className={styles.containerButtons}>
                 <div>
-                    <Button title={'Add'}
+                    <Button
+                        title={'Add'}
                         mode='fill'
                         className={styles.button}
                         onClick={() => setActive(!active)}
@@ -32,17 +31,13 @@ const Management = () => {
                 </div>
             </div>
             <Table />
-            {
-                active &&
+            {active && (
                 <div className={styles.popup}>
-                    <ArtistForm onClick={() => setActive(false)}/>
+                    <ArtistForm onClick={() => setActive(false)} />
                 </div>
-            }
-
+            )}
         </div>
-
     )
 }
-
 
 export default Management

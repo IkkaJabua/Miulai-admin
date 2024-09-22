@@ -1,5 +1,4 @@
 'use client';
-import { Table } from 'antd';
 import styles from './page.module.scss';
 import Header from '../Components/Header/Header';
 import TotalUser from '../Components/TotalUser/TotalUser';
@@ -8,16 +7,12 @@ import UserDeleteBtn from '../Components/UserDeleteBtn/UserDeleteBtn';
 import UserBlockBtn from '../Components/UserBlockBtn/UserBlockBtn';
 import Usertable from '../Components/userTable/usertable';
 
-
-
-
 export default function Home() {
-
     return (
         <main className={styles.main}>
             <Header />
             <div className={styles.user}>
-                <h1 className={styles.h1}>User Managment</h1>
+                <h1 className={styles.h1}>User Management</h1>
                 <TotalUser totalUser={'211'} />
             </div>
             <div className={styles.buttons}>
@@ -27,5 +22,5 @@ export default function Home() {
             </div>
             <Usertable />
         </main>
-    )
+    );
 }
