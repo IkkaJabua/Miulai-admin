@@ -6,30 +6,22 @@ import { useState, useEffect } from 'react';
 type Props = {
     onDeleteClick?: () => void;
     onCancelClick?: () => void;
-    id: number | string;
+    onUserDeleted?: () => void;
+    id: number | undefined;
 }
 
 const SureToDelete = (props: Props) => {
 
-    const [users, setUsers] = useState([])
-    const fetching = () => {
-        axios.get('https://interstellar-1-pdzj.onrender.com/user')
-            .then((result) => {
-                setUsers(result.data)
 
-            })
-    }
-    useEffect(fetching, [])
-
-
-    const userDelete = async (values: any) => {
+    const userDelete = async () => {
         axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`)
-        .then(r => {
-            fetching()
+        .then(() => {
+            props.onDeleteClick?.()
+            props.onCancelClick?.()
         })
-        props.onDeleteClick?.()
-        props.onCancelClick?.()
+        
     }
+    
 
 
     return (

@@ -1641,7 +1641,9 @@ import SureToDelete from '../SureToDelete/SureToDelete';
 import UserBlockBtn from '../UserBlockBtn/UserBlockBtn';
 import UserDeleteBtn from '../UserDeleteBtn/UserDeleteBtn';
 import styles from './UserTable.module.scss';
-
+import middleware from '../../../../middleware';
+import useToken from 'antd/es/theme/useToken';
+import Cookies from 'js-cookie';
 type User = {
     id: number;
     email: string;
@@ -1661,6 +1663,7 @@ const UserTable: React.FC = () => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [activePasswordId, setActivePasswordId] = useState<number | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
+    console.log(users, 'users');
 
     const openPop = () => setArtistPopup(true);
     const closePop = () => setArtistPopup(false);
@@ -1675,9 +1678,23 @@ const UserTable: React.FC = () => {
     };
     const hideDeleteModal = () => setDeleteModal(false);
 
+
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('https://interstellar-1-pdzj.onrender.com/user');
+            // const accessToken = document.cookie
+            // .split('; ')
+            // .find((row) => row.startsWith('token='))
+            // ?.split('=')[1]; 
+            const accessToken = Cookies.get('token')
+
+
+
+            console.log('Access token', accessToken)
+            const response = await axios.get('https://interstellar-1-pdzj.onrender.com/user', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
             const fetchedUsers = response.data.map((user: User) => ({ ...user, block: false }));
             setUsers(fetchedUsers);
         } catch (error) {
@@ -1686,7 +1703,7 @@ const UserTable: React.FC = () => {
     };
 
 
-    
+    console.log(users, 'useerrs')
     useEffect(() => {
         fetchUsers();
     }, []);
@@ -1702,6 +1719,7 @@ const UserTable: React.FC = () => {
             setBlockedUsers(updatedUsers.filter(user => user.block));
             return updatedUsers;
         });
+        axios.patch(`https://interstellar-1-pdzj.onrender.com/block`)
     };
 
     const handlePasswordToggle = (id: number) => {
@@ -1815,7 +1833,7 @@ const UserTable: React.FC = () => {
                             gap: '20px',
                             position: 'absolute',
                             top: '-112px',
-                            zIndex: '10'
+                            zIndex: '10',
                         }}>
                             <UserBlockBtn />
                             <UserDeleteBtn />
@@ -1871,7 +1889,7 @@ const UserTable: React.FC = () => {
                             top: '-112px',
                             zIndex: '10'
                         }}>
-                           
+
                             <UserDeleteBtn />
                         </div>
                     )}

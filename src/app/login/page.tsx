@@ -3,18 +3,20 @@ import styles from './page.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from '../Components/Button/Button';
-import { useForm } from 'react-hook-form';
-import axios from 'axios'
+import { useForm } from 'react-hook-form'
 import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
 import { useRouter } from 'next/navigation';
 import { setCookie } from '../cookies';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+
 
 
 type SignIn = {
     email: string;
     password: string;
-    remember: boolean;
+    remember: boolean;  
 }
 
 const Login = () => {
@@ -23,14 +25,16 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const onLogin = (values: any) => {
+        console.log(values , 'zd2');
+        
         axios.post('https://interstellar-1-pdzj.onrender.com/auth', values)
             .then(r => {
-
-                setCookie('token', r.data.accesToken, 60)
-                router.push('/')
-            })
-           
-            
+                setCookie('token', r.data.accesToken, 60) 
+                // Cookies.set('token', r.data.accessToken, { expires: 1, secure: true });
+            })  .catch(error => {
+                console.error('Login failed:', error.response?.data || error.message);
+                // Optionally: display error feedback to the user here
+            });
     }
 
     const togglePasswordVisibility = () => {
@@ -85,7 +89,7 @@ const Login = () => {
 
                             <div className={styles.passwordWrapper}>
                                 <input type={showPassword ? 'text' : 'password'}
-                                    id=""
+                                    
                                     placeholder='Password'
                                     className={styles.inputPassword}
                                     {...register('password', {
@@ -120,13 +124,13 @@ const Login = () => {
                                 Forgot your password?
                             </div>
                         </div> */}
-                        
+
                     </form>
-                    <Button title={'SIGN IN'}
-                            mode={'fill'}
-                            onClick={() => console.log('button clicked')}
-                            className={styles.button} />
-                    
+                    <input type='submit' value={'SIGN IN'}
+                       
+                        onClick={onLogin}
+                        className={styles.button} />
+
                 </div>
             </div>
         </div>

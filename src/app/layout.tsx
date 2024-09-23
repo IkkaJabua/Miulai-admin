@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.scss";
 import styles from './layout.module.scss';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
-
+import './styles/ant.tab.scss'
 
 export const metadata: Metadata = {
   title: "Miulai Admin",
