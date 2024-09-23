@@ -16,7 +16,7 @@ import axios from 'axios';
 type SignIn = {
     email: string;
     password: string;
-    remember: boolean;  
+    remember: boolean;
 }
 
 const Login = () => {
@@ -25,13 +25,13 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const onLogin = (values: any) => {
-        console.log(values , 'zd2');
-        
+        console.log(values, 'zd2');
+
         axios.post('https://interstellar-1-pdzj.onrender.com/auth', values)
             .then(r => {
-                setCookie('token', r.data.accesToken, 60) 
-                // Cookies.set('token', r.data.accessToken, { expires: 1, secure: true });
-            })  .catch(error => {
+                // setCookie('token', r.data.accesToken, 60)
+                Cookies.set('token', r.data.accessToken);
+            }).catch(error => {
                 console.error('Login failed:', error.response?.data || error.message);
                 // Optionally: display error feedback to the user here
             });
@@ -89,7 +89,7 @@ const Login = () => {
 
                             <div className={styles.passwordWrapper}>
                                 <input type={showPassword ? 'text' : 'password'}
-                                    
+
                                     placeholder='Password'
                                     className={styles.inputPassword}
                                     {...register('password', {
@@ -125,11 +125,12 @@ const Login = () => {
                             </div>
                         </div> */}
 
+                        <input type='submit' value={'SIGN IN'}
+
+                            onClick={onLogin}
+                            className={styles.button} />
                     </form>
-                    <input type='submit' value={'SIGN IN'}
-                       
-                        onClick={onLogin}
-                        className={styles.button} />
+
 
                 </div>
             </div>
