@@ -40,7 +40,7 @@ const AddAlbum = (props: Props) => {
         data.append('releaseDate', values.releaseDate)
         data.append('file', values.file[0])
 
-        axios.post(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums`, data).
+        axios.post(`https://interstellar-1-pdzj.onrender.com/author/2/albums`, data).
             then((r) => {
                 setMessage('Album are created')
                 console.log(r)

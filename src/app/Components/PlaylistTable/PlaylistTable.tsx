@@ -39,7 +39,7 @@ const Tables = () => {
             alert('are shure you want to delete?')
             console.log('waishalaaaaa',id)
         }).catch((error) => {
-            console.log('ver waishalaaaaa', error)
+            console.log()
         })
 
 

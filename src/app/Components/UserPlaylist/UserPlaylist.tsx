@@ -2,12 +2,13 @@
 import { title } from 'process'
 // import styles from './UserPlaylist.module.scss'
 import Image from 'next/image'
-import { useState, type Dispatch, type SetStateAction } from 'react'
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import styles from './UserPlaylist.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useRecoilState } from 'recoil'
 import { albumDataState, albumIDState, cardDataStates } from '@/app/states'
+import axios from 'axios'
 
 
 interface Props {
@@ -27,17 +28,30 @@ const UserPlaylist = (props: Props) => {
     const router = useRouter()
     const [albumButton, setAlbumButton] = useState(false)
     const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
+    const [data, setData] = useState()
 
     const [albumID, setAlbumID] = useRecoilState(albumIDState)
 
 
     const [image, setimage] = useRecoilState<any>(cardDataStates)
-
-
     
 
-
     const [active, setActive] = useState()
+
+
+    // useEffect(() => {
+    //     axios.get(`https://interstellar-1-pdzj.onrender.com/author/albums/${albumID}`).
+    //         then((r) => {
+    //             // const musicData = r.data.musics;
+    //             // setData(musicData);
+    //             // setAlbumdata(r.data.albums)
+    //             // console.log(r.data.musics.name)
+    //             console.log('==============')
+    //         }).catch((errors: any) => {
+    //             console.log('ar moaqvs musikebi ')
+    //         })
+
+    // },[albumID])
 
 
 

@@ -60,20 +60,9 @@ const AddArtistPopup = (props: Props) => {
             then((r) => {
                 setAuthorData(r.data)
                 setAlbumdata(r.data.albums)
-
-
                 setimage(r.data)
                 setSongs(r.data.albums.map((album: any) => album.musics.length))
                 setReleaseDate(r.data.albums.map((album: any) => album.releaseDate))
-                // console.log('=====================', r.data.albums[0].releaseDate)
-
-                // console.log('aq mere albomshi chavwer , recoil albomis cvladshi informacias iqiT waviReb da davmapav amis mixedviiiiiT')
-
-
-
-                // aq rac weria heshi am heshze gavushveb albomis damatgebas aidit da chavamateb aqedan,
-                // am aids recoil rame cvladshi chaviwer da albomshi wavigeb 
-
             },).
             catch(error => {
                 console.log('there is something error', error)
@@ -244,5 +233,6 @@ const AddArtistPopup = (props: Props) => {
 }
 
 export default AddArtistPopup
+
 
 
