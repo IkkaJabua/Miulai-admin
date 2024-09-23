@@ -21,26 +21,28 @@ const Tables = () => {
 
     const [deletes, setDeletes] = useState<any>()
 
+
     useEffect(() => {
-        axios.get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums/${albumID}/musics`).
+
+        axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`).
             then((r) => {
                 const musicData = r.data.musics;
-                setData(musicData);  
-                // console.log(r.data.musics.name)
-            }).catch((errors : any) => {
-                console.log('ar moaqvs musikebi ')
-            })
+                setData(musicData);
+                console.log(r.data.musics, '========================')
 
-    }, [authorId,albumID])
+            })
+    }, [albumID])
+
+
 
     const onDelete = (id: number) => {
         axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums/${albumID}/musics/${id}`).
-        then(r => {
-            alert('are shure you want to delete?')
-            console.log('waishalaaaaa',id)
-        }).catch((error) => {
-            console.log()
-        })
+            then(r => {
+                alert('are shure you want to delete?')
+                console.log('waishalaaaaa', id)
+            }).catch((error) => {
+                console.log()
+            })
 
 
 
@@ -89,8 +91,8 @@ const Tables = () => {
             title: 'Actions',
             key: 'like',
             width: '3%',
-            render: ((record : any) =>
-                <div onClick={() => onDelete(record.id)}  className={styles.center}>
+            render: ((record: any) =>
+                <div onClick={() => onDelete(record.id)} className={styles.center}>
                     <Image src={'/icon/trashsh.svg'} width={24} height={24} alt="trash" />
 
                 </div>
