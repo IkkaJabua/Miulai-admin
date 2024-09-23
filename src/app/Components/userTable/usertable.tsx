@@ -1641,7 +1641,7 @@ import SureToDelete from '../SureToDelete/SureToDelete';
 import UserBlockBtn from '../UserBlockBtn/UserBlockBtn';
 import UserDeleteBtn from '../UserDeleteBtn/UserDeleteBtn';
 import styles from './UserTable.module.scss';
-import middleware from '../../../../middleware';
+import middleware from '../../../middleware';
 import useToken from 'antd/es/theme/useToken';
 import Cookies from 'js-cookie';
 type User = {
@@ -1685,7 +1685,7 @@ const UserTable: React.FC = () => {
             // .split('; ')
             // .find((row) => row.startsWith('token='))
             // ?.split('=')[1]; 
-            const accessToken = Cookies.get('token')
+            const accessToken = Cookies.get('accessToken')
 
 
 

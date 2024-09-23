@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 
-const publicRoutes = ['/signin']
+const publicRoutes = ['/login']
 
 export default async function middleware(req: NextRequest) {
     // NextResponse.redirect('/')
@@ -11,16 +11,16 @@ export default async function middleware(req: NextRequest) {
 
     const token = cookies().get('accessToken');
     const path = req.nextUrl.pathname
-    
+
     const pathIsPublic = publicRoutes.includes(path)
 
-    if(/*path === '/signin'*/ pathIsPublic && token) { 
-      return  NextResponse.redirect(new URL('/', req.url))
+    if (/*path === '/signin'*/ pathIsPublic && token) {
+        return NextResponse.redirect(new URL('/', req.url))
     }
 
-    if(!token && !pathIsPublic /*path !== '/signin'*/) {
-      
-        return NextResponse.redirect(new URL('/signin', req.url))
+    if (!token && !pathIsPublic /*path !== '/signin'*/) {
+
+        return NextResponse.redirect(new URL('/login', req.url))
     }
 
     return NextResponse.next()
