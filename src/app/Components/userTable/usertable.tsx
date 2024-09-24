@@ -383,12 +383,14 @@ const UserTable: React.FC = () => {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
-            
+
+
             });
             const fetchedUsers = response.data.map((user: User) => ({ ...user, block: false }));
             setUsers(fetchedUsers);
         } catch (error) {
             console.error('Error fetching users:', error);
+
         }
     };
 
@@ -400,7 +402,6 @@ const UserTable: React.FC = () => {
 
 
 
-
     const toggleBlock = (id: number) => {
         setUsers((prevUsers) => {
             const updatedUsers = prevUsers.map(user =>
@@ -409,8 +410,23 @@ const UserTable: React.FC = () => {
             setBlockedUsers(updatedUsers.filter(user => user.block));
             return updatedUsers;
         });
-        axios.patch(`https://interstellar-1-pdzj.onrender.com/block`)
+        axios.patch(`https://interstellar-1-pdzj.onrender.com/user/block/${id}`)
+
     };
+
+
+    const toggleUnBlock = (id: number) => {
+        setUsers((prevUsers) => {
+            const updatedUsers = prevUsers.map(user =>
+                user.id === id ? { ...user, block: !user.block } : user
+            );
+            setBlockedUsers(updatedUsers.filter(user => user.block));
+            return updatedUsers;
+        });
+        axios.patch(`https://interstellar-1-pdzj.onrender.com/user/unblock/${id}`)
+    };
+
+
 
     const handlePasswordToggle = (id: number) => {
         setActivePasswordId(activePasswordId === id ? null : id);
@@ -534,6 +550,7 @@ const UserTable: React.FC = () => {
                         rowSelection={{
                             selectedRowKeys: selectedRowKeysAll,
                             onChange: setSelectedRowKeysAll,
+
                         }}
                         className={styles.wrapper}
                         columns={columns}

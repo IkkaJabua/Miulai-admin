@@ -9,6 +9,3 @@ export function setCookie(name: string, value: string, days: number) {
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
-// const setTokenCookie=(token) => {
-//     Cookies.set
-// }

@@ -29,8 +29,10 @@ const Login = () => {
         axios.post('https://interstellar-1-pdzj.onrender.com/auth', values)
             .then(r => {
                 // setCookie('token', r.data.accesToken, 60)
-                Cookies.set('accessToken', r.data.accessToken);
-                router.push('/')
+                Cookies.set('accessToken', r.data.accessToken, { expires: 3600 }); /*ექსფაიერ როცა უწერია ტიკენი ინახება, რეფრეშზეც და იუზერი არ იშლება */
+                if(r.data.role === 'admin') {
+                    router.push('/')
+                }
             }).catch(error => {
                 console.error('Login failed:', error.response?.data || error.message);
             });

@@ -4,30 +4,35 @@ import Button from '../Button/Button';
 import styles from './UserDeleteBtn.module.scss';
 
 type Props = {
-    onDeleteClick?: () => void;
+    // onDeleteClick?: () => void;
     id?: number;
 }
 
 const UserDeleteBtn = (props: Props) => {
 
-    const [users, setUsers] = useState([])
-    const fetching = () => {
-        axios.get('https://interstellar-1-pdzj.onrender.com/user')
-            .then((result) => {
-                setUsers(result.data)
+    // const [users, setUsers] = useState([])
+    // const fetching = () => {
+    //     axios.get('https://interstellar-1-pdzj.onrender.com/user')
+    //         .then((result) => {
+    //             setUsers(result.data)
+    //         })
+    // }
 
-            })
-    }
-    useEffect(fetching, [])
+    // useEffect(fetching, [])
 
+  
+    // const userDelete = async () => {
+    //     axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`)
+    //         .then(r => {
+    //             fetching()
+    //         })
+    // }
 
-    const userDelete = async (values: any) => {
+    
+    const userDelete = async () => {
         axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`)
-            .then(r => {
-                fetching()
-            })
-        props.onDeleteClick?.()
-
+        
+        
     }
 
     return(
