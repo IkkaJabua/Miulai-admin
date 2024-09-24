@@ -14,14 +14,16 @@ export default async function middleware(req: NextRequest) {
 
     const pathIsPublic = publicRoutes.includes(path)
 
-    if (/*path === '/signin'*/ pathIsPublic && token) {
-        return NextResponse.redirect(new URL('/', req.url))
+    if (pathIsPublic && token) {
+        return NextResponse.redirect(new URL('/', req.url)) 
     }
 
-    if (!token && !pathIsPublic /*path !== '/signin'*/) {
+    if (!token && !pathIsPublic) {
 
         return NextResponse.redirect(new URL('/login', req.url))
     }
+
+    
 
     return NextResponse.next()
 }

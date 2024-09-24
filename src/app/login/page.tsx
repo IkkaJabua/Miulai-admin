@@ -34,7 +34,6 @@ const Login = () => {
                 router.push('/')
             }).catch(error => {
                 console.error('Login failed:', error.response?.data || error.message);
-                // Optionally: display error feedback to the user here
             });
     }
 
@@ -126,8 +125,8 @@ const Login = () => {
                             </div>
                         </div> */}
 
-                        <input type='submit' value={'SIGN IN'}
-
+                        <input type='submit'
+                            value={'SIGN IN'}
                             onClick={onLogin}
                             className={styles.button} />
                     </form>

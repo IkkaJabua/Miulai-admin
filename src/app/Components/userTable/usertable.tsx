@@ -1644,6 +1644,7 @@ import styles from './UserTable.module.scss';
 import middleware from '../../../middleware';
 import useToken from 'antd/es/theme/useToken';
 import Cookies from 'js-cookie';
+import router from 'next/router';
 type User = {
     id: number;
     email: string;
@@ -1681,19 +1682,14 @@ const UserTable: React.FC = () => {
 
     const fetchUsers = async () => {
         try {
-            // const accessToken = document.cookie
-            // .split('; ')
-            // .find((row) => row.startsWith('token='))
-            // ?.split('=')[1]; 
             const accessToken = Cookies.get('accessToken')
-
-
 
             console.log('Access token', accessToken)
             const response = await axios.get('https://interstellar-1-pdzj.onrender.com/user', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
+            
             });
             const fetchedUsers = response.data.map((user: User) => ({ ...user, block: false }));
             setUsers(fetchedUsers);

@@ -3,7 +3,7 @@ import styles from './UserPopup.module.scss';
 import Image from 'next/image';
 import { cookies } from 'next/dist/client/components/headers';
 import router, { useRouter } from 'next/navigation';
-
+import Cookies from 'js-cookie'; 
 
 type Props = {
     userName: string;
@@ -11,14 +11,20 @@ type Props = {
 }
 
 const UserPopup = ({ userName, userGmail }: Props) => {
+
+
     const router = useRouter();
-  const handleLogOut = () => {
-    // Delete the token from cookies
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    router.push('/signin')
-    // Refresh the page to reflect the logout state
-    window.location.reload();
-  };
+    const handleLogOut = () => {
+        // Delete the token from cookies
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        
+        Cookies.remove('accessToken');
+        router.push('/login')
+        // Refresh the page to reflect the logout state
+        window.location.reload();
+    //    alert('helloooooooooooooooooooooooooooooo')
+    };
+
 
     return (
         <div className={styles.container}>
