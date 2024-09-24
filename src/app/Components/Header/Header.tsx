@@ -32,8 +32,8 @@ const Header = () => {
                 {showPopup && (
                     <div className={styles.popupWrapper}>
                         <UserPopup
-                            userName={'ddawd'}
-                            userGmail={'dawdawawd'}      
+                            
+          
                         />
                     </div>
                 )}
