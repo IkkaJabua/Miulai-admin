@@ -3,7 +3,16 @@ import { Table } from "antd";
 import styles from './PlaylistTable.module.scss';
 import Image from "next/image";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import SureToDelete from "../SureToDelete/SureToDelete";
+import SureToDeleteSong from "../SureToDeleteSong/SureToDeleteSong";
+
+type Props = {
+    name?: string;
+    id?: number;
+}
+
+
 
 interface Song {
     icon: string;
@@ -14,101 +23,100 @@ interface Song {
     id: number;
 }
 
-    // const tableData = [
-    //     {
-    //         icon: '/table-icon.png',
-    //         title: 'Girls Are Fascinating',
-    //         author: 'By Anetha',
-    //         album: 'Mothearth',
-    //         time: '3:54',
-    //         id: 1,
-    //     }, ]
+// const tableData: Song[] = [
+//     {
+//         icon: '/table-icon.png',
+//         title: 'Girls Are Fascinating',
+//         author: 'By Anetha',
+//         album: 'Mothearth',
+//         time: '3:54',
+//         id: 1,
+//     },
+//     {
+//         icon: '/table-icon2.svg',
+//         title: 'Smash My Heart',
+//         author: 'By Anetha',
+//         album: 'Pink',
+//         time: '3:54',
+//         id: 2
+//     },
+//     {
+//         icon: '/table-icon3.svg',
+//         title: 'Blackbird',
+//         author: 'By Anetha',
+//         album: 'Cowboy Carter',
+//         time: '3:54',
+//         id: 3
+//     },
+//     {
+//         icon: '/table-icon4.svg',
+//         title: 'Human',
+//         author: 'By Anetha',
+//         album: 'Zaba',
+//         time: '3:54',
+//         id: 4
+//     },
+//     {
+//         icon: '/table-icon4.svg',
+//         title: 'Human',
+//         author: 'By Anetha',
+//         album: 'Zaba',
+//         time: '3:54',
+//         id: 5
+//     },
+// ];
 
-    const [music, setMusic] = useState([]);
-    const [open, setOpen] = useState(false);
-
-    const closeModal = () => {
-        setOpen(false)
-    }
-
-    const openModal = () => {
-        setOpen(true)
-    }
-
-
-    useEffect(() => {
-        axios.get(`https://interstellar-1-pdzj.onrender.com/playlist/${props.id}`)
-        .then((r) => {
-            setMusic(r.data.files)         
-        })
-    }, [])
-    
-
-    const deleteSong = async (values: any) => {
-        axios.delete(`https://interstellar-1-pdzj.onrender.com/music/${props.id}`)
-         .then((r) => {
-            setMusic(r.data.id)
-            //  alert('music has deleted')   
-         })
-    }
-
-
-
-
-    const columns = [
-        {
-            title: '#',
-            dataIndex: 'id',
-            key: 'id',
-            width: '1%',
-            render: (text: any, item: any) => (
-                <div className={styles.cellId}>
-                {props.id}
+const columns = [
+    {
+        title: '#',
+        dataIndex: 'id',
+        key: 'id',
+        width: '1%',
+        render: (text: number) => (
+            <div className={styles.cellId}>
+                {text}
+            </div>
+        )
+    },
+    {
+        title: 'Song Name',
+        dataIndex: 'title',
+        key: 'title',
+        width: '30%',
+        render: (text: string, item: Song) => (
+            <div className={styles.cellSongname}>
+                <Image src={'/image/imagesrc.png'} width={48} height={48} alt={text} />
+                <div className={styles.fontGap}>
+                    <div className={styles.songTitle}>{text}</div>
+                    <div className={styles.songArtist}>{item.author}</div>
                 </div>
-            )
-        },
+            </div>
+        ),
+    },
+    {
+        title: 'Time',
+        dataIndex: 'time',
+        key: 'time',
+        width: '15%',
+        render: (text: string) => (
+            <div className={styles.cellTimeName}>
+                {text}
+            </div>
+        )
+    },
+    {
+        title: 'Actions',
+        key: 'like',
+        width: '3%',
+        render: () => (
+            <div className={styles.center}>
+                <Image src={'/icon/trashsh.svg'} width={24} height={24} alt="trash" />
+            </div>
+        )
+    },
+];
 
-        {
-            title: 'Song Name',
-            dataIndex: 'title',
-            key: 'title',
-            width: '30%',
-            render: (text: any, item: any) => (
-                <div className={styles.cellSongname}>
-                    <Image src={'/image/imagesrc.png'} width={48} height={48} alt={text} />
-                    <div className={styles.fontGap}>
-                        <div className={styles.songTitle}>{props.name}</div>
-                        <div className={styles.songArtist}>{item.author}</div>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            title: 'Time',
-            dataIndex: 'time',
-            key: 'time',
-            width: '15%',
-            render: (text: any, item: any) => (
-                <div className={styles.cellTimeName}>
-                    {text}
-                </div>
-            )
-        },
-        {
-            title: 'Actions',
-            key: 'like',
-            width: '3%',
-            render: (() =>
-                <div className={styles.center} onClick={deleteSong}>
-                    <Image src={'/icon/trashsh.svg'} width={24} height={24} alt="trash" />
-
-                </div>
-
-            )
-        },
-    ];
-
-
+const Tables = (props: Props) => {
     return (
         <div className={styles.wrapper}>
             <Table
