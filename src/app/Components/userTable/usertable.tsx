@@ -6,7 +6,7 @@ import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import { useForm } from "react-hook-form";
-import styles from './UserTable.module.scss';
+import styles from './usertable.module.scss';
 import ArtistPopup from '../ArtistPopup/ArtistPopup';
 
 interface User {
