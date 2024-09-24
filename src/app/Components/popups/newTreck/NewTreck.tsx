@@ -1,64 +1,56 @@
-import axios from 'axios'
-import styles from './NewTreck.module.scss'
-import Image from 'next/image'
-import { useForm, SubmitHandler } from "react-hook-form"
-import { useState } from 'react'
-
-
-
+import axios from 'axios';
+import styles from './NewTreck.module.scss';
+import Image from 'next/image';
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
+    onClick: () => void;
+}
 
-    onClick?: () => void
+interface FormData {
+    name: string;
+    file: FileList;
 }
 
 const NewTreck = (props: Props) => {
-
-    const [track, setTrack] = useState<boolean>()
-
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
-    } = useForm<any>()
+    } = useForm<FormData>();
 
+    const onSubmit: SubmitHandler<FormData> = (value) => {
+        const data = new FormData();
+        data.append('name', value.name);
+        data.append('file', value.file[0]);
 
-    const onSubmit = (value: any) => {
-        const data = new FormData()
-        data.append('name', value.name)
-        data.append('file', value.file[0])
+        axios.post('https://interstellar-1-pdzj.onrender.com/music', data)
+            .then((r) => {
+                console.log(r);
+            });
 
-
-        axios.post('https://interstellar-1-pdzj.onrender.com/music',data).
-        then((r) => {
-            console.log(r)
-        })
-
-        console.log(value)
-
-    }
+        console.log(value);
+    };
 
     return (
-
         <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
             <div className={styles.header}>
-                {/* <Image src={'/icon/back.svg'} width={24} height={24} alt='back' /> */}
                 <div className={styles.font}>Add New track</div>
-                <Image onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='back' />
+                <Image onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='delete' />
             </div>
             <div className={styles.gap}>
                 <div>Track Names</div>
-                <input className={styles.name} type="text"  {...register('name')}/>
+                <input className={styles.name} type="text" {...register('name', { required: true })} />
+                {errors.name && <span>This field is required</span>}
             </div>
             <div className={styles.twoFile}>
                 <div>Upload Music file</div>
-                <input className={styles.file} type="file"  {...register('file')}/>
+                <input className={styles.file} type="file" {...register('file', { required: true })} />
+                {errors.file && <span>This field is required</span>}
             </div>
             <input type='submit' value={'Save'} className={styles.button} />
         </form>
-    )
-
+    );
 }
 
-export default NewTreck
+export default NewTreck;

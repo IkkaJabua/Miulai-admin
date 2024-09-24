@@ -1,6 +1,5 @@
 'use client';
 
-
 import { Table } from 'antd';
 import Tables from '../Components/Table/Table'
 import Button from '../Components/Button/Button';
@@ -20,13 +19,7 @@ import NewPassword from '../Components/NewPassword/NewPassword';
 import SureToDelete from '../Components/SureToDelete/SureToDelete';
 import Usertable from '../Components/UserTable/usertable';
 
-
-type Props = {
-    onButtonsOnclick?: () => void;
-}
-
-export default function Home(props: Props) {
-
+export default function Home() {
     return (
         <main className={styles.main}>       
             <Header />
@@ -39,5 +32,5 @@ export default function Home(props: Props) {
             </div> */}
             <Usertable />
         </main>
-    )
+    );
 }

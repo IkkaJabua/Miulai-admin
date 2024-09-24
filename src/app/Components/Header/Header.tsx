@@ -3,25 +3,22 @@ import styles from './Header.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
 import UserPopup from '../UserPopup/UserPopup';
-import { useRouter } from 'next/router';
-
+// Removed the unused import
+// import { useRouter } from 'next/router';
 
 const Header = () => {
-
     const [showPopup, setShowPopup] = useState(false);
-    // const router = useRouter();
 
-    // toggle - ს პრინციპია ამ ფუნქციაში
+    // toggle function
     const togglePopup = () => {
         setShowPopup(!showPopup);
     };
 
     
-    
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
-                <Input className={styles.input} placeholder='Username,Email' />
+                <Input className={styles.input} placeholder='Username, Email' />
                
                 <div className={styles.userIconWrapper} onClick={togglePopup}>
                     <Image
@@ -42,8 +39,8 @@ const Header = () => {
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 
 export default Header;

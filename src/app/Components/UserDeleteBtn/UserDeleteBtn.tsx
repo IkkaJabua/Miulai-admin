@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
 import styles from './UserDeleteBtn.module.scss';
-import Image from 'next/image';
 
 type Props = {
     onDeleteClick?: () => void;

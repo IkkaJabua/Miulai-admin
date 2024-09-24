@@ -1,15 +1,11 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import styles from './Table.module.scss';
-import PlaylistInput from '../playlistinput/playlistinput';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
-import AddAlbum from '../popups/addAlbum/addAlbum';
-
-
 
 interface DataType {
     key: string;
@@ -18,8 +14,6 @@ interface DataType {
     totalAlbums: number;
     totalSongs: number;
     image: string;
-    name?: any;
-    id?: any;
 }
 
 const data: DataType[] = [
@@ -35,119 +29,21 @@ const data: DataType[] = [
         key: '2',
         artist: 'Arianna Grande',
         image: 'rihana.svg',
-
         totalStreams: 558612,
         totalAlbums: 5,
         totalSongs: 5,
     },
-    {
-        key: '3',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '4',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '5',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '6',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '7',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '8',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '9',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '10',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '11',
-        artist: 'Rihanna',
-        image: 'rihana.svg',
-
-        totalStreams: 267400,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
-    {
-        key: '12',
-        artist: 'Arianna Grande',
-        image: 'rihana.svg',
-
-        totalStreams: 558612,
-        totalAlbums: 5,
-        totalSongs: 5,
-    },
+    // Add more entries as needed
 ];
 
-
-
 const MusicTable: React.FC = () => {
-    const [selectedKey, setSelectedKey] = useState<string | null>(null);
-    const [all, setAll] = useState(false)
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
-    const [active, setActive] = useState(false)
-    const [createAlbum, setCreateAlbum] = useState(true)
+    const { register, handleSubmit } = useForm<{ selectAll: boolean; [key: string]: boolean }>();
+    const [active, setActive] = useState(false);
 
-
-
-
-    const onSubmit = (values: any) => {
-        console.log('Values', !!values)
-    }
+    const onSubmit = (values: { selectAll: boolean; [key: string]: boolean }) => {
+        console.log('Values', values);
+    };
 
     const handleSelectAll = (checked: boolean) => {
         if (checked) {
@@ -160,20 +56,14 @@ const MusicTable: React.FC = () => {
     const handleSelectOne = (key: string) => {
         setSelectedKeys(prev => {
             const newSet = new Set(prev);
-            if (newSet.has(key)) {
-                newSet.delete(key);
-            } else {
-                newSet.add(key);
-            }
+            newSet.has(key) ? newSet.delete(key) : newSet.add(key);
             return newSet;
         });
     };
 
-
-
     const columns: ColumnsType<DataType> = [
         {
-            title: () =>
+            title: () => (
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                         type='checkbox'
@@ -185,10 +75,11 @@ const MusicTable: React.FC = () => {
                             handleSubmit(onSubmit)();
                         }}
                     />
-                </form>,
+                </form>
+            ),
             dataIndex: 'checkbox',
             key: 'checkbox',
-            render: (text, record) =>
+            render: (text, record) => (
                 <form className={styles.wrapperTwo} onSubmit={handleSubmit(onSubmit)}>
                     <input
                         type='checkbox'
@@ -200,7 +91,8 @@ const MusicTable: React.FC = () => {
                             handleSubmit(onSubmit)();
                         }}
                     />
-                </form>,
+                </form>
+            ),
             width: '5%',
         },
         {
@@ -212,7 +104,6 @@ const MusicTable: React.FC = () => {
                     <Image src={`image/${record.image}`} width={40} height={40} alt={text} />
                     <span>{text}</span>
                 </div>
-
             ),
             width: '30%',
         },
@@ -221,33 +112,21 @@ const MusicTable: React.FC = () => {
             dataIndex: 'totalStreams',
             key: 'totalStreams',
             width: '20%',
-            render: (text) => (
-                <div>
-                    {text}
-                </div>
-            ),
+            render: (text) => <div>{text}</div>,
         },
         {
             title: 'Total Albums',
             dataIndex: 'totalAlbums',
             key: 'totalAlbums',
             width: '15%',
-            render: (text) => (
-                <div>
-                    {text}
-                </div>
-            ),
+            render: (text) => <div>{text}</div>,
         },
         {
             title: 'Total Songs',
             dataIndex: 'totalSongs',
             key: 'totalSongs',
             width: '15%',
-            render: (text) => (
-                <div>
-                    {text}
-                </div>
-            ),
+            render: (text) => <div>{text}</div>,
         },
         {
             title: 'Actions',
@@ -266,8 +145,6 @@ const MusicTable: React.FC = () => {
         },
     ];
 
-
-
     return (
         <>
             <Table
@@ -279,21 +156,22 @@ const MusicTable: React.FC = () => {
                 }}
             />
 
-
-            {
-
-                active &&
+            {active && (
                 <div className={styles.popup}>
-                    <AddArtistPopup onClick={() => setActive(false)}
-                        setActive={setActive} key1={'Album Name:'}
-                        key2={'Release Date:'} key3={'Number Of Tracks:'}
-                        value1={'I Hear You'} value2={'January 15, 2015'}
-                        value3={'5'} image={'popupImage.svg'} />
+                    <AddArtistPopup 
+                        onClick={() => setActive(false)}
+                        setActive={setActive} 
+                        key1={'Album Name:'}
+                        key2={'Release Date:'} 
+                        key3={'Number Of Tracks:'}
+                        value1={'I Hear You'} 
+                        value2={'January 15, 2015'}
+                        value3={'5'} 
+                        image={'popupImage.svg'} 
+                    />
                 </div>
-
-            }
+            )}
         </>
-
     );
 };
 

@@ -1,7 +1,6 @@
 import ArtistPopupBtn from '../ArtistPopup/ArtistPopupBtn/ArtistPopupBtn';
 import ArtistPopupData from '../ArtistPopup/ArtistPopupData/ArtistPopupData';
 import PlaylistTable from '../PlaylistTable/PlaylistTable';
-import MusicTable from '../Table/Table';
 import styles from './PlaylistEditPopup.module.scss';
 
 

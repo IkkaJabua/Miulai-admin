@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './UserPopup.module.scss';
 import Image from 'next/image';
 import { cookies } from 'next/dist/client/components/headers';
@@ -34,12 +33,11 @@ const UserPopup = ({ userName, userGmail }: Props) => {
             </div>
             <span className={styles.gmail}>{userGmail}</span>
             <div className={styles.logoutWrapper} onClick={handleLogOut}>
-                <Image src={'icon/logoutIcon.svg'} alt='image' width={20} height={20} />
+                <Image src={'/icon/logoutIcon.svg'} alt='image' width={20} height={20} />
                 <span className={styles.logout}>Log out</span>
             </div>
         </div>
-    )
+    );
 }
-
 
 export default UserPopup;

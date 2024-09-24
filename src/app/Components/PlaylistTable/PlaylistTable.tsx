@@ -1,22 +1,18 @@
-'use client'
+'use client';
 import { Table } from "antd";
-// import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
-import styles from './PlaylistTable.module.scss'
-import { render } from "sass";
-import { text } from "stream/consumers";
+import styles from './PlaylistTable.module.scss';
 import Image from "next/image";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import SureToDelete from "../SureToDelete/SureToDelete";
-import SureToDeleteSong from "../SureToDeleteSong/SureToDeleteSong";
+import { useState, useEffect } from "react";
 
-type Props = {
-    name?: string;
-    id?: number;
+interface Song {
+    icon: string;
+    title: string;
+    author: string;
+    album: string;
+    time: string;
+    id: number;
 }
-
-const Tables = (props: Props) => {
-
 
     // const tableData = [
     //     {
@@ -126,9 +122,7 @@ const Tables = (props: Props) => {
                 open && <SureToDeleteSong onCancelClick={closeModal} id={props.id} />
             } */}
         </div>
-
     )
 }
 
 export default Tables;
-

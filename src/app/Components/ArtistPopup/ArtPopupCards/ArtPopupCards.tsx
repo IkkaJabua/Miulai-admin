@@ -3,32 +3,32 @@ import Card from '../../Card/Card';
 import styles from './ArtPopupCards.module.scss';
 import axios from 'axios';
 
-// const data = [
-//     {
-//         title: 'playlist name 1',
-//         id: 1,
-//         image: '/image/card-default-image.png',
-//     },
-//     {
-//         title: 'playlist name 1',
-//         id: 2,
-//         image: '/image/card-default-image.png',
-//     },
-//     {
-//         title: 'playlist name 1',
-//         id: 3,
-//         image: '/image/card-default-image.png',
-//     },
-//     {
-//         title: 'playlist name 1',
-//         id: 4,
-//         image: '/image/card-default-image.png',
-//     },
-// ]
+const data = [
+    {
+        title: 'playlist name 1',
+        id: 1,
+        image: '/image/card-default-image.png',
+    },
+    {
+        title: 'playlist name 1',
+        id: 2,
+        image: '/image/card-default-image.png',
+    },
+    {
+        title: 'playlist name 1',
+        id: 3,
+        image: '/image/card-default-image.png',
+    },
+    {
+        title: 'playlist name 1',
+        id: 4,
+        image: '/image/card-default-image.png',
+    },
+];
 
 type Props = {
-    onEdit?: (id: number) => void;
-}
+    onEdit?: () => void;
+};
 
 
 
@@ -47,7 +47,7 @@ const ArtPopupCards = (props: Props) => {
                 playlist.map((item) => <Card onEdit={props.onEdit} image={item.image} title={item.name} id={item.id} imageStyle={'normal'} /> )
             }
         </div>
-    )
-}
+    );
+};
 
 export default ArtPopupCards;

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.scss";
 import styles from './layout.module.scss';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
@@ -13,8 +12,6 @@ export const metadata: Metadata = {
   },
 };
 
-
-const inter = Inter({ subsets: ["latin"] });
 const PlusJakartaSans = Plus_Jakarta_Sans({
   weight: [],
   subsets: ['latin'],

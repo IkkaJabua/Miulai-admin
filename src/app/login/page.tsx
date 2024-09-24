@@ -1,7 +1,7 @@
 'use client';
 import styles from './page.module.scss';
 import Image from 'next/image';
-import Link from 'next/link';
+// Removed unused Link import
 import Button from '../Components/Button/Button';
 import { useForm } from 'react-hook-form'
 import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
@@ -12,16 +12,15 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 
-
 type SignIn = {
     email: string;
     password: string;
-    remember: boolean;
+    remember?: boolean; // Optional if not used
 }
 
 const Login = () => {
-    const router = useRouter()
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<SignIn>();
+    const router = useRouter();
+    const { register, handleSubmit, formState: { errors } } = useForm<SignIn>();
     const [showPassword, setShowPassword] = useState(false);
 
     const onLogin = (values: any) => {
@@ -65,17 +64,16 @@ const Login = () => {
                         Sign In
                     </span>
 
-
-
                     <form onSubmit={handleSubmit(onLogin)} className={styles.formsWrapper}>
                         <div className={styles.inputWrapper}>
-                            <input type="email"
+                            <input
+                                type="email"
                                 placeholder='Email'
                                 className={styles.input}
                                 {...register('email', {
                                     required: {
                                         value: true,
-                                        message: 'email is required'
+                                        message: 'Email is required'
                                     },
                                     pattern: {
                                         value: /\S+@\S+\.\S+/,
@@ -83,9 +81,7 @@ const Login = () => {
                                     },
                                 })}
                             />
-
                             {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-
 
                             <div className={styles.passwordWrapper}>
                                 <input type={showPassword ? 'text' : 'password'}
@@ -95,23 +91,23 @@ const Login = () => {
                                     {...register('password', {
                                         required: {
                                             value: true,
-                                            message: 'password is required'
+                                            message: 'Password is required'
                                         },
                                         minLength: {
                                             value: 8,
-                                            message: 'min length of password should be 8 character'
+                                            message: 'Minimum length of password should be 8 characters'
                                         }
                                     })}
                                 />
-
-                                <Image onClick={togglePasswordVisibility}
+                                <Image
+                                    onClick={togglePasswordVisibility}
                                     src={showPassword ? '/icon/show-password.svg' : '/icon/hide-showPass.svg'}
                                     alt='image'
                                     width={16}
                                     height={16}
-                                    className={styles.passwordImg} />
+                                    className={styles.passwordImg}
+                                />
                             </div>
-
                             {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
                         </div>
                         {/* <div className={styles.checkboxWrapper}>
@@ -135,7 +131,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
-    )
-}
-export default Login;
+    );
+};
 
+export default Login;
