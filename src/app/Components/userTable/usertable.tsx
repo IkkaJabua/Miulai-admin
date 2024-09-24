@@ -9,7 +9,7 @@ import NewPassword from '../NewPassword/NewPassword';
 import SureToDelete from '../SureToDelete/SureToDelete';
 import UserBlockBtn from '../UserBlockBtn/UserBlockBtn';
 import UserDeleteBtn from '../UserDeleteBtn/UserDeleteBtn';
-import styles from './UserTable.module.scss';
+import styles from './usertable.module.scss';
 import Cookies from 'js-cookie';
 
 type User = {
