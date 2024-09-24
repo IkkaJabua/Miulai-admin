@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Table, Tabs, Input } from 'antd';
+import { Table, Tabs, } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import axios from 'axios';
@@ -9,11 +9,9 @@ import NewPassword from '../NewPassword/NewPassword';
 import SureToDelete from '../SureToDelete/SureToDelete';
 import UserBlockBtn from '../UserBlockBtn/UserBlockBtn';
 import UserDeleteBtn from '../UserDeleteBtn/UserDeleteBtn';
-import styles from './UserTable.module.scss';
-import middleware from '../../../middleware';
-import useToken from 'antd/es/theme/useToken';
+import styles from './usertable.module.scss';
 import Cookies from 'js-cookie';
-import router from 'next/router';
+
 type User = {
     id: number;
     email: string;
@@ -156,14 +154,14 @@ const UserTable: React.FC = () => {
     const memoizedUsers = useMemo(() => {
         return users
             .filter(user => user.email.toLowerCase().includes(searchQuery.toLowerCase()))
-            .sort((a, b) => (a.email.includes(searchQuery) ? -1 : 1))
+            .sort((a,) => (a.email.includes(searchQuery) ? -1 : 1))
             .map(user => ({ ...user, key: user.id }));
     }, [users, searchQuery]);
 
     const memoizedBlockedUsers = useMemo(() => {
         return blockedUsers
             .filter(user => user.email.toLowerCase().includes(searchQuery.toLowerCase()))
-            .sort((a, b) => (a.email.includes(searchQuery) ? -1 : 1))
+            .sort((a,) => (a.email.includes(searchQuery) ? -1 : 1))
             .map(user => ({ ...user, key: user.id }));
     }, [blockedUsers, searchQuery]);
 
