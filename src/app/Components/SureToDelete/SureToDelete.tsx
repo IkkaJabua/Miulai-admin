@@ -1,7 +1,5 @@
 import axios from 'axios';
-import Button from '../Button/Button';
 import styles from './SureToDelete.module.scss';
-import { useState, useEffect } from 'react';
 
 type Props = {
     onDeleteClick?: () => void;

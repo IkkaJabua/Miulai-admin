@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import styles from './ArtistPopupData.module.scss';
 import Image from 'next/image';
-import axios from 'axios';
 
 
 type Props = {

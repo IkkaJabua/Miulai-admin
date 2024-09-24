@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Button from '../Button/Button';
 import styles from './SureToDeleteSong.module.scss';
 
 type Props = {
@@ -10,7 +9,7 @@ type Props = {
 
 const SureToDelete = (props: Props) => {
 
-    const SongDelete = async (values: any) => {
+    const SongDelete = async () => {
        await axios.delete(`http://10.10.50.238:3000/music/${props.id}`)
        
        

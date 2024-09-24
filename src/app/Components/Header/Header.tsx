@@ -3,8 +3,7 @@ import styles from './Header.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
 import UserPopup from '../UserPopup/UserPopup';
-// Removed the unused import
-// import { useRouter } from 'next/router';
+
 
 const Header = () => {
     const [showPopup, setShowPopup] = useState(false);
