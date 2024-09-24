@@ -1,7 +1,6 @@
 import styles from './UserPopup.module.scss';
 import Image from 'next/image';
-import { cookies } from 'next/dist/client/components/headers';
-import router, { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -11,7 +10,7 @@ type Props = {
     userGmail?: string;
 }
 
-const UserPopup = ({ userName, userGmail }: Props) => {
+const UserPopup = ({ userName,}: Props) => {
     const [email, setEmail] = useState<string>('');
 
     useEffect(() => {
