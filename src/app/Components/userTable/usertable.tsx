@@ -1,4 +1,12 @@
 
+// const ApiClient = axios.create({
+//     url: 'https://interstellar-1-pdzj.onrender.com'
+// })
+
+// ApiClient.interceptors.request.use((config) => {
+//     config.headers.hasAuthorization
+// })
+
 // 'use client';
 // import React, { useEffect, useMemo, useState } from 'react';
 // import { Table, Tabs, Input } from 'antd';
@@ -402,30 +410,76 @@ const UserTable: React.FC = () => {
 
 
 
+    // const toggleBlock = (id: number) => {
+    //     setUsers((prevUsers) => {
+    //         const updatedUsers = prevUsers.map(user =>
+    //             user.id === id ? { ...user, block: !user.block } : user
+    //         );
+    //         setBlockedUsers(updatedUsers.filter(user => user.block));
+    //         return updatedUsers;
+    //     });
+    //     axios.patch(`https://interstellar-1-pdzj.onrender.com/user/block/${id}`)
+
+    // };
+
+
+    // const toggleUnBlock = (id: number) => {
+    //     setUsers((prevUsers) => {
+    //         const updatedUsers = prevUsers.map(user =>
+    //             user.id === id ? { ...user, block: !user.block } : user
+    //         );
+    //         setBlockedUsers(updatedUsers.filter(user => user.block));
+    //         return updatedUsers;
+    //     });
+    //     axios.patch(`https://interstellar-1-pdzj.onrender.com/user/unblock/${id}`)
+    // };
+
     const toggleBlock = (id: number) => {
         setUsers((prevUsers) => {
             const updatedUsers = prevUsers.map(user =>
-                user.id === id ? { ...user, block: !user.block } : user
+                user.id === id ? { ...user, block: true } : user
             );
+
             setBlockedUsers(updatedUsers.filter(user => user.block));
             return updatedUsers;
         });
-        axios.patch(`https://interstellar-1-pdzj.onrender.com/user/block/${id}`)
-
+        const accessToken = Cookies.get('accessToken');
+        axios.patch(`https://interstellar-1-pdzj.onrender.com/user/block/${id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+            .then((r) => {
+                Cookies.set('accessToken', r.data.accessToken, { expires: 3600 });
+                console.log(`Blocked user with ID: ${id}`);
+            })
+            .catch(err => {
+                console.error('Error blocking user:', err);
+            });
     };
-
 
     const toggleUnBlock = (id: number) => {
         setUsers((prevUsers) => {
             const updatedUsers = prevUsers.map(user =>
-                user.id === id ? { ...user, block: !user.block } : user
+                user.id === id ? { ...user, block: false } : user
             );
             setBlockedUsers(updatedUsers.filter(user => user.block));
             return updatedUsers;
         });
-        axios.patch(`https://interstellar-1-pdzj.onrender.com/user/unblock/${id}`)
-    };
+        const accessToken = Cookies.get('accessToken');
 
+        axios.patch(`https://interstellar-1-pdzj.onrender.com/user/unblock/${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+            .then(() => {
+                console.log(`Unblocked user with ID: ${id}`);
+            })
+            .catch(err => {
+                console.error('Error unblocking user:', err);
+            });
+    };
 
 
     const handlePasswordToggle = (id: number) => {
@@ -496,7 +550,9 @@ const UserTable: React.FC = () => {
                     <button className={styles.unBorder} onClick={() => showDeleteModal(record)}>
                         <Image src={`/icon/trash.svg`} width={24} height={24} alt='delete' />
                     </button>
-                    <button className={styles.unBorder} onClick={() => toggleBlock(record.id)}>
+                    <button className={styles.unBorder} onClick={() => {
+                        record.block ? toggleUnBlock(record.id) : toggleBlock(record.id);
+                    }}>
                         <Image
                             src={record.block ? '/icon/block-icon.svg' : '/icon/unblock-icon.svg'}
                             width={24}
