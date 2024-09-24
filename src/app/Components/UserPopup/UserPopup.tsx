@@ -1,7 +1,6 @@
 import styles from './UserPopup.module.scss';
 import Image from 'next/image';
-import { cookies } from 'next/dist/client/components/headers';
-import router, { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie'; 
 
 type Props = {

@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 import styles from './UserBlockBtn.module.scss';
-import Image from 'next/image';
-import axios from 'axios';
+
 
 
 // type Props = {

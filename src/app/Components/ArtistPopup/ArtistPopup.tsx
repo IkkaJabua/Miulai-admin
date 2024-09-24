@@ -1,25 +1,19 @@
+// ArtistPopup.tsx
 import styles from './ArtistPopup.module.scss';
 import Image from 'next/image';
 import ArtistPopupData from './ArtistPopupData/ArtistPopupData';
-import ArtistPopupBtn from './ArtistPopupBtn/ArtistPopupBtn';
 import ArtPopupCards from './ArtPopupCards/ArtPopupCards';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PlaylistTable from '../PlaylistTable/PlaylistTable';
-import NewTreck from '../popups/newTreck/NewTreck';
-import axios from 'axios';
 
 interface Props {
-    [x: string]: any;
     name: string;
     closeModal?: () => void;  // Accept closeModal function
 }
 
 const ArtistPopup = (props: Props) => {
-    const [isPlaylistEdit, setPlaylistEdit] = useState(false)
-    const [editPlaylistId, setEditPlaylistId] = useState(0)
-
-
-   
+    const [isPlaylistEdit, setPlaylistEdit] = useState<boolean>(false);
+    const [editPlaylistId, setEditPlaylistId] = useState<number>(0);
 
     return (
         <div className={styles.sss}>
@@ -48,14 +42,16 @@ const ArtistPopup = (props: Props) => {
                         key3={'Playlists Created'}
                         value3={'4'}
                         userImage={'/image/userTestImage.png'}
-                        imageStyle={'round'} id={0}                    />
-
-
+                        imageStyle={'round'} 
+                        id={0}                    
+                    />
                 </div>
+                
                 {!isPlaylistEdit ?
-                    <ArtPopupCards onEdit={(playlistId) => { 
+                    <ArtPopupCards onEdit={(playlistId: number) => { 
                         setPlaylistEdit(true); 
-                        setEditPlaylistId(playlistId) }} /> :
+                        setEditPlaylistId(playlistId); 
+                    }} /> :
                     <PlaylistTable id={editPlaylistId} />
                 }
 
