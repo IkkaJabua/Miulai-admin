@@ -3,12 +3,14 @@ import styles from './page.module.scss';
 import Image from 'next/image';
 // Removed unused Link import
 import Button from '../Components/Button/Button';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { useForm } from 'react-hook-form'
 import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
 import { useRouter } from 'next/navigation';
 import { setCookie } from '../cookies';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+
 
 type SignIn = {
     email: string;
@@ -21,13 +23,18 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignIn>();
     const [showPassword, setShowPassword] = useState(false);
 
-    const onLogin = (values: SignIn) => {
+    const onLogin = (values: any) => {
+        console.log(values, 'zd2');
+
         axios.post('https://interstellar-1-pdzj.onrender.com/auth', values)
             .then(r => {
-                setCookie('token', r.data.accesToken, 60);
-                router.push('/');
+                // setCookie('token', r.data.accesToken, 60)
+                Cookies.set('accessToken', r.data.accessToken);
+                router.push('/')
+            }).catch(error => {
+                console.error('Login failed:', error.response?.data || error.message);
             });
-    };
+    }
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -77,8 +84,8 @@ const Login = () => {
                             {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 
                             <div className={styles.passwordWrapper}>
-                                <input
-                                    type={showPassword ? 'text' : 'password'}
+                                <input type={showPassword ? 'text' : 'password'}
+
                                     placeholder='Password'
                                     className={styles.inputPassword}
                                     {...register('password', {
@@ -103,13 +110,24 @@ const Login = () => {
                             </div>
                             {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
                         </div>
+                        {/* <div className={styles.checkboxWrapper}>
+                            <div className={styles.checkboxContainer}>
+                                <input type="checkbox" {...register('remember')} />
+                                <span className={styles.remember}>Remember me</span>
+                            </div>
+
+                            <div onClick={() => router.push('/')} className={styles.forgot}>
+                                Forgot your password?
+                            </div>
+                        </div> */}
+
+                        <input type='submit'
+                            value={'SIGN IN'}
+                            onClick={onLogin}
+                            className={styles.button} />
                     </form>
-                    <Button
-                        title={'SIGN IN'}
-                        mode={'fill'}
-                        onClick={handleSubmit(onLogin)} // Trigger form submission
-                        className={styles.button}
-                    />
+
+
                 </div>
             </div>
         </div>

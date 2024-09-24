@@ -2,6 +2,17 @@
 import { Table } from "antd";
 import styles from './PlaylistTable.module.scss';
 import Image from "next/image";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import SureToDelete from "../SureToDelete/SureToDelete";
+import SureToDeleteSong from "../SureToDeleteSong/SureToDeleteSong";
+
+type Props = {
+    name?: string;
+    id?: number;
+}
+
+
 
 interface Song {
     icon: string;
@@ -12,48 +23,48 @@ interface Song {
     id: number;
 }
 
-const tableData: Song[] = [
-    {
-        icon: '/table-icon.png',
-        title: 'Girls Are Fascinating',
-        author: 'By Anetha',
-        album: 'Mothearth',
-        time: '3:54',
-        id: 1,
-    },
-    {
-        icon: '/table-icon2.svg',
-        title: 'Smash My Heart',
-        author: 'By Anetha',
-        album: 'Pink',
-        time: '3:54',
-        id: 2
-    },
-    {
-        icon: '/table-icon3.svg',
-        title: 'Blackbird',
-        author: 'By Anetha',
-        album: 'Cowboy Carter',
-        time: '3:54',
-        id: 3
-    },
-    {
-        icon: '/table-icon4.svg',
-        title: 'Human',
-        author: 'By Anetha',
-        album: 'Zaba',
-        time: '3:54',
-        id: 4
-    },
-    {
-        icon: '/table-icon4.svg',
-        title: 'Human',
-        author: 'By Anetha',
-        album: 'Zaba',
-        time: '3:54',
-        id: 5
-    },
-];
+// const tableData: Song[] = [
+//     {
+//         icon: '/table-icon.png',
+//         title: 'Girls Are Fascinating',
+//         author: 'By Anetha',
+//         album: 'Mothearth',
+//         time: '3:54',
+//         id: 1,
+//     },
+//     {
+//         icon: '/table-icon2.svg',
+//         title: 'Smash My Heart',
+//         author: 'By Anetha',
+//         album: 'Pink',
+//         time: '3:54',
+//         id: 2
+//     },
+//     {
+//         icon: '/table-icon3.svg',
+//         title: 'Blackbird',
+//         author: 'By Anetha',
+//         album: 'Cowboy Carter',
+//         time: '3:54',
+//         id: 3
+//     },
+//     {
+//         icon: '/table-icon4.svg',
+//         title: 'Human',
+//         author: 'By Anetha',
+//         album: 'Zaba',
+//         time: '3:54',
+//         id: 4
+//     },
+//     {
+//         icon: '/table-icon4.svg',
+//         title: 'Human',
+//         author: 'By Anetha',
+//         album: 'Zaba',
+//         time: '3:54',
+//         id: 5
+//     },
+// ];
 
 const columns = [
     {
@@ -105,16 +116,19 @@ const columns = [
     },
 ];
 
-const Tables = () => {
+const Tables = (props: Props) => {
     return (
         <div className={styles.wrapper}>
             <Table
                 className={styles.container}
-                dataSource={tableData}
+                dataSource={music}
                 columns={columns}
                 pagination={false}
                 rowClassName={styles.row111111}
             />
+            {/* {
+                open && <SureToDeleteSong onCancelClick={closeModal} id={props.id} />
+            } */}
         </div>
     )
 }

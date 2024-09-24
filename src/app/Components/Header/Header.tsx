@@ -13,6 +13,7 @@ const Header = () => {
     const togglePopup = () => {
         setShowPopup(!showPopup);
     };
+
     
     return (
         <div className={styles.container}>
@@ -41,4 +42,20 @@ const Header = () => {
     );
 };
 
+
 export default Header;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

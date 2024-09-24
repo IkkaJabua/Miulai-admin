@@ -3,13 +3,14 @@ import Image from 'next/image';
 import CardItems from '../CardItems/CardItems';
 
 interface Props {
-    header: string;
+    header?: string;
     image: string;
     subtitle?: string;
+    name?: string;
     title: string;
     imageStyle: 'normal' | 'round';
     id: number;
-    onEdit?: () => void;
+    onEdit?: (id: number) => void;
     onDelete?: () => void;
 }
 
@@ -30,7 +31,7 @@ const Card = (props: Props) => {
                 />
 
                 <div className={styles.union}>
-                    <CardItems onEdit={props.onEdit} onDelete={props.onDelete} />
+                    <CardItems onEdit={() => props.onEdit?.(props.id)} onDelete={props.onDelete} />
                 </div>
 
                 <span>{props.subtitle}</span>

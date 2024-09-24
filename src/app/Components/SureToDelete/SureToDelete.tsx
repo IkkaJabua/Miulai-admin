@@ -1,0 +1,48 @@
+import axios from 'axios';
+import Button from '../Button/Button';
+import styles from './SureToDelete.module.scss';
+import { useState, useEffect } from 'react';
+
+type Props = {
+    onDeleteClick?: () => void;
+    onCancelClick?: () => void;
+    onUserDeleted?: () => void;
+    id: number | undefined;
+}
+
+const SureToDelete = (props: Props) => {
+
+
+    const userDelete = async () => {
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`)
+        .then(() => {
+            props.onDeleteClick?.()
+            props.onCancelClick?.()
+        })
+        
+    }
+    
+
+
+    return (
+        <div className={styles.container}>
+            <p className={styles.text}>Are you sure you want to delete?</p>
+
+
+            <div className={styles.wrapper}>
+                <button className={styles.cancel} onClick={props.onCancelClick}>Cancel</button>
+                <button className={styles.delete} onClick={userDelete}>Delete</button>
+            </div>
+
+        </div>
+    )
+}
+
+export default SureToDelete;
+
+
+
+
+
+
+
