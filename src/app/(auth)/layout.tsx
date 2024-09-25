@@ -1,3 +1,4 @@
+
 import Menu from '../Components/Menu/Menu';
 import styles from './layout.module.scss';
 
