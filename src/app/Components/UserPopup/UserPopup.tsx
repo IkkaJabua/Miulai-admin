@@ -25,6 +25,7 @@ const UserPopup = ({ userName,}: Props) => {
                         Authorization: `Bearer ${token}`,
                     }
                 });
+                console.log(response.data.email);  
                 console.log(response.data.email);  // Log the full response to inspect the structure
                 console.log(response.data.email && '===============>');
                 
@@ -62,10 +63,9 @@ const UserPopup = ({ userName,}: Props) => {
     return (
         <div className={styles.container}>
             <div className={styles.userNameWrapper}>
-                <Image src={'/icon/userHeaderIcon.svg'} alt='image' width={20} height={20} />
-                <span className={styles.userName}>{userName}</span>
-            </div>
+            <Image src={'/icon/userHeaderIcon.svg'} alt='image' width={20} height={20} />
             <span className={styles.gmail}>{email}</span>
+            </div>
             <div className={styles.logoutWrapper} onClick={handleLogOut}>
                 <Image src={'/icon/logoutIcon.svg'} alt='image' width={20} height={20} />
                 <span className={styles.logout}>Log out</span>
