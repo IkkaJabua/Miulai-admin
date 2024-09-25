@@ -1,3 +1,4 @@
+
 import styles from './UserPopup.module.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -17,6 +18,7 @@ const UserPopup = ({ userName,}: Props) => {
         const fetchUserData = async () => {
             try {
                 const token = getToken();
+                console.log(token , 'token ')
 
                 const response = await axios.get('https://interstellar-1-pdzj.onrender.com/user/me', {
                     headers: {
@@ -24,6 +26,9 @@ const UserPopup = ({ userName,}: Props) => {
                     }
                 });
                 console.log(response.data.email);  
+                console.log(response.data.email);  // Log the full response to inspect the structure
+                console.log(response.data.email && '===============>');
+                
 
                 setEmail(response.data.email);
             } catch (error) {
@@ -34,8 +39,8 @@ const UserPopup = ({ userName,}: Props) => {
         fetchUserData();
     }, []);
     const getToken = () => {
-        const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
-        return match ? match[2] : '';
+        const match = Cookies.get('accessToken');
+        return match 
     };
 
 

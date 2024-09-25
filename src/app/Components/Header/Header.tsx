@@ -1,3 +1,4 @@
+
 import Input from '../Input/Input';
 import styles from './Header.module.scss';
 import Image from 'next/image';
