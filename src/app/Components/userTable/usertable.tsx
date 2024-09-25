@@ -32,7 +32,6 @@ const UserTable: React.FC = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [activePasswordId, setActivePasswordId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   console.log(users, "users");
 
   const openPop = () => setArtistPopup(true);
@@ -88,7 +87,7 @@ const UserTable: React.FC = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((r) => {})
+      .then(() => {})
       .catch((err) => {
         console.error("Error blocking user:", err);
       });

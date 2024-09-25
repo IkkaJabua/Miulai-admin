@@ -11,9 +11,9 @@ type Props = {
     userGmail?: string;
 }
 
-const UserPopup = ({ userName,}: Props) => {
+const UserPopup = ({}: Props) => {
     const [email, setEmail] = useState<string>('');
-
+    
     useEffect(() => {
         const fetchUserData = async () => {
             try {
