@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import ArtistForm from '../artistForm/artistForm'
 import { useRecoilState } from 'recoil'
-import { authorIdStates } from '@/app/states'
+import { authorIdStates, clikcState } from '@/app/states'
 
 interface Props {
     onClick?: () => void,
@@ -18,7 +18,7 @@ const AddAlbum = (props: Props) => {
 
     const [authorId, setAuthorId] = useRecoilState(authorIdStates)
     const [message, setMessage] = useState<string>()
-
+    const [click, setClick] = useRecoilState(clikcState)
 
 
     const {
@@ -34,21 +34,29 @@ const AddAlbum = (props: Props) => {
 
 
     const onSubmit = (values: any) => {
+        setClick(!click)
         const data: any = new FormData()
         data.append('albumName', values.albumName)
         // data.append('artistName', values.artistName)
         data.append('releaseDate', values.releaseDate)
         data.append('file', values.file[0])
+        data.append('authorId', authorId)
 
-        axios.post(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums`, data).
+
+        axios.post(`https://interstellar-1-pdzj.onrender.com/album`, data).
             then((r) => {
                 setMessage('Album are created')
-                console.log(r)
-            }).catch((errors : string) => {
+            }).catch((errors: string) => {
                 setMessage('The album could not be created')
-            }) 
+            })
     }
 
+    const handleDelete = (e: React.MouseEvent) => {
+        e.preventDefault()
+        if (props.onDelete) {
+            props.onDelete() 
+        }
+    }
 
 
 
@@ -62,7 +70,7 @@ const AddAlbum = (props: Props) => {
                     </div>
                 </div>
                 <div>Add New Album</div>
-                <div className={styles.cursor} onClick={props.onDelete}>
+                <div className={styles.cursor} onClick={handleDelete}>
                     <Image src={'/icon/delete.svg'} height={24} width={24} alt='pen' />
                 </div>
 
@@ -77,7 +85,9 @@ const AddAlbum = (props: Props) => {
                             <Image src={'/icon/Screenshots.svg'} width={90} height={90} alt='screenshot' />
                         </label>
                         <input className={styles.photoInput} id='file-upload-file' type='file'
-                            {...register('file',{
+
+
+                            {...register('file', {
                                 required: true
                             })}
                         />
@@ -88,24 +98,16 @@ const AddAlbum = (props: Props) => {
                         <div>Album Name </div>
                         <div>
                             <input className={styles.inputName} type='text'
-                                {...register('albumName',{
+                                {...register('albumName', {
                                     required: true
                                 })}
-                            />
-                        </div>
-                    </div>
-                    <div className={styles.inputWrapper}>
-                        <div>Artist Name</div>
-                        <div>
-                            <input className={styles.inputName} type='text'
-                                {...register('artistName')}
                             />
                         </div>
                     </div>
                     <div>Album Release Date</div>
 
                     <input className={styles.date} type='text'
-                        {...register('releaseDate',{
+                        {...register('releaseDate', {
                             required: true
                         })}
 

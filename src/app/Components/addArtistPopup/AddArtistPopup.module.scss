@@ -90,6 +90,7 @@
 
 .footerPLaylist {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     margin-top: 16px;
 }
@@ -167,3 +168,4 @@
     background: #29292E;
     color: #9E9A9F;
 }
+

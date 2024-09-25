@@ -28,5 +28,5 @@ export const albumDataState = atom({
 
 export const albumIDState = atom({
     key: 'albumIDState',
-    default: 0
+    default: ''
 })

@@ -40,11 +40,10 @@ const ArtistForm = (props: Props) => {
         axios.post("https://interstellar-1-pdzj.onrender.com/author").
             then(r => {
 
-                console.log('gaeshva informaciaaaaaa',r)
             })
 
         const data = new FormData()
-        data.append('firstName', values.artistName)
+        data.append('firstName', values.firstName)
         data.append('lastName', values.lastName)
         data.append('biography', values.biography)
         data.append('file', values.file[0])
@@ -69,7 +68,7 @@ const ArtistForm = (props: Props) => {
             <div className={styles.wrapper}>
                 <div className={styles.formBody}>
                     <div className={styles.inputGap}>
-                        <div>Artist Name </div>
+                        <div>Artist Name</div>
                         <input className={styles.nameInput}
                             {...register('artistName')}
                             type='text' />
@@ -82,11 +81,13 @@ const ArtistForm = (props: Props) => {
                             type='text' />
 
                     </div>
-                    <div className={styles.inputGap}>
+                    <div>
                         <div>Biography</div>
-                        <input className={styles.biographyInput}
-                            {...register('biography')}
-                            type='text' />
+                        <div className={styles.inputTwo}>
+                            <input className={styles.biographyInput}
+                                {...register('biography')}
+                                type='text' />
+                        </div>
                     </div>
                 </div>
                 <div className={styles.formBody}>

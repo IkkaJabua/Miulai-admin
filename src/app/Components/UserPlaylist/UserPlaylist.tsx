@@ -7,7 +7,7 @@ import styles from './UserPlaylist.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useRecoilState } from 'recoil'
-import { albumDataState, albumIDState, cardDataStates } from '@/app/states'
+import { albumDataState, albumIDState, authorIdStates, cardDataStates } from '@/app/states'
 import axios from 'axios'
 
 
@@ -29,6 +29,9 @@ const UserPlaylist = (props: Props) => {
     const [albumButton, setAlbumButton] = useState(false)
     const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
     const [data, setData] = useState()
+    console.log(albumData,'albumData')
+    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
+
 
     const [albumID, setAlbumID] = useRecoilState(albumIDState)
 
@@ -38,21 +41,24 @@ const UserPlaylist = (props: Props) => {
 
     const [active, setActive] = useState()
 
+    const [coverImage, csetCoverImage] = useState<any>()
+
+
+
 
     // useEffect(() => {
-    //     axios.get(`https://interstellar-1-pdzj.onrender.com/author/albums/${albumID}`).
+
+    //     axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`).
     //         then((r) => {
-    //             // const musicData = r.data.musics;
-    //             // setData(musicData);
-    //             // setAlbumdata(r.data.albums)
-    //             // console.log(r.data.musics.name)
-    //             console.log('==============')
-    //         }).catch((errors: any) => {
-    //             console.log('ar moaqvs musikebi ')
+    //             setAlbumdata(r.data.albums)
+    //             setimage(r.data)
+    //         },).
+    //         catch(error => {
+    //             console.log('there is something error', error)
     //         })
 
-    // },[albumID])
 
+    // }, [click])
 
 
     return (
@@ -62,7 +68,7 @@ const UserPlaylist = (props: Props) => {
                     <div className={styles.container} key={item.id}>
                         <div className={styles.hoveredImage} >
                             {/* <Image className={styles.cellImage} src={`./icon/cardImage.svg`} width={170} height={136} alt='image' /> */}
-                            <img className={styles.cellImage} src={image?.files[0]?.url} width={170} height={136} alt='image' />
+                            <img className={styles.cellImage} src={item.file?.url} width={170} height={136} alt='image' />
 
                             <div className={styles.buttons}>
                                 <div onClick={() => {
@@ -70,8 +76,6 @@ const UserPlaylist = (props: Props) => {
                                     props.setActive(true)
                                     props.setAlbumButton(true)
                                     setAlbumID(item.id)
-                                    console.log('=====================',item.id)
-
                                 }} className={styles.cellEdit}>
                                     <img src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>

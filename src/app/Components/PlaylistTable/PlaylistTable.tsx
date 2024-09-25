@@ -21,32 +21,24 @@ const Tables = () => {
 
     const [deletes, setDeletes] = useState<any>()
 
-
-    useEffect(() => {
-
-        axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`).
-            then((r) => {
-                const musicData = r.data.musics;
-                setData(musicData);
-                console.log(r.data.musics, '========================')
-
-            })
-    }, [albumID])
-
-
-
     const onDelete = (id: number) => {
         axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums/${albumID}/musics/${id}`).
             then(r => {
                 alert('are shure you want to delete?')
-                console.log('waishalaaaaa', id)
             }).catch((error) => {
                 console.log()
             })
-
-
-
     }
+
+    useEffect(() => {
+
+        axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}/musics`). 
+        then((r ) => {
+            console.log(r.data,'=-=-=-=-=-=-=-=- musicData')
+        })
+    },[])
+
+
 
     const columns = [
         {

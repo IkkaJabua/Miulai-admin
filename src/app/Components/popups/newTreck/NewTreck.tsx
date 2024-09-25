@@ -3,6 +3,8 @@ import styles from './NewTreck.module.scss'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useState } from 'react'
+import { albumIDState } from '@/app/states'
+import { useRecoilState } from 'recoil'
 
 
 
@@ -15,6 +17,8 @@ interface Props {
 const NewTreck = (props: Props) => {
 
     const [track, setTrack] = useState<boolean>()
+    const [albumID, setAlbumID] = useRecoilState<any>(albumIDState)
+
 
     const {
         register,
@@ -27,16 +31,17 @@ const NewTreck = (props: Props) => {
     const onSubmit = (value: any) => {
         const data = new FormData()
         data.append('name', value.name)
-        data.append('artistName', value.artistName)
+        // data.append('artistName', value.artistName)
         data.append('file', value.file[0])
+        data.append('albumId', albumID)
 
 
-        axios.post('https://interstellar-1-pdzj.onrender.com/music',data).
+        axios.post(`https://interstellar-1-pdzj.onrender.com/music`, data).
         then((r) => {
+            
             
         })
 
-        console.log(value)
 
     }
 
@@ -52,10 +57,10 @@ const NewTreck = (props: Props) => {
                 <div>Track Names</div>
                 <input className={styles.name} type="text"  {...register('name')}/>
             </div>
-            <div className={styles.gap}>
+            {/* <div className={styles.gap}>
                 <div>Artist Name</div>
                 <input className={styles.name} type="text"  {...register('artistName')} />
-            </div>
+            </div> */}
             <div className={styles.twoFile}>
                 <div>Upload Music file</div>
                 <label htmlFor="upload-file">
