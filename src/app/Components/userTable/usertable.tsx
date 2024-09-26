@@ -7,9 +7,10 @@ import axios from "axios";
 import ArtistPopup from "../ArtistPopup/ArtistPopup";
 import NewPassword from "../NewPassword/NewPassword";
 import SureToDelete from "../SureToDelete/SureToDelete";
-
 import styles from "./usertable.module.scss";
 import Cookies from "js-cookie";
+import { useRecoilState } from "recoil";
+import { userIdState } from "@/app/states";
 
 type User = {
   id: number;
@@ -32,8 +33,6 @@ const UserTable: React.FC = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [activePasswordId, setActivePasswordId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(users, "users");
-
   const openPop = () => setArtistPopup(true);
   const closePop = () => setArtistPopup(false);
   const openModal = (record: User) => {
@@ -46,6 +45,8 @@ const UserTable: React.FC = () => {
     setDeleteModal(true);
   };
   const hideDeleteModal = () => setDeleteModal(false);
+
+  const [userId, setUserId] = useRecoilState(userIdState);
 
   const fetchUsers = async () => {
     try {
@@ -87,7 +88,9 @@ const UserTable: React.FC = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then(() => {})
+      .then(() => {
+        console.log(`Blocked user with ID: ${id}`);
+      })
       .catch((err) => {
         console.error("Error blocking user:", err);
       });
@@ -293,7 +296,15 @@ const UserTable: React.FC = () => {
             className={styles.wrapper}
             columns={columns}
             dataSource={memoizedUsers}
-            pagination={{ position: ["bottomCenter"] }}
+            pagination={{
+              pageSize: 9, // Set page size to 8
+              position: ["bottomCenter"],
+            }}
+            onRow={(record: any) => ({
+              onClick: () => {
+                setUserId(record.id);
+              },
+            })}
           />
           {artistPopup && <ArtistPopup closeModal={closePop} name={""} />}
           {isOpen && <NewPassword closeModal={closeModal} id={selectedId} />}
@@ -357,7 +368,10 @@ const UserTable: React.FC = () => {
             className={styles.wrapper}
             columns={columns}
             dataSource={memoizedBlockedUsers}
-            pagination={{ position: ["bottomCenter"] }}
+            pagination={{
+              pageSize: 9, // Set page size to 8
+              position: ["bottomCenter"],
+            }}
           />
           {artistPopup && (
             <ArtistPopup closeModal={closePop} name={"Dolores"} />

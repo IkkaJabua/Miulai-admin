@@ -11,7 +11,7 @@ const Management = () => {
     const [active, setActive] = useState(false)
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} >
             <Header />
             <div className={styles.font}>
                 Content Management
@@ -33,7 +33,7 @@ const Management = () => {
             <Table />
             {active && (
                 <div className={styles.popup}>
-                    <ArtistForm onClick={() => setActive(false)} />
+                    <ArtistForm onClick={() => setActive(false)}   />
                 </div>
             )}
         </div>

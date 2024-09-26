@@ -1,6 +1,7 @@
-
+import { RecoilRoot } from 'recoil';
 import Menu from '../Components/Menu/Menu';
 import styles from './layout.module.scss';
+import RecoilWrapper from '../Components/RecoilWrapper/RecoilWrapper';
 
 
 export default function RootLayout({
@@ -12,7 +13,9 @@ export default function RootLayout({
         <div className={styles.container}>
             <div className={styles.wrapper}>
                 <Menu />
-                {children}
+                <RecoilWrapper>
+                    {children}
+                </RecoilWrapper>
             </div>
         </div>
     )

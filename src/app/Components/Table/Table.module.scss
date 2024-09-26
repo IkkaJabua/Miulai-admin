@@ -197,6 +197,14 @@
 .unBorder {
     border: none;
     background-color: unset;
+    cursor: pointer;
+}
+
+.unBorderPen {
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+
 }
 
 .actions {
@@ -264,6 +272,12 @@
 
 .popup {
     position: absolute;
-    top: 233px;
-    left: 21%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.image {
+    border-radius: 4px;
 }
