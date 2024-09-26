@@ -44,6 +44,8 @@ const UserTable: React.FC = () => {
   };
   const hideDeleteModal = () => setDeleteModal(false);
 
+  const [userId, setUserId] = useState();
+
   const fetchUsers = async () => {
     try {
       const accessToken = Cookies.get("accessToken");
@@ -84,7 +86,9 @@ const UserTable: React.FC = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then(() => { })
+      .then(() => {
+        console.log(`Blocked user with ID: ${id}`);
+      })
       .catch((err) => {
         console.error("Error blocking user:", err);
       });
@@ -290,7 +294,15 @@ const UserTable: React.FC = () => {
             className={styles.wrapper}
             columns={columns}
             dataSource={memoizedUsers}
-            pagination={{ position: ["bottomCenter"] }}
+            pagination={{
+              pageSize: 9, // Set page size to 8
+              position: ["bottomCenter"],
+            }}
+            onRow={(record: any) => ({
+              onClick: () => {
+                setUserId(record.id);
+              },
+            })}
           />
           {artistPopup && <ArtistPopup closeModal={closePop} name={""} />}
           {isOpen && <NewPassword closeModal={closeModal} id={selectedId} />}
@@ -354,7 +366,10 @@ const UserTable: React.FC = () => {
             className={styles.wrapper}
             columns={columns}
             dataSource={memoizedBlockedUsers}
-            pagination={{ position: ["bottomCenter"] }}
+            pagination={{
+              pageSize: 9, // Set page size to 8
+              position: ["bottomCenter"],
+            }}
           />
           {artistPopup && (
             <ArtistPopup closeModal={closePop} name={"Dolores"} />
