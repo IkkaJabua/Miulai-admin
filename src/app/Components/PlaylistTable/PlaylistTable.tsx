@@ -17,19 +17,19 @@ import {
 import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
 
-type Props = {
-  name?: string;
-  id?: number;
-};
+// type Props = {
+//   name?: string;
+//   id?: string;
+// };
 
-interface Song {
-  icon: string;
-  title: string;
-  author: string;
-  album: string;
-  time: string;
-  id: number;
-}
+// interface Song {
+//   icon: string;
+//   title: string;
+//   author: string;
+//   album: string;
+//   time: string;
+//   id: number;
+// }
 
 const Tables = () => {
   const [data, setData] = useState<any>([]);

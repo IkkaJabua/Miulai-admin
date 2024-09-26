@@ -9,6 +9,8 @@ import NewPassword from "../NewPassword/NewPassword";
 import SureToDelete from "../SureToDelete/SureToDelete";
 import styles from "./usertable.module.scss";
 import Cookies from "js-cookie";
+import { useRecoilState } from "recoil";
+import { userIdState } from "@/app/states";
 
 type User = {
   id: number;
@@ -44,7 +46,7 @@ const UserTable: React.FC = () => {
   };
   const hideDeleteModal = () => setDeleteModal(false);
 
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useRecoilState(userIdState);
 
   const fetchUsers = async () => {
     try {
