@@ -7,7 +7,6 @@ import axios from "axios";
 import ArtistPopup from "../ArtistPopup/ArtistPopup";
 import NewPassword from "../NewPassword/NewPassword";
 import SureToDelete from "../SureToDelete/SureToDelete";
-
 import styles from "./usertable.module.scss";
 import Cookies from "js-cookie";
 
@@ -32,8 +31,6 @@ const UserTable: React.FC = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [activePasswordId, setActivePasswordId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(users, "users");
-
   const openPop = () => setArtistPopup(true);
   const closePop = () => setArtistPopup(false);
   const openModal = (record: User) => {
@@ -87,7 +84,7 @@ const UserTable: React.FC = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then(() => {})
+      .then(() => { })
       .catch((err) => {
         console.error("Error blocking user:", err);
       });

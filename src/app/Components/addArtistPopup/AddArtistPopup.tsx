@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Card from '../Card/Card'
 import UserPlaylist from '../UserPlaylist/UserPlaylist'
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
-// import Tables from '../PlaylistTable/PlaylistTable'
 import NewTreck from '../popups/newTreck/NewTreck'
 import AddAlbum from '../popups/addAlbum/addAlbum'
 import axios from 'axios'
@@ -13,7 +12,7 @@ import { useRecoilState } from 'recoil'
 import { albumDataState, albumIDState, authorIdStates, cardDataStates, clikcState } from '@/app/states'
 import { Divider } from 'antd'
 import Tables from '../PlaylistTable/PlaylistTable'
-// import Tables from '../PlaylistTable/PlaylistTable'
+import Cookies from 'js-cookie'
 
 type Props = {
     setActive: Dispatch<SetStateAction<boolean>>;
@@ -36,25 +35,14 @@ const AddArtistPopup = (props: Props) => {
     const [createAlbum, setCreateAlbum] = useState(false)
     const [deleted, setDeleted] = useState(false)
     const [albumButton, setAlbumButton] = useState(false)
-    const [playlistData, setPlaylistData] = useRecoilState(cardDataStates)
     const [authorId, setAuthorId] = useRecoilState(authorIdStates)
-
     const [albumData, setAlbumdata] = useRecoilState(albumDataState)
     const [authorData, setAuthorData] = useState<any>()
     const [songs, setSongs] = useState<any>([])
     const [image, setimage] = useRecoilState<Props>(cardDataStates)
     const [edited, setEdited] = useState<boolean>(false)
     const [editedBiography, setEditedBiography] = useState<string>()
-    const [albumID, setAlbumID] = useRecoilState(albumIDState)
-
-
     const [click, setClick] = useRecoilState(clikcState)
-
-
-
-
-
-
     const [releaseDate, setReleaseDate] = useState<any[]>([])
 
 
@@ -75,13 +63,12 @@ const AddArtistPopup = (props: Props) => {
                 console.log('there is something error', error)
             })
 
-        console.log(click,'click click click click')
-    }, [click, authorId])
+    }, [click])
 
 
     if (deleted) {
-        return 
-        
+        return
+
     }
 
     if (createAlbum) {
@@ -208,15 +195,12 @@ const AddArtistPopup = (props: Props) => {
                 <div className={styles.footerPLaylist}>
                     {
                         albums &&
-                                <UserPlaylist setAlbumButton={setAlbumButton} setAlbums={setAlbums} setActive={setActive} />
+                        <UserPlaylist setAlbumButton={setAlbumButton} setAlbums={setAlbums} setActive={setActive} />
 
                     }
                     {
                         biography && (
                             edited ?
-                                // <div className={styles.biographyFont}>
-                                //     {authorData?.biography}
-                                // </div>
                                 <textarea
                                     className={styles.inputText}
                                     value={editedBiography}

@@ -2,7 +2,7 @@
 import styles from './UserPopup.module.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -25,11 +25,7 @@ const UserPopup = ({}: Props) => {
                         Authorization: `Bearer ${token}`,
                     }
                 });
-                console.log(response.data.email);  
-                console.log(response.data.email);  // Log the full response to inspect the structure
-                console.log(response.data.email && '===============>');
-                
-
+               
                 setEmail(response.data.email);
             } catch (error) {
                 console.error('Error fetching user data:', error);

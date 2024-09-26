@@ -25,39 +25,8 @@ interface Props {
 
 const UserPlaylist = (props: Props) => {
     const router = useRouter()
-    const [albumButton, setAlbumButton] = useState(false)
     const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
-    const [data, setData] = useState()
-    console.log(albumData,'albumData')
-    const [authorId, setAuthorId] = useRecoilState(authorIdStates)
-
-
     const [albumID, setAlbumID] = useRecoilState(albumIDState)
-
-
-    const [image, setimage] = useRecoilState<any>(cardDataStates)
-    
-
-    const [active, setActive] = useState()
-
-    const [coverImage, csetCoverImage] = useState<any>()
-
-
-
-
-    // useEffect(() => {
-
-    //     axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`).
-    //         then((r) => {
-    //             setAlbumdata(r.data.albums)
-    //             setimage(r.data)
-    //         },).
-    //         catch(error => {
-    //             console.log('there is something error', error)
-    //         })
-
-
-    // }, [click])
 
 
     return (
@@ -66,7 +35,6 @@ const UserPlaylist = (props: Props) => {
                 albumData?.map((item: any) => (
                     <div className={styles.container} key={item.id}>
                         <div className={styles.hoveredImage} >
-                            {/* <Image className={styles.cellImage} src={`./icon/cardImage.svg`} width={170} height={136} alt='image' /> */}
                             <img className={styles.cellImage} src={item.file?.url} width={170} height={136} alt='image' />
 
                             <div className={styles.buttons}>
