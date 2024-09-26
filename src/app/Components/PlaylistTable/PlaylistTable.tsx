@@ -8,10 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { albumDataState, albumIDState, authorIdStates, cardDataStates } from "@/app/states";
 import { useRecoilState } from "recoil";
-import type { Props } from "next/script";
-// import { useWindowSize } from "react-use";
-import styles from './PlaylistTable.module.scss';
-import Image from "next/image";
+
 
 type Props = {
     name?: string;
@@ -108,7 +105,7 @@ const Tables = () => {
     ];
 
 
-const Tables = ({  }: Props) => { // Destructuring props
+
     return (
         <div className={styles.wrapper}>
             <Table
@@ -129,5 +126,6 @@ const Tables = ({  }: Props) => { // Destructuring props
         </div>
     );
 }
+
 
 export default Tables;

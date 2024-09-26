@@ -5,13 +5,15 @@ import Image from 'next/image'
 import Card from '../Card/Card'
 import UserPlaylist from '../UserPlaylist/UserPlaylist'
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
-import Tables from '../PlaylistTable/PlaylistTable'
+// import Tables from '../PlaylistTable/PlaylistTable'
 import NewTreck from '../popups/newTreck/NewTreck'
 import AddAlbum from '../popups/addAlbum/addAlbum'
 import axios from 'axios'
 import { useRecoilState } from 'recoil'
 import { albumDataState, albumIDState, authorIdStates, cardDataStates, clikcState } from '@/app/states'
 import { Divider } from 'antd'
+import Tables from '../PlaylistTable/PlaylistTable'
+// import Tables from '../PlaylistTable/PlaylistTable'
 
 type Props = {
     setActive: Dispatch<SetStateAction<boolean>>;
