@@ -1,12 +1,13 @@
 import styles from './addAlbum.module.scss'
 import Button from '../../Button/Button'
-import { useForm, SubmitHandler } from "react-hook-form"
 import axios from 'axios'
 import Image from 'next/image'
 import { useState } from 'react'
 import ArtistForm from '../artistForm/artistForm'
 import { useRecoilState } from 'recoil'
 import { authorIdStates, clikcState } from '@/app/states'
+import { useForm } from "react-hook-form";
+
 
 interface Props {
     onClick?: () => void,
@@ -19,7 +20,8 @@ const AddAlbum = (props: Props) => {
     const [authorId, setAuthorId] = useRecoilState(authorIdStates)
     const [message, setMessage] = useState<string>()
     const [click, setClick] = useRecoilState(clikcState)
-
+    
+    // const [coverFielName, setCoverFielName] = useState()
 
     const {
         register,
@@ -45,6 +47,7 @@ const AddAlbum = (props: Props) => {
 
         axios.post(`https://interstellar-1-pdzj.onrender.com/album`, data).
             then((r) => {
+                console.log(r.data,'sdasdasdasdasdasd')
                 setMessage('Album are created')
             }).catch((errors: string) => {
                 setMessage('The album could not be created')
@@ -58,6 +61,12 @@ const AddAlbum = (props: Props) => {
         }
     }
 
+    // const fileChange  = (e: any) => {
+    //     if(e.target.files  && e.target.files.length > 0) {
+    //         setCoverFielName(e.target.files[0].name)
+
+    //     }
+    // }
 
 
     return (
@@ -83,13 +92,16 @@ const AddAlbum = (props: Props) => {
                     <div className={styles.wrapper}>
                         <label htmlFor="file-upload-file">
                             <Image src={'/icon/Screenshots.svg'} width={90} height={90} alt='screenshot' />
+                            {/* <span>
+                                {coverFielName || 'gamochndaa'}
+                            </span> */}
                         </label>
                         <input className={styles.photoInput} id='file-upload-file' type='file'
-
 
                             {...register('file', {
                                 required: true
                             })}
+                            // onChange={fileChange}
                         />
                     </div>
                 </div>
@@ -112,7 +124,7 @@ const AddAlbum = (props: Props) => {
                         })}
 
                     />
-                    <div >
+                    <div>
                         {message}
                     </div>
                 </div>
