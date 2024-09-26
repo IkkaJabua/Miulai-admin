@@ -7,6 +7,9 @@ import ArtistForm from '../artistForm/artistForm'
 import { useRecoilState } from 'recoil'
 import { authorIdStates, clikcState } from '@/app/states'
 import { useForm } from "react-hook-form";
+import Cookies from 'js-cookie'
+import { Input } from 'antd'
+
 
 
 interface Props {
@@ -16,12 +19,12 @@ interface Props {
 }
 const AddAlbum = (props: Props) => {
     const [artistForm, setArtistForm] = useState(false)
-
     const [authorId, setAuthorId] = useRecoilState(authorIdStates)
     const [message, setMessage] = useState<string>()
     const [click, setClick] = useRecoilState(clikcState)
-    
-    // const [coverFielName, setCoverFielName] = useState()
+    const [coverFileName, setCoverFileName] = useState(''); // Fix the typo and make sure it's a string or null
+    const [file, setFile] = useState<File | null>(null)
+
 
     const {
         register,
@@ -36,22 +39,32 @@ const AddAlbum = (props: Props) => {
 
 
     const onSubmit = (values: any) => {
-        setClick(!click)
         const data: any = new FormData()
         data.append('albumName', values.albumName)
         // data.append('artistName', values.artistName)
         data.append('releaseDate', values.releaseDate)
-        data.append('file', values.file[0])
+        // data.append('file', values.file[0])
         data.append('authorId', authorId)
 
+        if(file) {
+            data.append('file', file)
+        } else {
+            console.log('ar midiiis')
+        }
 
-        axios.post(`https://interstellar-1-pdzj.onrender.com/album`, data).
-            then((r) => {
-                console.log(r.data,'sdasdasdasdasdasd')
-                setMessage('Album are created')
-            }).catch((errors: string) => {
-                setMessage('The album could not be created')
-            })
+
+
+        const token = Cookies.get('accessToken');
+        axios.post(`https://interstellar-1-pdzj.onrender.com/album`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).then((r) => {
+            setMessage('Album are created')
+            setClick(!click)
+        }).catch((errors: string) => {
+            setMessage('The album could not be created')
+        })
     }
 
     const handleDelete = (e: React.MouseEvent) => {
@@ -61,12 +74,13 @@ const AddAlbum = (props: Props) => {
         }
     }
 
-    // const fileChange  = (e: any) => {
-    //     if(e.target.files  && e.target.files.length > 0) {
-    //         setCoverFielName(e.target.files[0].name)
+    const fileChange  = (e: any) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setFile(e?.target.files[0])
+            setCoverFileName(e.target.files[0].name); 
+        }
 
-    //     }
-    // }
+    }
 
 
     return (
@@ -92,16 +106,16 @@ const AddAlbum = (props: Props) => {
                     <div className={styles.wrapper}>
                         <label htmlFor="file-upload-file">
                             <Image src={'/icon/Screenshots.svg'} width={90} height={90} alt='screenshot' />
-                            {/* <span>
-                                {coverFielName || 'gamochndaa'}
-                            </span> */}
+                            <span>
+                                {coverFileName || 'gamochndaa'}
+                            </span>
                         </label>
                         <input className={styles.photoInput} id='file-upload-file' type='file'
 
                             {...register('file', {
                                 required: true
                             })}
-                            // onChange={fileChange}
+                        onChange={fileChange}
                         />
                     </div>
                 </div>
@@ -129,7 +143,9 @@ const AddAlbum = (props: Props) => {
                     </div>
                 </div>
             </div>
-            <Button title={'Save'} className={styles.buttonTwo} />
+            <button className={styles.buttonTwo}>
+                Save
+            </button>
         </form>
     )
 }

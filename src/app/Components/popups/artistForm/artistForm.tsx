@@ -37,20 +37,28 @@ const ArtistForm = (props: Props) => {
         return <AddAlbum onDelete={() => setDeleted(true)} />
     }
 
-
-
-
     const onSubmit = (values: any) => {
-        axios.post("https://interstellar-1-pdzj.onrender.com/author").
-            then(r => {
-
-            })
+        
 
         const data = new FormData()
-        data.append('firstName', values.firstName)
-        data.append('lastName', values.lastName)
-        data.append('biography', values.biography)
+        data.append('firstName', String(values.firstName))
+        data.append('lastName', String(values.lastName))
+        data.append('biography', String(values.biography))
         data.append('file', values.file[0])
+
+        axios.post("https://interstellar-1-pdzj.onrender.com/author", data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(response => {
+                    
+                    console.log('Successfully submitted:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error submitting the form:', error.response?.data || error.message);
+
+                });
 
     }
 
@@ -72,7 +80,7 @@ const ArtistForm = (props: Props) => {
                     <div className={styles.inputGap}>
                         <div>Artist Name</div>
                         <input className={styles.nameInput}
-                            {...register('artistName')}
+                            {...register('firstName')}
                             type='text' />
 
                     </div>
@@ -107,7 +115,10 @@ const ArtistForm = (props: Props) => {
                     <Button onClick={() => setAddAlbum(true)} title={'New Album'} image='/icon/plus.svg' className={styles.button} />
                 </div>
             </div>
-            <Button title={'Save'} className={styles.buttonTwo} />
+            <button>
+                Save
+            </button>
+            {/* <Button title={'Save'} className={styles.buttonTwo} /> */}
         </form>
     );
 };

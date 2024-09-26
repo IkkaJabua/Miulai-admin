@@ -30,3 +30,13 @@ export const albumIDState = atom({
     key: 'albumIDState',
     default: ''
 })
+
+export const clickckState = atom({
+    key: 'clickckState',
+    default : false
+})
+
+export const newTrackRrecoState = atom({
+    key: 'newTrackRrecoState',
+    default: false
+})

@@ -6,8 +6,10 @@ import { text } from "stream/consumers";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { albumDataState, albumIDState, authorIdStates, cardDataStates } from "@/app/states";
+import { albumDataState, albumIDState, authorIdStates, cardDataStates, clickckState, clikcState } from "@/app/states";
 import { useRecoilState } from "recoil";
+import Cookies from 'js-cookie'
+
 
 
 type Props = {
@@ -29,26 +31,35 @@ const Tables = () => {
     const [authorId, setAuthorId] = useRecoilState(authorIdStates)
     const [albumID, setAlbumID] = useRecoilState(albumIDState)
     const [image, setimage] = useRecoilState<any>(cardDataStates)
-
+    const [clickck, setClickck] = useRecoilState(clickckState)
+    const token = Cookies.get('accessToken');
     const [deletes, setDeletes] = useState<any>()
 
     const onDelete = (id: number) => {
-        axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${authorId}/albums/${albumID}/musics/${id}`).
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/music/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+
+            }
+
+        }).
             then(r => {
+                setClickck(!clickck)
                 alert('are shure you want to delete?')
             }).catch((error) => {
-                console.log()
+                console.log('ar shemodis then shi saertod ar shemodiiis')
             })
     }
 
     useEffect(() => {
 
-        axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}/musics`). 
-        then((r ) => {
-            console.log(r.data,'=-=-=-=-=-=-=-=- musicData')
-        })
-    },[])
+        axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`).
+            then((r) => {
+                setData(r.data.musics)
+                console.log(r.data, 'musikebi')
 
+            })
+    }, [clickck])
 
 
     const columns = [
@@ -74,14 +85,13 @@ const Tables = () => {
                     <img className={styles.image} src={image?.files[0]?.url} width={48} height={48} alt={text} />
                     <div className={styles.fontGap}>
                         <div className={styles.songTitle}>{item.name}</div>
-                        <div className={styles.songArtist}>{item.authorName}</div>
+                        <div className={styles.songArtist}>{item.artistName}</div>
                     </div>
                 </div>
             ),
         },
         {
             title: 'Time',
-            dataIndex: 'time',
             key: 'time',
             width: '15%',
             render: (text: any, item: any) => (
@@ -97,9 +107,7 @@ const Tables = () => {
             render: ((record: any) =>
                 <div onClick={() => onDelete(record.id)} className={styles.center}>
                     <Image src={'/icon/trashsh.svg'} width={24} height={24} alt="trash" />
-
                 </div>
-
             )
         },
     ];
@@ -119,10 +127,6 @@ const Tables = () => {
                 }}
                 rowClassName={styles.row111111}
             />
-            {/* 
-                Uncomment when SureToDeleteSong component is used
-                {open && <SureToDeleteSong onCancelClick={closeModal} id={id} />}
-            */}
         </div>
     );
 }

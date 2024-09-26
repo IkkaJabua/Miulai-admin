@@ -272,10 +272,12 @@
 
 .popup {
     position: absolute;
-    // top: 140px;
-    top: 19%;
-    left: 21%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
+
 .image {
     border-radius: 4px;
 }

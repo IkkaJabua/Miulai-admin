@@ -9,7 +9,7 @@ import NewTreck from '../popups/newTreck/NewTreck'
 import AddAlbum from '../popups/addAlbum/addAlbum'
 import axios from 'axios'
 import { useRecoilState } from 'recoil'
-import { albumDataState, albumIDState, authorIdStates, cardDataStates, clikcState } from '@/app/states'
+import { albumDataState, albumIDState, authorIdStates, cardDataStates, clikcState, newTrackRrecoState } from '@/app/states'
 import { Divider } from 'antd'
 import Tables from '../PlaylistTable/PlaylistTable'
 import Cookies from 'js-cookie'
@@ -32,6 +32,10 @@ const AddArtistPopup = (props: Props) => {
     const [biography, setBiography] = useState(false)
     const [active, setActive] = useState(false)
     const [newTrack, setNewTrack] = useState(false)
+
+    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
+
+    
     const [createAlbum, setCreateAlbum] = useState(false)
     const [deleted, setDeleted] = useState(false)
     const [albumButton, setAlbumButton] = useState(false)
@@ -42,28 +46,28 @@ const AddArtistPopup = (props: Props) => {
     const [image, setimage] = useRecoilState<Props>(cardDataStates)
     const [edited, setEdited] = useState<boolean>(false)
     const [editedBiography, setEditedBiography] = useState<string>()
-    const [click, setClick] = useRecoilState(clikcState)
-    const [releaseDate, setReleaseDate] = useState<any[]>([])
+    const [click] = useRecoilState(clikcState)
+    const [releaseDate, setReleaseDate] = useState<any>([])
 
 
 
 
 
     useEffect(() => {
-
         axios.get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`).
             then((r) => {
                 setAuthorData(r.data)
                 setAlbumdata(r.data.albums)
                 setimage(r.data)
-                setSongs(r.data.albums.map((album: any) => album.musics.length))
-                setReleaseDate(r.data.albums.map((album: any) => album.releaseDate))
+                setSongs(r.data.musicCount)
             },).
             catch(error => {
                 console.log('there is something error', error)
             })
 
     }, [click])
+
+
 
 
     if (deleted) {
@@ -105,17 +109,13 @@ const AddArtistPopup = (props: Props) => {
                         <div>{albumData.length}</div>
                     </div>
                     <div className={styles.artistInformation}>
-                        <div className={styles.text}>Release date</div>
-                        <div>{releaseDate}</div>
-                    </div>
-                    <div className={styles.artistInformation}>
                         <div className={styles.text}>Songs</div>
                         <div>{songs}</div>
                     </div>
                 </div>
             </div>
             {
-                newTrack &&
+                newTrackRreco &&
                 <div className={styles.newTreck}>
                     <NewTreck onClick={() => setNewTrack(false)} />
                 </div>
@@ -169,7 +169,7 @@ const AddArtistPopup = (props: Props) => {
                         {
                             albumButton &&
                             <Button
-                                onClick={() => setNewTrack(!newTrack)}
+                                onClick={() => setNewTrackRreco(!newTrackRreco)}
                                 mode={'fill'}
                                 title={'New Track'}
                                 className={'button'}

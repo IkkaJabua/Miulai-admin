@@ -1,7 +1,7 @@
 .container {
     width: 936px;
     height: fit-content;
-    min-height: 558px;
+    max-height: 700px;
     border-radius: 8px;
     background: #29292E;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
@@ -26,7 +26,7 @@
 }
 
 .bodyTextureTwo {
-    height: 152px;
+    height: 65px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -91,8 +91,14 @@
 .footerPLaylist {
     display: flex;
     flex-wrap: wrap;
+    height: 300px;
+    overflow: scroll;
     gap: 16px;
     margin-top: 16px;
+}
+
+.footerPLaylist::-webkit-scrollbar {
+    display: none;
 }
 
 .font {
@@ -168,4 +174,3 @@
     background: #29292E;
     color: #9E9A9F;
 }
-

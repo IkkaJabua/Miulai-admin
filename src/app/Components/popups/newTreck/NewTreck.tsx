@@ -3,8 +3,10 @@ import styles from './NewTreck.module.scss'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useState } from 'react'
-import { albumIDState } from '@/app/states'
+import { albumIDState, clickckState, newTrackRrecoState } from '@/app/states'
 import { useRecoilState } from 'recoil'
+import Cookies from 'js-cookie'
+
 
 
 
@@ -22,6 +24,11 @@ const NewTreck = (props: Props) => {
 
     const [track, setTrack] = useState<boolean>()
     const [albumID, setAlbumID] = useRecoilState<any>(albumIDState)
+    const [clickck, setClickck] = useRecoilState(clickckState)
+
+    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
+
+
 
 
     const {
@@ -37,12 +44,18 @@ const NewTreck = (props: Props) => {
         data.append('file', value.file[0])
         data.append('albumId', albumID)
 
+        const token = Cookies.get('accessToken');
 
-        axios.post(`https://interstellar-1-pdzj.onrender.com/music`, data).
-        then((r) => {
-            
-            
-        })
+
+        axios.post(`https://interstellar-1-pdzj.onrender.com/music`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).
+            then((r) => {
+                setNewTrackRreco(false)
+                setClickck(!clickck)
+            })
 
 
     }
@@ -65,9 +78,9 @@ const NewTreck = (props: Props) => {
             <div className={styles.twoFile}>
                 <div>Upload Music file</div>
                 <label htmlFor="upload-file">
-                    <Image  src={'/icon/Upload.svg'} width={24} height={24} alt='upload' />
+                    <Image src={'/icon/Upload.svg'} width={24} height={24} alt='upload' />
                 </label>
-                <input id={'upload-file'} className={styles.file} type="file"  {...register('file')}/>
+                <input id={'upload-file'} className={styles.file} type="file"  {...register('file')} />
             </div>
             <input type='submit' value={'Save'} className={styles.button} />
         </form>
