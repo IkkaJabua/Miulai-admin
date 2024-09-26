@@ -1,307 +1,385 @@
-'use client'
-import React, { useState } from 'react';
-import { Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import Image from 'next/image';
-import PlaylistInput from '../playlistinput/playlistinput';
-import { useForm, SubmitHandler } from "react-hook-form";
-import styles from './UserTable.module.scss';
-import type Password from 'antd/es/input/Password';
-import ArtistPopup from '../ArtistPopup/ArtistPopup';
+"use client";
+import React, { useEffect, useMemo, useState } from "react";
+import { Table, Tabs } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import Image from "next/image";
+import axios from "axios";
+import ArtistPopup from "../ArtistPopup/ArtistPopup";
+import NewPassword from "../NewPassword/NewPassword";
+import SureToDelete from "../SureToDelete/SureToDelete";
 
-// const [seeAll, setSeeAll] = useState(false)
+import styles from "./usertable.module.scss";
+import Cookies from "js-cookie";
 
-// artists.slice(0, seeAll ? artists.lenght : 4).map(() => <Card></Card>)
-
-
-const data = [
-    {
-        key: '1',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '2',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '3',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '4',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '5',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '6',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '7',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '8',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '9',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '10',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '11',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-    {
-        key: '12',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '13',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '14',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '15',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '16',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    }, {
-        key: '17',
-        artist: 'September 17, 2024  11:22',
-        totalStreams: 'dolores.chambers@example.com',
-        Password: 'sandrooooo',
-        totalSongs: 5,
-    },
-];
-
-
+type User = {
+  id: number;
+  email: string;
+  password: string;
+  createdAt: string;
+  block: boolean;
+};
 
 const UserTable: React.FC = () => {
-    const [active, setActive] = useState<string>();
-    const [all, setAll] = useState(false)
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+  const [selectedRowKeysAll, setSelectedRowKeysAll] = useState<React.Key[]>([]);
+  const [selectedRowKeysBlocked, setSelectedRowKeysBlocked] = useState<
+    React.Key[]
+  >([]);
+  const [selectedId, setSelectedId] = useState<number | undefined>();
+  const [users, setUsers] = useState<User[]>([]);
+  const [blockedUsers, setBlockedUsers] = useState<User[]>([]);
+  const [artistPopup, setArtistPopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [activePasswordId, setActivePasswordId] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  console.log(users, "users");
 
-    const [isOpen, setIsOpen] = useState(false);
+  const openPop = () => setArtistPopup(true);
+  const closePop = () => setArtistPopup(false);
+  const openModal = (record: User) => {
+    setSelectedId(record.id);
+    setIsOpen(true);
+  };
+  const closeModal = () => setIsOpen(false);
+  const showDeleteModal = (record: User) => {
+    setSelectedId(record.id);
+    setDeleteModal(true);
+  };
+  const hideDeleteModal = () => setDeleteModal(false);
 
-    const openModal = () => {
-        setIsOpen(true);
-    };
+  const fetchUsers = async () => {
+    try {
+      const accessToken = Cookies.get("accessToken");
 
-    const closeModal = () => {
-        setIsOpen(false);
-    };
-
-
-
-
-
-
-    const onSubmit = (values: any) => {
-        console.log('Values', !!values)
+      console.log("Access token", accessToken);
+      const response = await axios.get(
+        "https://interstellar-1-pdzj.onrender.com/user",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      setUsers(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
+  };
 
-    const handleSelectAll = (checked: boolean) => {
-        if (checked) {
-            setSelectedKeys(new Set(data.map(item => item.key)));
-        } else {
-            setSelectedKeys(new Set());
+  console.log(users, "useerrs");
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const toggleBlock = (id: number) => {
+    setUsers((prevUsers) => {
+      const updatedUsers = prevUsers.map((user) =>
+        user.id === id ? { ...user, block: true } : user
+      );
+
+      setBlockedUsers(updatedUsers.filter((user) => user.block));
+      return updatedUsers;
+    });
+    const accessToken = Cookies.get("accessToken");
+    axios
+      .patch(`https://interstellar-1-pdzj.onrender.com/user/block/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(() => {})
+      .catch((err) => {
+        console.error("Error blocking user:", err);
+      });
+  };
+
+  const toggleUnBlock = (id: number) => {
+    setUsers((prevUsers) => {
+      const updatedUsers = prevUsers.map((user) =>
+        user.id === id ? { ...user, block: false } : user
+      );
+      setBlockedUsers(updatedUsers.filter((user) => user.block));
+      return updatedUsers;
+    });
+    const accessToken = Cookies.get("accessToken");
+
+    axios
+      .patch(
+        `https://interstellar-1-pdzj.onrender.com/user/unblock/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
-    };
+      )
+      .then(() => {
+        console.log(`Unblocked user with ID: ${id}`);
+      })
+      .catch((err) => {
+        console.error("Error unblocking user:", err);
+      });
+  };
 
-    const handleSelectOne = (key: string) => {
-        setSelectedKeys(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(key)) {
-                newSet.delete(key);
-            } else {
-                newSet.add(key);
-            }
-            return newSet;
-        });
-    };
+  const handlePasswordToggle = (id: number) => {
+    setActivePasswordId(activePasswordId === id ? null : id);
+  };
 
-    const handlePasswordToggle = (key: any) => {
-        if (active === key) {
-            setActive(''); // If the same field is clicked, hide the password
-        } else {
-            setActive(key); // Show password for the clicked field
-        }
-    };
+  const memoizedUsers = useMemo(() => {
+    return users
+      .filter((user) =>
+        user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a) => (a.email.includes(searchQuery) ? -1 : 1))
+      .map((user) => ({ ...user, key: user.id }));
+  }, [users, searchQuery]);
 
+  const memoizedBlockedUsers = useMemo(() => {
+    return blockedUsers
+      .filter((user) =>
+        user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a) => (a.email.includes(searchQuery) ? -1 : 1))
+      .map((user) => ({ ...user, key: user.id }));
+  }, [blockedUsers, searchQuery]);
 
-
-    const columns: ColumnsType<any> = [
-        {
-            title: () =>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        type='checkbox'
-                        className={styles.inp}
-                        {...register('selectAll')}
-                        checked={selectedKeys.size === data.length}
-                        onChange={(e) => {
-                            handleSelectAll(e.target.checked);
-                            handleSubmit(onSubmit)();
-                        }}
-                    />
-                </form>,
-            dataIndex: 'checkbox',
-            key: 'checkbox',
-            render: (text, record) =>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        type='checkbox'
-                        className={styles.inp}
-                        {...register(`select-${record.key}`)}
-                        checked={selectedKeys.has(record.key)}
-                        onChange={() => {
-                            handleSelectOne(record.key);
-                            handleSubmit(onSubmit)();
-                        }}
-                    />
-                </form>,
-            width: '5%',
-        },
-        {
-            title: 'Registration Date',
-            dataIndex: 'artist',
-            key: 'artist',
-            render: (text, record) => (
-                <div className={styles.artistCell}>
-                    <div>{text}</div>
-                </div>
-            ),
-            width: '20%',
-        },
-        {
-            title: 'Email',
-            dataIndex: 'totalStreams',
-            key: 'totalStreams',
-            width: '30%',
-            render: (text) => (
-                <div>
-                    {text}
-                </div>
-            ),
-        },
-        {
-            title: 'Password',
-            dataIndex: 'Password',
-            key: 'Password',
-            width: '15%',
-            render: (text, record) => (
-                <div className={styles.Password}>
-                    <input type={active === record.key ? 'text' : 'password'} value={text} className={styles.inputPassword} />
-                    <div onClick={() => handlePasswordToggle(record.key)}>
-                        <Image src={`/icon/paswordhider.svg`} width={24} height={24} alt='trash' />
-                    </div>
-                </div>
-            ),
-        },
-        {
-            title: 'Actions',
-            key: 'actions',
-            render: () => (
-                <div className={styles.actions}>
-                    <button className={styles.unBorder} onClick={openModal}>
-                        <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
-                    </button>
-                    <button className={styles.unBorder}>
-                        <Image src={`/icon/trash.svg`} width={24} height={24} alt='trash' />
-                    </button>
-                    <button className={styles.unBorder}>
-                        <Image src={`/icon/blockUnblock.svg`} width={24} height={24} alt='trash' />
-                    </button>
-                </div>
-            ),
-            width: '15%',
-        },
-    ];
-
-
-    return (
-
-        <div>
-            <Table
-                className={styles.wrapper}
-                columns={columns}
-                dataSource={data}
-                pagination={{
-                    position: ['bottomCenter']
-                }}
-            />
-             {isOpen && (
-                <ArtistPopup
-                    name={'Artist Name'}
-                    closeModal={closeModal}  // Pass the closeModal function
-                /> 
-            )}
+  const columns: ColumnsType<User> = [
+    {
+      title: "Registration Date",
+      key: "createdAt",
+      render: (_, record) => (
+        <div className={styles.artistCell}>{record.createdAt}</div>
+      ),
+      width: "20%",
+    },
+    {
+      title: "Email",
+      key: "email",
+      width: "30%",
+      render: (_, record) => (
+        <div
+          onClick={() => {
+            artistPopup ? closePop() : openPop();
+            setSelectedId(record.id);
+          }}
+        >
+          {record.email}
         </div>
+      ),
+    },
+    {
+      title: "Password",
+      key: "password",
+      width: "15%",
+      render: (_, record) => (
+        <div className={styles.Password}>
+          <input
+            type={activePasswordId === record.id ? "text" : "password"}
+            value={record.password}
+            readOnly
+            className={styles.inputPassword}
+          />
+          <div onClick={() => handlePasswordToggle(record.id)}>
+            <Image
+              src={`/icon/paswordhider.svg`}
+              width={24}
+              height={24}
+              alt="toggle password visibility"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Actions",
+      key: "actions",
+      width: "15%",
+      render: (_, record) => (
+        console.log(record, "recordd"),
+        (
+          <div className={styles.actions}>
+            <button
+              className={styles.unBorder}
+              onClick={() => openModal(record)}
+            >
+              <Image src={`/icon/Pen.svg`} width={24} height={24} alt="edit" />
+            </button>
+            <button
+              className={styles.unBorder}
+              onClick={() => showDeleteModal(record)}
+            >
+              <Image
+                src={`/icon/trash.svg`}
+                width={24}
+                height={24}
+                alt="delete"
+              />
+            </button>
+            <button
+              className={styles.unBorder}
+              onClick={() => {
+                record.block
+                  ? toggleUnBlock(record.id)
+                  : toggleBlock(record.id);
+              }}
+            >
+              <Image
+                src={
+                  record.block
+                    ? "/icon/block-icon.svg"
+                    : "/icon/unblock-icon.svg"
+                }
+                width={24}
+                height={24}
+                alt="block/unblock"
+              />
+            </button>
+          </div>
+        )
+      ),
+    },
+  ];
 
+  const tabItems = [
+    {
+      key: "1",
+      label: (
+        <span style={{ color: "#fff", fontSize: "18px", fontWeight: "500" }}>
+          All Users
+        </span>
+      ),
+      children: (
+        <div className={styles.tabContent}>
+          <input
+            placeholder="Search by email"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              width: "500px",
+              marginBottom: "20px",
+              height: "55px",
+              borderRadius: "8px",
+              border: "1px solid gray",
+              outline: "none",
+              backgroundColor: "unset",
+              padding: "0 18px",
+              fontSize: "17px",
+              color: "#fff",
+              position: "absolute",
+              top: "-200px",
+            }}
+          />
+          {selectedRowKeysAll.length > 0 && (
+            <div
+              className={styles.buttons}
+              style={{
+                display: "flex",
+                gap: "20px",
+                position: "absolute",
+                top: "-112px",
+                zIndex: "10",
+              }}
+            >
+              {/* <UserBlockBtn />
+              <UserDeleteBtn /> */}
+            </div>
+          )}
 
+          <Table
+            rowSelection={{
+              selectedRowKeys: selectedRowKeysAll,
+              onChange: setSelectedRowKeysAll,
+            }}
+            className={styles.wrapper}
+            columns={columns}
+            dataSource={memoizedUsers}
+            pagination={{ position: ["bottomCenter"] }}
+          />
+          {artistPopup && <ArtistPopup closeModal={closePop} name={""} />}
+          {isOpen && <NewPassword closeModal={closeModal} id={selectedId} />}
+          {deleteModal && (
+            <SureToDelete
+              onCancelClick={hideDeleteModal}
+              onDeleteClick={fetchUsers}
+              id={selectedId}
+            />
+          )}
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <span style={{ color: "#fff", fontSize: "18px", fontWeight: "500" }}>
+          Blocked Users
+        </span>
+      ),
+      children: (
+        <div className={styles.tabContent}>
+          <input
+            placeholder="Search by email"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              width: "500px",
+              height: "55px",
+              borderRadius: "8px",
+              border: "1px solid gray",
+              outline: "none",
+              backgroundColor: "unset",
+              padding: "0 18px",
+              fontSize: "17px",
+              color: "#fff",
+              position: "absolute",
+              top: "-190px",
+            }}
+          />
 
+          {selectedRowKeysBlocked.length > 0 && (
+            <div
+              className={styles.buttons}
+              style={{
+                display: "flex",
+                gap: "20px",
+                position: "absolute",
+                top: "-112px",
+                zIndex: "10",
+              }}
+            >
+              {/* <UserDeleteBtn /> */}
+            </div>
+          )}
+          <Table
+            rowSelection={{
+              selectedRowKeys: selectedRowKeysBlocked,
+              onChange: setSelectedRowKeysBlocked,
+            }}
+            className={styles.wrapper}
+            columns={columns}
+            dataSource={memoizedBlockedUsers}
+            pagination={{ position: ["bottomCenter"] }}
+          />
+          {artistPopup && (
+            <ArtistPopup closeModal={closePop} name={"Dolores"} />
+          )}
+          {isOpen && <NewPassword closeModal={closeModal} id={selectedId} />}
+          {deleteModal && (
+            <SureToDelete
+              onCancelClick={hideDeleteModal}
+              onDeleteClick={fetchUsers}
+              id={selectedId}
+            />
+          )}
+        </div>
+      ),
+    },
+  ];
 
-    );
+  return (
+    <div className={styles.tableContainer}>
+      <Tabs defaultActiveKey="1" items={tabItems} style={{ width: "1100px" }} />
+    </div>
+  );
 };
 
 export default UserTable;
-
-

@@ -4,8 +4,7 @@ import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import styles from './Table.module.scss';
-import PlaylistInput from '../playlistinput/playlistinput';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
 import AddAlbum from '../popups/addAlbum/addAlbum';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -74,11 +73,7 @@ const MusicTable: React.FC = () => {
     const handleSelectOne = (key: string) => {
         setSelectedKeys(prev => {
             const newSet = new Set(prev);
-            if (newSet.has(key)) {
-                newSet.delete(key);
-            } else {
-                newSet.add(key);
-            }
+            newSet.has(key) ? newSet.delete(key) : newSet.add(key);
             return newSet;
         });
     };

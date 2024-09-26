@@ -1,5 +1,4 @@
 import styles from './TotalUser.module.scss';
-import Image from 'next/image';
 
 interface Props {
     totalUser: string;

@@ -10,8 +10,12 @@ import { useRecoilState } from 'recoil'
 
 
 interface Props {
+    onClick: () => void;
+}
 
-    onClick: () => void
+interface FormData {
+    name: string;
+    file: FileList;
 }
 
 const NewTreck = (props: Props) => {
@@ -23,10 +27,8 @@ const NewTreck = (props: Props) => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
-    } = useForm<any>()
-
+    } = useForm<FormData>();
 
     const onSubmit = (value: any) => {
         const data = new FormData()
@@ -46,16 +48,15 @@ const NewTreck = (props: Props) => {
     }
 
     return (
-
         <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
             <div className={styles.header}>
-                {/* <Image src={'/icon/back.svg'} width={24} height={24} alt='back' /> */}
                 <div className={styles.font}>Add New track</div>
-                <Image onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='back' />
+                <Image onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='delete' />
             </div>
             <div className={styles.gap}>
                 <div>Track Names</div>
-                <input className={styles.name} type="text"  {...register('name')}/>
+                <input className={styles.name} type="text" {...register('name', { required: true })} />
+                {errors.name && <span>This field is required</span>}
             </div>
             {/* <div className={styles.gap}>
                 <div>Artist Name</div>
@@ -70,8 +71,7 @@ const NewTreck = (props: Props) => {
             </div>
             <input type='submit' value={'Save'} className={styles.button} />
         </form>
-    )
-
+    );
 }
 
-export default NewTreck
+export default NewTreck;

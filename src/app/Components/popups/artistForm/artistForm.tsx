@@ -7,12 +7,17 @@ import { useEffect, useState } from 'react'
 import AddAlbum from '../addAlbum/addAlbum'
 import axios from 'axios'
 
+
 interface Props {
-    onClick?: () => void
+    onClick?: () => void;
 }
 
-
-
+// Define the interface for form values
+interface FormValues {
+    artistName: string;
+    biography: string;
+    artistPhoto: FileList;
+}
 
 const ArtistForm = (props: Props) => {
     const [deleted, setDeleted] = useState(false)
@@ -21,7 +26,6 @@ const ArtistForm = (props: Props) => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm<any>()
     if (deleted) {
@@ -58,9 +62,7 @@ const ArtistForm = (props: Props) => {
                 <div>
                     {/* <Image src={'/icon/back.svg'} width={24} height={24} alt='back' /> */}
                 </div>
-                <div>
-                    Add New Artist
-                </div>
+                <div>Add New Artist</div>
                 <div className={styles.cursor} onClick={props.onClick}>
                     <Image src={'/icon/delete.svg'} width={24} height={24} alt='delete' />
                 </div>
@@ -91,7 +93,7 @@ const ArtistForm = (props: Props) => {
                     </div>
                 </div>
                 <div className={styles.formBody}>
-                    <div className={styles.formBody}>
+                    <div>
                         <div>Artist Photo</div>
                         <div className={styles.photoFile}>
                             <input className={styles.photoInput}
@@ -107,7 +109,7 @@ const ArtistForm = (props: Props) => {
             </div>
             <Button title={'Save'} className={styles.buttonTwo} />
         </form>
-    )
-}
+    );
+};
 
-export default ArtistForm
+export default ArtistForm;

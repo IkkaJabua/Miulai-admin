@@ -1,27 +1,31 @@
-import { useState } from 'react';
 import styles from './PlaylistInput.module.scss';
-// import Button from '../../Button/Button';
+
+type RegisterFunction = (name?: string) => {
+    onChange: () => void; // Adjust the return type as needed
+    onBlur: () => void;
+    ref: React.Ref<HTMLInputElement>;
+};
 
 type Props = {
     name?: string;
-    id?: number;
     onClick?: () => void;
-    register?: any;
-}
+    register?: RegisterFunction; // Specify a function type for register
+};
 
-const PlaylistInput = ({ name, id, onClick, register }: Props) => {
-
+const PlaylistInput: React.FC<Props> = ({ name, onClick, register }) => {
     return (
-        <div className={styles.container} >
+        <div className={styles.container}>
             <div className={styles.wrapper}>
-                <input type="checkbox" className={styles.inp} onClick={onClick} {...register(name)} />
+                <input 
+                    type="checkbox" 
+                    className={styles.inp} 
+                    onClick={onClick} 
+                    {...(register ? register(name) : {})} // Ensure register is defined
+                />
                 <span className={styles.name}>{name}</span>
             </div>
-
-
         </div>
-    )
-}
-
+    );
+};
 
 export default PlaylistInput;

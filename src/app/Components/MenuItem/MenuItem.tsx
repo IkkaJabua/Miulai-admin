@@ -1,5 +1,5 @@
 import styles from './MenuItem.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -49,31 +49,6 @@ const MenuItem = () => {
             path: '/r',
             key: '/r',
         },
-        
-        { type: 'header', title: 'DISCOVER', key: 'title' },
-
-        {
-            title: 'Artist',
-            icon: '/icon/menu-icon-4.svg',
-            activeIcon: '',
-            path: '/t',
-            key: '/t',
-        },
-        {
-            title: 'Track',
-            icon: '/icon/menu-icon-5.svg',
-            activeIcon: '',
-            path: '/d',
-            key: '/d',
-        },
-       
-        {
-            title: 'Album',
-            icon: '/icon/menu-icon-6.svg',
-            activeIcon: '',
-            path: '/z',
-            key: '/z',
-        }
     ]
 
 

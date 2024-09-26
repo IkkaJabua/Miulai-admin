@@ -23,7 +23,6 @@ interface Props {
 
 }
 
-
 const UserPlaylist = (props: Props) => {
     const router = useRouter()
     const [albumButton, setAlbumButton] = useState(false)
@@ -89,8 +88,8 @@ const UserPlaylist = (props: Props) => {
                 ))
             }
         </>
-    )
-}
+    );
+};
 
 UserPlaylist.displayName = 'UserPlaylist';
 export default UserPlaylist;

@@ -1,7 +1,7 @@
+// ArtistPopup.tsx
 import styles from './ArtistPopup.module.scss';
 import Image from 'next/image';
 import ArtistPopupData from './ArtistPopupData/ArtistPopupData';
-import ArtistPopupBtn from './ArtistPopupBtn/ArtistPopupBtn';
 import ArtPopupCards from './ArtPopupCards/ArtPopupCards';
 import { useState } from 'react';
 import PlaylistTable from '../PlaylistTable/PlaylistTable';
@@ -12,10 +12,9 @@ interface Props {
 }
 
 const ArtistPopup = (props: Props) => {
-    const [isPlaylistEdit, setPlaylistEdit] = useState(false)
+    const [isPlaylistEdit, setPlaylistEdit] = useState<boolean>(false);
+    const [editPlaylistId, setEditPlaylistId] = useState<number>(0);
 
-
-    console.log('Props', props)
     return (
         <div className={styles.sss}>
             <div className={styles.container}>
@@ -43,14 +42,19 @@ const ArtistPopup = (props: Props) => {
                         key3={'Playlists Created'}
                         value3={'4'}
                         userImage={'/image/userTestImage.png'}
-                        imageStyle={'round'}
+                        imageStyle={'round'} 
+                        id={0}                    
                     />
-                    <ArtistPopupBtn />
                 </div>
+                
                 {!isPlaylistEdit ?
-                    <ArtPopupCards onEdit={() => { setPlaylistEdit(true) }} /> :
-                    <PlaylistTable />
+                    <ArtPopupCards onEdit={(playlistId: number) => { 
+                        setPlaylistEdit(true); 
+                        setEditPlaylistId(playlistId); 
+                    }} /> :
+                    <PlaylistTable id={editPlaylistId} />
                 }
+
             </div>
         </div>
     );

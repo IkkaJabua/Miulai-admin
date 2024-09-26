@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Table } from "antd";
 // import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
 import styles from './PlaylistTable.module.scss'
@@ -10,8 +10,22 @@ import { albumDataState, albumIDState, authorIdStates, cardDataStates } from "@/
 import { useRecoilState } from "recoil";
 import type { Props } from "next/script";
 // import { useWindowSize } from "react-use";
+import styles from './PlaylistTable.module.scss';
+import Image from "next/image";
 
+type Props = {
+    name?: string;
+    id?: number;
+}
 
+interface Song {
+    icon: string;
+    title: string;
+    author: string;
+    album: string;
+    time: string;
+    id: number;
+}
 
 const Tables = () => {
     const [data, setData] = useState<any>([])
@@ -94,6 +108,7 @@ const Tables = () => {
     ];
 
 
+const Tables = ({  }: Props) => { // Destructuring props
     return (
         <div className={styles.wrapper}>
             <Table
@@ -106,12 +121,13 @@ const Tables = () => {
 
                 }}
                 rowClassName={styles.row111111}
-
             />
+            {/* 
+                Uncomment when SureToDeleteSong component is used
+                {open && <SureToDeleteSong onCancelClick={closeModal} id={id} />}
+            */}
         </div>
-
-    )
+    );
 }
 
 export default Tables;
-

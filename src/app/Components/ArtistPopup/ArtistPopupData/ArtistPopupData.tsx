@@ -11,9 +11,12 @@ type Props = {
     value3: string
     userImage: string;
     imageStyle: 'round' | 'normal'; 
+    id: number;
 }
 
 const ArtistPopupData = (props: Props) => {
+    
+
     const classes = [];
     if(props.imageStyle === 'round') classes.push(styles.round)
     else classes.push(styles.normal)

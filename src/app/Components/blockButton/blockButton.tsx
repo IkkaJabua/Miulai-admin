@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import "./BlockButton.scss"; // SCSS ფაილი
+import "./BlockButton.scss"; // SCSS file
 
 interface BlockButtonProps {
-  userId: string; // ან რაიმე უნიკალური იდენტიფიკატორი
+  userId: string; // Unique identifier for the user
 }
 
 const BlockButton: React.FC<BlockButtonProps> = ({ userId }) => {
   const [isBlocked, setIsBlocked] = useState(false);
 
   const handleBlockUser = () => {
-    // აქ შეიძლება API გამოძახება იუზერის დაბლოკვისთვის
+    // Here you can make an API call to block/unblock the user using userId
+    console.log(`${isBlocked ? "Unblocking" : "Blocking"} user with ID: ${userId}`);
     setIsBlocked(!isBlocked);
   };
 
