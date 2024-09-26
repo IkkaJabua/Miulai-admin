@@ -54,7 +54,7 @@ const AddAlbum = (props: Props) => {
     const handleDelete = (e: React.MouseEvent) => {
         e.preventDefault()
         if (props.onDelete) {
-            props.onDelete() 
+            props.onDelete()
         }
     }
 
