@@ -1,64 +1,69 @@
 .container {
-    max-width: 100%;
-    width: 100%;
-    padding-left: 24px;
-    padding-top: 40px;
-    padding-right: 24px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    height: 150vh;
-
+  max-width: 100%;
+  width: 100%;
+  padding-left: 24px;
+  padding-top: 40px;
+  padding-right: 24px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 150vh;
 }
 
 .containerButtons {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-
 .button {
-    padding: 8px 20px 8px 16px;
-    display: flex;
-    border-radius: 8px;
-    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+  padding: 8px 20px 8px 16px;
+  display: flex;
+  border-radius: 8px;
+  background: var(
+    --Gradient-apolo,
+    linear-gradient(90deg, #f903d0 0%, #9a16f2 100%)
+  );
 }
 
 .button:hover {
-    border-radius: 10px;
-
+  border-radius: 10px;
 }
 
 .export {
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #35353B;
-    background: #151519;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #35353b;
+  background: #151519;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .font {
-    font-style: normal !important;
-    font-size: 24px;
-    font-weight: 600;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
 }
-
-
+.foontHeader {
+  font-style: normal !important;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
 
 .popup {
-    position: absolute;
-    display: flex;
-    // align-self: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: #29292E;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
-
+  position: absolute;
+  align-self: center;
+  border-radius: 8px;
+  background: #29292e;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
 }
-
+.artistTotalFont {
+  color: #818385;
+  font-size: 16px;
+  font-weight: 500;
+}
 
 // .backdropBlur {
 //     position: fixed;

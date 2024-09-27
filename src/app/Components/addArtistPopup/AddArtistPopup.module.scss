@@ -1,176 +1,183 @@
 .container {
-    width: 936px;
-    height: fit-content;
-    max-height: 700px;
-    border-radius: 8px;
-    background: #29292E;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
-    padding: 40px;
+  width: 936px;
+  height: fit-content;
+  max-height: 700px;
+  border-radius: 8px;
+  background: #29292e;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  padding: 40px;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .body {
-    display: flex;
-    gap: 40px;
-    margin-top: 24px;
-
+  display: flex;
+  gap: 40px;
+  margin-top: 24px;
 }
 
 .bodyTexture {
-    height: 152px;
-
+  height: 152px;
 }
 
 .bodyTextureTwo {
-    height: 65px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: #818385;
-
-
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #818385;
 }
 
 .artistInformation {
-    display: flex;
-    align-items: center;
-    gap: 46px;
+  display: flex;
+  align-items: center;
+  gap: 46px;
+}
+.artistInformationAlbum {
+  display: flex;
+  align-items: center;
+  gap: 46px;
 }
 
 .text {
-    width: 104px;
-    color: white;
+  width: 104px;
+  color: white;
+}
+
+.textAlbum {
+  width: 141px;
+  color: white;
 }
 
 .footer {
-    max-width: 100%;
-    width: 100%;
-    margin-top: 24px;
+  max-width: 100%;
+  width: 100%;
+  margin-top: 24px;
 }
 
 .button {
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 4;
-    border-radius: 8px;
-    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
-    max-width: 151px;
-
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 4;
+  border-radius: 8px;
+  background: var(
+    --Gradient-apolo,
+    linear-gradient(90deg, #f903d0 0%, #9a16f2 100%)
+  );
+  max-width: 151px;
 }
 
 .foterHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .buttonMain {
-    width: 151px;
+  width: 151px;
 }
 
 .footerMode {
-    display: flex;
-    width: 106;
-    gap: 8px;
-    color: white;
+  display: flex;
+  width: 106;
+  gap: 8px;
+  color: white;
 }
 
 .footerModeFont {
-    cursor: pointer;
-    padding: 12px 24px;
-    color: #818385;
-    font-size: 16px;
-    font-weight: 500;
+  cursor: pointer;
+  padding: 12px 24px;
+  color: #818385;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .footerPLaylist {
-    display: flex;
-    flex-wrap: wrap;
-    height: 300px;
-    overflow: scroll;
-    gap: 16px;
-    margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  height: 300px;
+  overflow: scroll;
+  gap: 16px;
+  margin-top: 16px;
+  position: relative;
 }
 
 .footerPLaylist::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .font {
-    color: white;
-    font-weight: 600;
-    font-style: normal;
+  color: white;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .activefooterModeFont {
-    cursor: pointer;
-    padding: 12px 24px;
-    border-bottom: 4px solid var(--Gradient-apolo, #F903D0);
-
+  cursor: pointer;
+  padding: 12px 24px;
+  border-bottom: 4px solid var(--Gradient-apolo, #f903d0);
 }
 
 .newTreck {
-    position: absolute;
-    top: 150px;
-    left: 250px;
-    z-index: 1;
-    width: 461px;
-    height: 416px;
-    background-color: #252528;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.20);
-    border-radius: 8px;
+  position: absolute;
+  top: 150px;
+  left: 250px;
+  z-index: 1;
+  width: 461px;
+  height: 416px;
+  background-color: #252528;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 }
-
-// .edit {
-//     display: flex;
-//     padding: 8px 12px 8px 8px;
-//     align-items: center;
-//     gap: 4px;
-//     border-radius: 8px;
-//     border: 1px solid #35353B;
-//     background: #151519;
-// }
+.albumGap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .biographyButton {
-    display: flex;
-    max-width: 75px;
-    margin-left: 76px;
-    padding: 8px 12px 8px 8px;
-    align-items: center;
-    gap: 4px;
-    border-radius: 8px;
-    border: 1px solid #35353B;
-    background: #151519;
-
+  display: flex;
+  max-width: 75px;
+  margin-left: 76px;
+  padding: 8px 12px 8px 8px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  border: 1px solid #35353b;
+  background: #151519;
 }
 
 .image {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 .biographyFont {
-    color: #9E9A9F;
-    text-align: justify;
-    font-size: 14px;
-    font-weight: 400;
+  color: #9e9a9f;
+  text-align: justify;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .cursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .inputText {
-    width: 100%;
-    height: 100%;
-    border: none;
-    font-style: normal;
-    background: #29292E;
-    color: #9E9A9F;
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-style: normal;
+  background: #29292e;
+  color: #9e9a9f;
+}
+.colorGray {
+  color: #818385;
+  font-size: 16px;
+  font-weight: 500;
 }

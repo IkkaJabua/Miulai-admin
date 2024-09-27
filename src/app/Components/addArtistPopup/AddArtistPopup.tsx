@@ -51,8 +51,13 @@ const AddArtistPopup = (props: Props) => {
   const [image, setimage] = useRecoilState<Props>(cardDataStates);
   const [edited, setEdited] = useState<boolean>(false);
   const [editedBiography, setEditedBiography] = useState<string>();
-  const [click] = useRecoilState(clikcState);
+  const [click, setClick] = useRecoilState(clikcState);
   const [releaseDate, setReleaseDate] = useState<any>([]);
+  const [albumCover, setAlbumCover] = useState();
+  const [albumID, setAlbumID] = useRecoilState(albumIDState);
+  const [albumName, setAlbumName] = useState();
+  const [musics, setMusic] = useState();
+  const [releaseDateAlbum, setReleaseDateAlbum] = useState();
 
   useEffect(() => {
     axios
@@ -60,11 +65,23 @@ const AddArtistPopup = (props: Props) => {
       .then((r) => {
         setAuthorData(r.data);
         setAlbumdata(r.data.albums);
+        // console.log(r.data.albums.file.url, "album");
         setimage(r.data);
         setSongs(r.data.musicCount);
       })
       .catch((error) => {
         console.log("there is something error", error);
+      });
+  }, [click]);
+
+  useEffect(() => {
+    axios
+      .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
+      .then((r) => {
+        setAlbumName(r.data.albumName);
+        setAlbumCover(r.data.file?.url);
+        setReleaseDateAlbum(r.data.releaseDate);
+        setMusic(r.data.musics?.length);
       });
   }, [click]);
 
@@ -118,28 +135,55 @@ const AddArtistPopup = (props: Props) => {
       </div>
       <div className={styles.body}>
         <div className={styles.bodyTexture}>
-          <img
-            className={styles.image}
-            src={authorData?.files[0]?.url}
-            width={267}
-            height={152}
-            alt="artist name"
-          />
+          {albumButton ? (
+            <img
+              className={styles.image}
+              src={albumCover}
+              width={240}
+              height={152}
+              alt="artist name"
+            />
+          ) : (
+            <img
+              className={styles.image}
+              src={authorData?.files[0]?.url}
+              width={240}
+              height={152}
+              alt="artist name"
+            />
+          )}
         </div>
-        <div className={styles.bodyTextureTwo}>
-          <div className={styles.artistInformation}>
-            <div className={styles.text}>Tolat album</div>
-            <div>{albumData.length}</div>
+        {albumButton ? (
+          <div className={styles.albumGap}>
+            <div className={styles.artistInformationAlbum}>
+              <div className={styles.textAlbum}>Album Name:</div>
+              <div className={styles.textAlbum}>{albumName}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.textAlbum}>Release Date:</div>
+              <div className={styles.colorGray}>{releaseDateAlbum}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.textAlbum}>Number Of Tracks:</div>
+              <div className={styles.textAlbum}>{musics}</div>
+            </div>
           </div>
-          <div className={styles.artistInformation}>
-            <div className={styles.text}>Songs</div>
-            <div>{songs}</div>
+        ) : (
+          <div className={styles.bodyTextureTwo}>
+            <div className={styles.artistInformation}>
+              <div className={styles.text}>Tolat album</div>
+              <div>{albumData.length}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.text}>Songs</div>
+              <div>{songs}</div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       {newTrackRreco && (
         <div className={styles.newTreck}>
-          <NewTreck onClick={() => setNewTrack(false)} />
+          <NewTreck onClick={() => setNewTrackRreco(false)} />
         </div>
       )}
       <div className={styles.footer}>
@@ -191,7 +235,9 @@ const AddArtistPopup = (props: Props) => {
             )}
             {albumButton && (
               <Button
-                onClick={() => setNewTrackRreco(!newTrackRreco)}
+                onClick={() => {
+                  setNewTrackRreco(!newTrackRreco);
+                }}
                 mode={"fill"}
                 title={"New Track"}
                 className={"button"}
@@ -199,7 +245,6 @@ const AddArtistPopup = (props: Props) => {
               />
             )}
             {biography && (
-              // there is button con can i make that edit
               <Button
                 onClick={() => {
                   setEditedBiography(authorData?.biography);

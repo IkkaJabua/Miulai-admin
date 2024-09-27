@@ -36,6 +36,7 @@ const Tables = () => {
   const [authorId, setAuthorId] = useRecoilState(authorIdStates);
   const [albumID, setAlbumID] = useRecoilState(albumIDState);
   const [image, setimage] = useRecoilState<any>(cardDataStates);
+  const [img, setImg] = useState<any>();
   const [clickck, setClickck] = useRecoilState(clickckState);
   const token = Cookies.get("accessToken");
   const [deletes, setDeletes] = useState<any>();
@@ -61,7 +62,7 @@ const Tables = () => {
       .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
       .then((r) => {
         setData(r.data.musics);
-        console.log(r.data, "musikebi");
+        setImg(r.data.file.url);
       });
   }, [clickck]);
 
@@ -85,7 +86,7 @@ const Tables = () => {
         <div className={styles.cellSongname}>
           <img
             className={styles.image}
-            src={image?.files[0]?.url}
+            src={img}
             width={48}
             height={48}
             alt={text}
