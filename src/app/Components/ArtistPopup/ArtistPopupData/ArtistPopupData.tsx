@@ -5,7 +5,7 @@ type Props = {
   key1: string;
   value1: string;
   key2: string;
-  value2: any;
+  value2: string; // Changed from '' to string
   key3: string;
   value3: string;
   userImage: string;
@@ -21,10 +21,9 @@ const ArtistPopupData = (props: Props) => {
   return (
     <div className={styles.container}>
       <div>
-        {/* // <Image src={props.userImage} alt='image' width={152} height={152} className={styles.image} /> */}
         <Image
           src={props.userImage}
-          alt="image"
+          alt="User Image"
           width={152}
           height={152}
           className={styles.image}

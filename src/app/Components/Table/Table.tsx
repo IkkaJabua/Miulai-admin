@@ -4,42 +4,29 @@ import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Image from "next/image";
 import styles from "./Table.module.scss";
-import { useForm } from "react-hook-form";
 import AddArtistPopup from "../addArtistPopup/AddArtistPopup";
-import AddAlbum from "../popups/addAlbum/addAlbum";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { authorIdStates, clikcState, deleteStates } from "@/app/states";
+import { useRecoilState } from "recoil";
+import { authorIdStates, clickState } from "@/app/states";
 import axios from "axios";
 
-interface DataType {
+interface Author {
   key: string;
   artist: string;
   totalStreams: number;
   totalAlbums: number;
   totalSongs: number;
-  image: string;
-  name?: any;
-  id?: any;
-  files?: any;
-  firstName?: any;
-  lastName?: any;
+  files: { url: string }[];
+  firstName: string;
+  lastName: string;
+  id: number;
 }
 
 const MusicTable: React.FC = () => {
-  const [selectedKey, setSelectedKey] = useState<string | null>(null);
-  const [all, setAll] = useState(false);
-  const [click, setClick] = useRecoilState(clikcState);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+  const [click, setClick] = useRecoilState(clickState);
+  const [tableData, setTableData] = useState<Author[]>([]);
+  const [authorId, setAuthorId] = useRecoilState(authorIdStates); // Keep this if you plan to use it for editing
   const [active, setActive] = useState(false);
-  const [tableData, setTableData] = useState<any[]>([]);
-  const [authorId, setAuthorId] = useRecoilState(authorIdStates);
-  const [deletes, setDeletes] = useRecoilState(deleteStates);
 
   useEffect(() => {
     fetchAuthors();
@@ -47,7 +34,7 @@ const MusicTable: React.FC = () => {
 
   const fetchAuthors = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.get<Author[]>(
         `https://interstellar-1-pdzj.onrender.com/author`
       );
       setTableData(response.data);
@@ -56,7 +43,7 @@ const MusicTable: React.FC = () => {
     }
   };
 
-  const TableDelete = async (id: any) => {
+  const TableDelete = async (id: number) => {
     const confirmDelete = confirm("Do you really want to delete?");
     if (confirmDelete) {
       try {
@@ -72,7 +59,7 @@ const MusicTable: React.FC = () => {
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedKeys(new Set(tableData.map((item: any) => item.key)));
+      setSelectedKeys(new Set(tableData.map((item) => item.key)));
     } else {
       setSelectedKeys(new Set());
     }
@@ -86,40 +73,24 @@ const MusicTable: React.FC = () => {
     });
   };
 
-  const onSubmit = (values: any) => {
-    // console.log('Values', values);
-  };
-
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<Author> = [
     {
       title: () => (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="checkbox"
-            className={styles.inp}
-            {...register("selectAll")}
-            onChange={(e) => {
-              handleSelectAll(e.target.checked);
-              handleSubmit(onSubmit)();
-            }}
-          />
-        </form>
+        <input
+          type="checkbox"
+          className={styles.inp}
+          onChange={(e) => handleSelectAll(e.target.checked)}
+        />
       ),
       dataIndex: "checkbox",
       key: "checkbox",
       render: (text, record) => (
-        <form className={styles.wrapperTwo} onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="checkbox"
-            className={styles.inp}
-            {...register(`select-${record.id}`)}
-            checked={selectedKeys.has(record.key)}
-            onChange={() => {
-              handleSelectOne(record.key);
-              handleSubmit(onSubmit)();
-            }}
-          />
-        </form>
+        <input
+          type="checkbox"
+          className={styles.inp}
+          checked={selectedKeys.has(record.key)}
+          onChange={() => handleSelectOne(record.key)}
+        />
       ),
       width: "5%",
     },
@@ -129,7 +100,7 @@ const MusicTable: React.FC = () => {
       key: "artist",
       render: (text, record) => (
         <div className={styles.artistCell}>
-          <img
+          <Image
             className={styles.image}
             src={record.files[0]?.url}
             width={40}
@@ -148,7 +119,7 @@ const MusicTable: React.FC = () => {
       dataIndex: "totalStreams",
       key: "totalStreams",
       width: "20%",
-      render: (text, record) => <div>{record.totalStreams}</div>,
+      render: (text) => <div>{text}</div>,
     },
     {
       title: "Total Albums",
@@ -170,16 +141,19 @@ const MusicTable: React.FC = () => {
       render: (text, record) => (
         <div className={styles.actions}>
           <button
-            onClick={() => setActive(true)}
+            onClick={() => {
+              setAuthorId(record.id); // Set the author ID when editing
+              setActive(true); // Activate the popup for editing
+            }}
             className={styles.unBorderPen}
           >
-            <Image src={`/icon/Pen.svg`} width={24} height={24} alt="pen" />
+            <Image src={`/icon/Pen.svg`} width={24} height={24} alt="edit" />
           </button>
           <button
             onClick={() => TableDelete(record.id)}
             className={styles.unBorder}
           >
-            <Image src={`/icon/trash.svg`} width={24} height={24} alt="trash" />
+            <Image src={`/icon/trash.svg`} width={24} height={24} alt="delete" />
           </button>
         </div>
       ),
@@ -194,13 +168,15 @@ const MusicTable: React.FC = () => {
         columns={columns}
         dataSource={tableData}
         pagination={{ position: ["bottomCenter"] }}
-        rowKey="id" // Important to uniquely identify rows
-        onRow={(record: any) => ({
+        rowKey="id"
+        onRow={(record) => ({
           onClick: () => {
-            setAuthorId(record.id);
+            setAuthorId(record.id); // Set the author ID when a row is clicked
           },
         })}
       />
+      {/* Optionally display the selected Author ID */}
+      {authorId && <div>Selected Author ID: {authorId}</div>}
       {active && (
         <div className={styles.popup}>
           <AddArtistPopup

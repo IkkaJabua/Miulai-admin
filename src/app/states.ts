@@ -1,45 +1,65 @@
 import { atom } from "recoil";
 
-export const authorIdStates = atom<any>({
+// Define appropriate types for the atoms based on your application's requirements
+export const authorIdStates = atom<number>({
   key: "authorIdStates",
   default: 0,
 });
 
-export const cardDataStates = atom<any>({
-  key: "cardDataStates",
-  default: [],
-});
+interface CardData {
+  id: number;
+  title: string;
+  // Add other properties as needed
+}
 
-export const deleteStates = atom<any>({
-  key: "deleteStates",
-  default: 0,
-});
+// In your recoil state definition
+interface AlbumData {
+  id: number;
+  albumName: string; // Add this property to match Album interface
+  file?: { url: string };
+  // Add other properties as needed
+}
 
-export const clikcState = atom({
-  key: "clikc",
-  default: false,
-});
-
-export const albumDataState = atom({
+export const albumDataState = atom<AlbumData[]>({
   key: "albumDataState",
   default: [],
 });
 
-export const albumIDState = atom({
-  key: "albumIDState",
-  default: "",
+export const cardDataStates = atom<CardData[]>({
+  key: "cardDataStates",
+  default: [],
 });
 
-export const clickckState = atom({
-  key: "clickckState",
+export const deleteStates = atom<number>({
+  key: "deleteStates",
+  default: 0,
+});
+
+export const clickState = atom<boolean>({
+  key: "clickState",
   default: false,
 });
 
-export const newTrackRrecoState = atom({
-  key: "newTrackRrecoState",
+interface AlbumData {
+  id: number;
+  title: string;
+  // Add other properties as needed
+}
+
+export const newTrackRecoState = atom<boolean>({
+  key: "newTrackRecoState",
   default: false,
 });
-export const userIdState = atom({
+
+export const userIdState = atom<number | null>({
   key: "userIdState",
   default: null,
 });
+
+
+// Change the type of albumIDState to number | null
+export const albumIDState = atom<number | null | string>({
+  key: 'albumIDState',
+  default: null, // Initially null, which means no album is selected
+});
+
