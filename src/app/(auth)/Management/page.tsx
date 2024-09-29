@@ -23,7 +23,7 @@ const Management = () => {
       .catch((error) => {
         console.log("there is something error", error);
       });
-  }, []);
+  }, );
 
   return (
     <div className={styles.container}>

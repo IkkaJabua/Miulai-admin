@@ -3,7 +3,7 @@ import styles from './NewTreck.module.scss'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect, useState } from 'react'
-import { albumIDState, albumNAmeState, artistNAmeState, clickckState, newTrackRrecoState } from '@/app/states'
+import { albumDataState, albumNAmeState, artistNAmeState, clickState, newTrackRecoState } from '@/app/states'
 import { useRecoilState } from 'recoil'
 import Cookies from 'js-cookie'
 
@@ -23,10 +23,10 @@ interface FormData {
 const NewTreck = (props: Props) => {
 
     const [track, setTrack] = useState<boolean>()
-    const [albumID, setAlbumID] = useRecoilState<any>(albumIDState)
-    const [clickck, setClickck] = useRecoilState(clickckState)
+    const [albumID, setAlbumID] = useRecoilState<any>(albumDataState)
+    const [clickck, setClickck] = useRecoilState(clickState)
 
-    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
+    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRecoState)
     const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNAmeState)
     const [artistName, setArtistName] = useRecoilState<any>(artistNAmeState)
     const [albumNameNew, setAlbumNameNew] = useState<any>()
@@ -73,45 +73,41 @@ const NewTreck = (props: Props) => {
 
 
 
-
         axios.post(`https://interstellar-1-pdzj.onrender.com/music`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        }).
-            then((r) => {
-                setNewTrackRreco(false)
-                setClickck(!clickck)
-            })
-
-
-    }
+        })
+        .then(() => {
+            setClickck(!clickck); // This will trigger any reactivity needed
+        })
+        .catch((error) => {
+            console.error('Error submitting the form:', error);
+        });
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
             <div className={styles.header}>
-                <div className={styles.font}>Add New track</div>
+                <div className={styles.font}>Add New Track</div>
                 <Image onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='delete' />
             </div>
             <div className={styles.gap}>
-                <div>Track Names</div>
+                <div>Track Name</div>
                 <input className={styles.name} type="text" {...register('name', { required: true })} />
                 {errors.name && <span>This field is required</span>}
             </div>
-            {/* <div className={styles.gap}>
-                <div>Artist Name</div>
-                <input className={styles.name} type="text"  {...register('artistName')} />
-            </div> */}
             <div className={styles.twoFile}>
                 <div>Upload Music file</div>
                 <label htmlFor="upload-file">
                     <Image src={'/icon/Upload.svg'} width={24} height={24} alt='upload' />
                 </label>
-                <input id={'upload-file'} className={styles.file} type="file"  {...register('file')} />
+                <input id='upload-file' className={styles.file} type="file" {...register('file', { required: true })} />
+                {errors.file && <span>This field is required</span>}
             </div>
-            <input type='submit' value={'Save'} className={styles.button} />
+            <input type='submit' value='Save' className={styles.button} />
         </form>
     );
-}
+};
 
 export default NewTreck;
