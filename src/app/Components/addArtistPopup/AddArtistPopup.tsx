@@ -11,12 +11,11 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import {
   albumDataState,
-  albumIDState,
   albumNAmeState,
   authorIdStates,
   cardDataStates,
-  clikcState,
-  newTrackRrecoState,
+  clickState,
+  newTrackRecoState,
 } from "@/app/states";
 import { Divider } from "antd";
 import Tables from "../PlaylistTable/PlaylistTable";
@@ -40,7 +39,7 @@ const AddArtistPopup = (props: Props) => {
   const [active, setActive] = useState(false);
   const [newTrack, setNewTrack] = useState(false);
 
-  const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState);
+  const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRecoState);
 
   const [createAlbum, setCreateAlbum] = useState(false);
   const [deleted, setDeleted] = useState(false);
@@ -49,10 +48,10 @@ const AddArtistPopup = (props: Props) => {
   const [albumData, setAlbumdata] = useRecoilState(albumDataState);
   const [authorData, setAuthorData] = useState<any>();
   const [songs, setSongs] = useState<any>([]);
-  const [image, setimage] = useRecoilState<Props>(cardDataStates);
+  const [image, setimage] = useRecoilState(cardDataStates);
   const [edited, setEdited] = useState<boolean>(false);
   const [editedBiography, setEditedBiography] = useState<string>();
-  const [click] = useRecoilState(clikcState);
+  const [click] = useRecoilState(clickState);
   const [releaseDate, setReleaseDate] = useState<any>([]);
 
   useEffect(() => {

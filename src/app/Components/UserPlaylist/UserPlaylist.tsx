@@ -32,7 +32,7 @@ interface Props {
 const UserPlaylist = (props: Props) => {
     const router = useRouter()
     const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
-    const [albumID, setAlbumID] = useRecoilState(albumIDState)
+    const [albumID, setAlbumID] = useRecoilState(albumNAmeState)
 
 
     return (
