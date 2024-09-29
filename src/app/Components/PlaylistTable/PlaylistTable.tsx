@@ -5,9 +5,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
+
   albumIDState,
   authorIdStates,
-  clickState,
+  cardDataStates,
+  clikcState,
 } from "@/app/states";
 import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
@@ -30,7 +32,7 @@ const Tables = () => {
   const [authorId, setAuthorId] = useRecoilState(authorIdStates);
   const [albumID, setAlbumID] = useRecoilState(albumIDState);
   const [image, setimage] = useRecoilState<any>(cardDataStates);
-  const [clickck, setClickck] = useRecoilState(clickckState);
+  const [clickck, setClickck] = useRecoilState(clikcState);
   const token = Cookies.get("accessToken");
 
   const formatDuration = (seconds: number) => {
@@ -63,7 +65,7 @@ const Tables = () => {
         setData(r.data.musics);
         console.log(r.data, "musikebi");
       });
-  }, [clickck, albumID]); // include albumID here
+  }, [clickck]); // include albumID here
 
   const columns = [
     {

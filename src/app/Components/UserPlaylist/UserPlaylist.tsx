@@ -1,15 +1,18 @@
-'use client'
-import { title } from 'process'
-// import styles from './UserPlaylist.module.scss'
-import Image from 'next/image'
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
-import styles from './UserPlaylist.module.scss'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useRecoilState } from 'recoil'
-import { albumDataState, albumIDState, authorIdStates, cardDataStates } from '@/app/states'
-import axios from 'axios'
-
+import Image from "next/image";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import styles from "./UserPlaylist.module.scss";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRecoilState } from "recoil";
+import {
+    albumDataState,
+    authorIdStates,
+    cardDataStates,
+    clikcState,
+    
+} from "@/app/states";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 interface Album {
   id: number;
@@ -30,9 +33,15 @@ interface Props {
 }
 
 const UserPlaylist = (props: Props) => {
-    const router = useRouter()
-    const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
-    const [albumID, setAlbumID] = useRecoilState(albumNAmeState)
+    // const router = useRouter()
+    // const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
+    // const [albumID, setAlbumID] = useRecoilState(albumNAmeState)
+
+    const router = useRouter();
+    const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState);
+    const [albumID, setAlbumID] = useRecoilState<any>(albumDataState);
+    const [click, setClick] = useRecoilState(clikcState);
+    const token = Cookies.get("accessToken");
 
 
     return (

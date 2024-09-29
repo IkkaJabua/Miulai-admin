@@ -3,7 +3,7 @@ import styles from './NewTreck.module.scss'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect, useState } from 'react'
-import { albumDataState, albumNAmeState, artistNAmeState, clickState, newTrackRecoState } from '@/app/states'
+import { albumDataState, albumNameState, artistNAmeState, clikcState, newTrackRrecoState } from '@/app/states'
 import { useRecoilState } from 'recoil'
 import Cookies from 'js-cookie'
 
@@ -24,10 +24,10 @@ const NewTreck = (props: Props) => {
 
     const [track, setTrack] = useState<boolean>()
     const [albumID, setAlbumID] = useRecoilState<any>(albumDataState)
-    const [clickck, setClickck] = useRecoilState(clickState)
-
-    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRecoState)
-    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNAmeState)
+    const [clickck, setClickck] = useRecoilState(clikcState)
+    
+    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
+    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
     const [artistName, setArtistName] = useRecoilState<any>(artistNAmeState)
     const [albumNameNew, setAlbumNameNew] = useState<any>()
     const [artistNameNew, setArtistNameNew] = useState<any>()

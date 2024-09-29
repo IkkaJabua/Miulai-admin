@@ -11,11 +11,10 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import {
   albumDataState,
-  albumNAmeState,
   authorIdStates,
   cardDataStates,
-  clickState,
-  newTrackRecoState,
+  clikcState,
+  newTrackRrecoState,
 } from "@/app/states";
 import { Divider } from "antd";
 import Tables from "../PlaylistTable/PlaylistTable";
@@ -39,7 +38,7 @@ const AddArtistPopup = (props: Props) => {
   const [active, setActive] = useState(false);
   const [newTrack, setNewTrack] = useState(false);
 
-  const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRecoState);
+  const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState);
 
   const [createAlbum, setCreateAlbum] = useState(false);
   const [deleted, setDeleted] = useState(false);
@@ -51,7 +50,7 @@ const AddArtistPopup = (props: Props) => {
   const [image, setimage] = useRecoilState(cardDataStates);
   const [edited, setEdited] = useState<boolean>(false);
   const [editedBiography, setEditedBiography] = useState<string>();
-  const [click] = useRecoilState(clickState);
+  const [click] = useRecoilState(clikcState);
   const [releaseDate, setReleaseDate] = useState<any>([]);
 
   useEffect(() => {

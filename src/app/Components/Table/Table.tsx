@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
 import AddAlbum from '../popups/addAlbum/addAlbum';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { authorIdStates, clickState, deleteStates } from '@/app/states';
+import { authorIdStates, clikcState, deleteStates } from '@/app/states';
 import axios from 'axios';
 
 
@@ -29,7 +29,7 @@ interface DataType {
 const MusicTable: React.FC = () => {
     const [selectedKey, setSelectedKey] = useState<string | null>(null);
     const [all, setAll] = useState(false);
-    const [click, setClick] = useRecoilState(clickState);
+    const [click, setClick] = useRecoilState(clikcState);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
     const [active, setActive] = useState(false);
