@@ -3,10 +3,11 @@
     height: fit-content;
     max-height: 700px;
     border-radius: 8px;
-    background: #29292E;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.20);
+    background: #29292e;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
     padding: 40px;
 }
+
 
 .header {
     display: flex;
@@ -41,8 +42,19 @@
     gap: 46px;
 }
 
+.artistInformationAlbum {
+    display: flex;
+    align-items: center;
+    gap: 46px;
+}
+
 .text {
     width: 104px;
+    color: white;
+}
+
+.textAlbum {
+    width: 141px;
     color: white;
 }
 
@@ -58,7 +70,8 @@
     align-items: center;
     gap: 4;
     border-radius: 8px;
-    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+    background: var(--Gradient-apolo,
+            linear-gradient(90deg, #f903d0 0%, #9a16f2 100%));
     max-width: 151px;
 
 }
@@ -95,6 +108,7 @@
     overflow: scroll;
     gap: 16px;
     margin-top: 16px;
+    position: relative;
 }
 
 .footerPLaylist::-webkit-scrollbar {
@@ -110,7 +124,7 @@
 .activefooterModeFont {
     cursor: pointer;
     padding: 12px 24px;
-    border-bottom: 4px solid var(--Gradient-apolo, #F903D0);
+    border-bottom: 4px solid var(--Gradient-apolo, #f903d0);
 
 }
 
@@ -125,7 +139,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.20);
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
 }
 
@@ -138,6 +152,13 @@
 //     border: 1px solid #35353B;
 //     background: #151519;
 // }
+
+.albumGap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .biographyButton {
     display: flex;
     max-width: 75px;
@@ -146,7 +167,7 @@
     align-items: center;
     gap: 4px;
     border-radius: 8px;
-    border: 1px solid #35353B;
+    border: 1px solid #35353b;
     background: #151519;
 
 }
@@ -156,7 +177,7 @@
 }
 
 .biographyFont {
-    color: #9E9A9F;
+    color: #9e9a9f;
     text-align: justify;
     font-size: 14px;
     font-weight: 400;
@@ -171,6 +192,12 @@
     height: 100%;
     border: none;
     font-style: normal;
-    background: #29292E;
-    color: #9E9A9F;
+    background: #29292e;
+    color: #9e9a9f;
+}
+
+.colorGray {
+    color: #818385;
+    font-size: 16px;
+    font-weight: 500;
 }

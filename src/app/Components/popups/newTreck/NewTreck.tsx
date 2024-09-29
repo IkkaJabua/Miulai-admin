@@ -47,6 +47,7 @@ const NewTreck = (props: Props) => {
                 setAlbumNameNew(r.data.albumName)
                 setArtistNameNew(r.data.artistName)
                 setAlbumcover(r.data.file?.url)
+                
 
             })
 

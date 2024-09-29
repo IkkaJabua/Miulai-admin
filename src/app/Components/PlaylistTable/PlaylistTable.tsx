@@ -69,7 +69,7 @@ const Tables = () => {
         setData(r.data.musics);
         console.log(r.data, "musikebi");
       });
-  }, [clickck]); // include albumID here
+  }, [clickck]); 
 
   const columns = [
     {

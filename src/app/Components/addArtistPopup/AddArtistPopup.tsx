@@ -2,18 +2,22 @@
 import styles from "./AddArtistPopup.module.scss";
 import Button from "../Button/Button";
 import Image from "next/image";
+import UserPlaylist from "../UserPlaylist/UserPlaylist";
 import NewTreck from "../popups/newTreck/NewTreck";
 import AddAlbum from "../popups/addAlbum/addAlbum";
 import axios from "axios";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { useRecoilState } from "recoil";
 import {
   albumDataState,
+  albumIDState,
+  albumNameState,
   authorIdStates,
   cardDataStates,
   clikcState,
   newTrackRrecoState,
 } from "@/app/states";
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import Tables from "../PlaylistTable/PlaylistTable";
 import Cookies from "js-cookie";
 
 type Props = {
@@ -22,18 +26,10 @@ type Props = {
   onClick?: () => void;
 };
 
-interface Album {
-  title: string;
-  img: string;
-  id: number;
-}
-
 const AddArtistPopup = (props: Props) => {
   const [albums, setAlbums] = useState(true);
   const [biography, setBiography] = useState(false);
   const [active, setActive] = useState(false);
-  const [newTrack, setNewTrack] = useState(false);
-
   const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState);
   const [createAlbum, setCreateAlbum] = useState(false);
   const [deleted, setDeleted] = useState(false);
@@ -42,40 +38,59 @@ const AddArtistPopup = (props: Props) => {
   const [albumData, setAlbumdata] = useRecoilState(albumDataState);
   const [authorData, setAuthorData] = useState<any>();
   const [songs, setSongs] = useState<any>([]);
-  const [image, setImage] = useRecoilState(cardDataStates);
-  const [edited, setEdited] = useState<boolean>(false);
+  const [image, setimage] = useRecoilState(cardDataStates);
+  const [edited, setEdited] = useState(false);
   const [editedBiography, setEditedBiography] = useState<string>();
-  const [click] = useRecoilState(clikcState);
+  const [click, setClick] = useRecoilState(clikcState);
   const [releaseDate, setReleaseDate] = useState<any>([]);
+  const [albumCover, setAlbumCover] = useState<string | undefined>();
+  const [albumID, setAlbumID] = useRecoilState(albumIDState);
+  const [albumName, setAlbumName] = useState<string | undefined>();
+  const [musics, setMusic] = useState<number | undefined>();
+  const [releaseDateAlbum, setReleaseDateAlbum] = useState<string | undefined>();
+  const [albumNameTwo, setAlbumNameTwo] = useRecoilState(albumNameState);
 
+  // Fetching author data
   useEffect(() => {
     axios
       .get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`)
-      .then((response) => {
-        setAuthorData(response.data);
-        setAlbumdata(response.data.albums);
-        setImage(response.data);
-        setSongs(response.data.musicCount);
+      .then((r) => {
+        setAuthorData(r.data);
+        setAlbumdata(r.data.albums);
+        setimage(r.data);
+        setSongs(r.data.musicCount);
       })
       .catch((error) => {
-        console.error("Error fetching author data", error);
+        console.log("Error fetching author data:", error);
       });
   }, [click]);
 
-  if (deleted) {
-    return null;
+  // Fetching album data
+  useEffect(() => {
+    axios
+      .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
+      .then((r) => {
+        setAlbumName(r.data.albumName);
+        setAlbumCover(r.data.file?.url);
+        setReleaseDateAlbum(r.data.releaseDate);
+        setMusic(r.data.musics?.length);
+      });
+  }, [click]);
+
+  if (deleted) return null; // Return null if deleted is true
+
+  if (createAlbum) {
+    return (
+      <div className={styles.container}>
+        <AddAlbum onClick={() => setCreateAlbum(false)} onDelete={() => setDeleted(true)} />
+      </div>
+    );
   }
 
   return (
     <div className={styles.container}>
-      {createAlbum && (
-        <AddAlbum
-          onClick={() => setCreateAlbum(false)}
-          onDelete={() => setDeleted(true)}
-        />
-      )}
-
       <div className={styles.header}>
+        {/* Back Button */}
         <div
           onClick={() => {
             setActive(false);
@@ -86,107 +101,172 @@ const AddArtistPopup = (props: Props) => {
         >
           <Image
             className={styles.cursor}
-            src={"/icon/back.svg"}
+            src="/icon/back.svg"
             width={24}
             height={24}
-            alt="back"
+            alt="Back"
           />
         </div>
+
+        {/* Author Name */}
         <div className={styles.font}>
           {authorData?.firstName} {authorData?.lastName}
         </div>
+
+        {/* Delete Button */}
         <div>
           <Image
             className={styles.cursor}
             onClick={props.onClick}
-            src={"/icon/delete.svg"}
+            src="/icon/delete.svg"
             width={24}
             height={24}
-            alt="delete"
+            alt="Delete"
           />
         </div>
       </div>
 
+      {/* Body Section */}
       <div className={styles.body}>
         <div className={styles.bodyTexture}>
           <img
             className={styles.image}
-            src={authorData?.files[0]?.url}
-            width={267}
+            src={albumButton ? albumCover : authorData?.files[0]?.url}
+            width={240}
             height={152}
-            alt="artist"
+            alt="Artist"
           />
         </div>
-        <div className={styles.bodyTextureTwo}>
-          <div className={styles.artistInformation}>
-            <div className={styles.text}>Total Albums</div>
-            <div>{albumData.length}</div>
+
+        {/* Album Info or Artist Info */}
+        {albumButton ? (
+          <div className={styles.albumGap}>
+            <div className={styles.artistInformationAlbum}>
+              <div className={styles.textAlbum}>Album Name:</div>
+              <div className={styles.colorGray}>{albumName}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.textAlbum}>Release Date:</div>
+              <div className={styles.colorGray}>{releaseDateAlbum}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.textAlbum}>Number of Tracks:</div>
+              <div className={styles.colorGray}>{musics}</div>
+            </div>
           </div>
-          <div className={styles.artistInformation}>
-            <div className={styles.text}>Songs</div>
-            <div>{songs}</div>
+        ) : (
+          <div className={styles.bodyTextureTwo}>
+            <div className={styles.artistInformation}>
+              <div className={styles.text}>Total Albums</div>
+              <div className={styles.colorGray}>{albumData.length}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.text}>Songs</div>
+              <div className={styles.colorGray}>{songs}</div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
+      {/* Footer Section */}
       {newTrackRreco && (
-        <div className={styles.newTreck}>
-          <NewTreck onClick={() => setNewTrackRreco(false)} />
-        </div>
-      )}
+        <>
+          <div className={styles.newTreck}>
+            <NewTreck onClick={() => setNewTrackRreco(false)} />
+          </div>
 
-      <div className={styles.footer}>
-        <div className={styles.footerHeader}>
-          <div className={styles.footerMode}>
-            {!active && (
-              <div
-                onClick={() => {
-                  setAlbums(true);
-                  setBiography(false);
-                  setAlbumButton(false);
-                }}
-                className={
-                  albums ? styles.activefooterModeFont : styles.footerModeFont
-                }
-              >
-                Albums
+          <div className={styles.footer}>
+            <div className={styles.foterHeader}>
+              <div className={styles.footerMode}>
+                {/* Footer Mode Options */}
+                {!active && (
+                  <>
+                    <div
+                      onClick={() => {
+                        setAlbums(true);
+                        setBiography(false);
+                        setAlbumButton(false);
+                      }}
+                      className={albums ? styles.activefooterModeFont : styles.footerModeFont}
+                    >
+                      Albums
+                    </div>
+                    <div
+                      onClick={() => {
+                        setAlbums(false);
+                        setBiography(true);
+                        setAlbumButton(false);
+                      }}
+                      className={biography ? styles.activefooterModeFont : styles.footerModeFont}
+                    >
+                      Biography
+                    </div>
+                  </>
+                )}
+                {active && <div>Album Tracks</div>}
               </div>
-            )}
-            {!active && biography && (
-              <Button
-                onClick={() => {
-                  setEditedBiography(authorData?.biography);
-                  setEdited(!edited);
-                }}
-                title={"Edit"}
-                className={styles.biographyButton}
-                image="/icon/pen.svg"
-              />
-            )}
-          </div>
 
-          <div className={styles.buttonMain}>
-            {albums && (
-              <Button
-                mode={"fill"}
-                onClick={() => setCreateAlbum(true)}
-                title={"New Album"}
-                className={"button"}
-                image="/icon/plus.svg"
-              />
-            )}
-            {albumButton && (
-              <Button
-                onClick={() => setNewTrackRreco(!newTrackRreco)}
-                mode={"fill"}
-                title={"New Track"}
-                className={"button"}
-                image="/icon/plus.svg"
-              />
-            )}
+              {/* Buttons in Footer */}
+              <div className={styles.buttonMain}>
+                {albums && (
+                  <Button
+                    mode="fill"
+                    onClick={() => setCreateAlbum(true)}
+                    title="New Album"
+                    className="button"
+                    image="/icon/plus.svg"
+                  />
+                )}
+                {albumButton && (
+                  <Button
+                    onClick={() => setNewTrackRreco(!newTrackRreco)}
+                    mode="fill"
+                    title="New Track"
+                    className="button"
+                    image="/icon/plus.svg"
+                  />
+                )}
+                {biography && (
+                  <Button
+                    onClick={() => {
+                      setEditedBiography(authorData?.biography);
+                      setEdited(!edited);
+                    }}
+                    title="Edit"
+                    className={styles.biographyButton}
+                    image="/icon/pen.svg"
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Footer Content */}
+            <div className={styles.footerPLaylist}>
+              {albums && (
+                <UserPlaylist
+                  setAlbumButton={setAlbumButton}
+                  setAlbums={setAlbums}
+                  setActive={setActive}
+                />
+              )}
+              {biography &&
+                (edited ? (
+                  <textarea
+                    className={styles.inputText}
+                    value={editedBiography}
+                    rows={9}
+                    onChange={(e) => setEditedBiography(e.target.value)}
+                  />
+                ) : (
+                  <div className={styles.biographyFont}>
+                    {authorData?.biography}
+                  </div>
+                ))}
+              {active && <Tables />}
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };
