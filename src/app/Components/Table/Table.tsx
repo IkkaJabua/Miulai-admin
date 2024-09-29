@@ -171,7 +171,9 @@ const MusicTable: React.FC = () => {
                 className={styles.wrapper}
                 columns={columns}
                 dataSource={tableData}
-                pagination={{ position: ['bottomCenter'] }}
+                pagination={{ 
+                    pageSize: 7,
+                    position: ['bottomCenter'] }}
                 rowKey="id" // Important to uniquely identify rows
                 onRow={(record: any) => ({
                     onClick: () => {

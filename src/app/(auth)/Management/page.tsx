@@ -6,9 +6,12 @@ import Button from '@/app/Components/Button/Button'
 import Image from 'next/image'
 import { useState } from 'react'
 import ArtistForm from '@/app/Components/popups/artistForm/artistForm'
+import { useRecoilState } from 'recoil'
+import { autoCloseState } from '@/app/states'
 
 const Management = () => {
     const [active, setActive] = useState(false)
+    const [autoClose, setAutoClose] = useRecoilState(autoCloseState)
 
     // useEffect(() => {
     //     axios
@@ -34,7 +37,7 @@ const Management = () => {
                         title={'Add'}
                         mode='fill'
                         className={styles.button}
-                        onClick={() => setActive(!active)}
+                        onClick={() => setAutoClose(!active)}
                         image='/icon/user-add.svg'
                     />
                 </div>
@@ -43,9 +46,9 @@ const Management = () => {
                 </div>
             </div>
             <Table />
-            {active && (
+            {autoClose && (
                 <div className={styles.popup}>
-                    <ArtistForm onClick={() => setActive(false)}   />
+                    <ArtistForm onClick={() => setAutoClose(false)}   />
                 </div>
             )}
         </div>

@@ -124,4 +124,8 @@ export const onBackWardState = atom({
   default: false
 })
 
+export const autoCloseState = atom({
+  key: 'autoCloseState',
+  default: false
+})
 

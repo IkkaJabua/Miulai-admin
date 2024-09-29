@@ -47,6 +47,11 @@
     color: white;
     border: none;
     outline: none;
+    font-style: normal;
+    padding: 10px;
+    padding-bottom: 200px;
+    max-width: 334px;
+    
     
 
 }
@@ -114,13 +119,23 @@
 
 
 }
+.gap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.gayError {
+    color: #818385;
+    font-size: 14px;
+
+}
 
 .cursor {
     cursor: pointer;
 }
 
 .photoFile {
-    height: 270px;
+    height: 313px;
     width: 334px;
 
     input[type='file'] {
@@ -131,7 +146,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 270px;
+        height: 313px;
         width: 334px;
 
     }

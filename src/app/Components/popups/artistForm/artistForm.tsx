@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import AddAlbum from '../addAlbum/addAlbum'
 import axios from 'axios'
+import { useRecoilState } from 'recoil'
+import { autoCloseState, clikcState } from '@/app/states'
 
 
 
@@ -16,7 +18,11 @@ const ArtistForm = (props: Props) => {
   const [deleted, setDeleted] = useState(false);
   const [addAlbum, setAddAlbum] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const [coverFileName, setCoverFileName] = useState(""); // Fix the typo and make sure it's a string or null
+  const [coverFileName, setCoverFileName] = useState(""); 
+  const [autoClose, setAutoClose] = useRecoilState(autoCloseState)
+  const [click, setClick] = useRecoilState(clikcState);
+
+
 
 
 
@@ -52,6 +58,8 @@ const ArtistForm = (props: Props) => {
         },
       })
       .then((response) => {
+        setClick(!click)
+        setAutoClose(false)
         console.log("Successfully submitted:", response.data);
       })
       .catch((error) => {
@@ -65,6 +73,7 @@ const ArtistForm = (props: Props) => {
   const fileChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e?.target.files[0]);
+      console.log(e?.target.files[0],file)
       setCoverFileName(e.target.files[0].name);
     }
   };
@@ -93,7 +102,9 @@ const ArtistForm = (props: Props) => {
               type="text"
             />
             {
-              
+              errors.firstName && 
+              <div className={styles.gayError}>FirstName is required!</div>
+
             }
           </div>
           {/* <div className={styles.inputGap}>
@@ -107,18 +118,23 @@ const ArtistForm = (props: Props) => {
           <div>
             <div>Biography</div>
             <div className={styles.inputTwo}>
-              <input
+              <textarea
                 className={styles.biographyInput}
                 {...register("biography", {
                   required: true
                 })}
-                type="text"
+                rows={9}  // Set how many rows you want to show initially
+                wrap="soft" 
               />
             </div>
+            {
+              errors.biography &&
+              <div className={styles.gayError}>Biography is required!</div>
+            }
           </div>
         </div>
         <div className={styles.formBody}>
-          <div>
+          <div className={styles.gap}>
             <div>Artist Photo</div>
             <div className={styles.photoFile}>
               <input
@@ -140,13 +156,18 @@ const ArtistForm = (props: Props) => {
                 <div className={styles.imagePhoto}>{coverFileName || "UPLOAD FILE!"}</div>
               </label>
             </div>
+                
           </div>
-          <Button
+          {
+            errors.file && 
+            <div className={styles.gayError}>File is required!</div>
+          }
+          {/* <Button
             onClick={() => setAddAlbum(true)}
             title={"New Album"}
             image="/icon/plus.svg"
             className={styles.button}
-          />
+          /> */}
         </div>
       </div>
       <button className={styles.buttonTwo}>
