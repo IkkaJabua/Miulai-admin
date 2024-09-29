@@ -1,4 +1,3 @@
-
 import styles from "./addAlbum.module.scss";
 import Button from "../../Button/Button";
 import axios from "axios";

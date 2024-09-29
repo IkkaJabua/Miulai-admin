@@ -68,5 +68,5 @@ const UserPlaylist = (props: Props) => {
     );
 };
 
-UserPlaylist.displayName = 'UserPlaylist';
+UserPlaylist.displayName = "UserPlaylist";
 export default UserPlaylist;

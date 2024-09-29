@@ -2,6 +2,7 @@
 import styles from "./AddArtistPopup.module.scss";
 import Button from "../Button/Button";
 import Image from "next/image";
+import Card from "../Card/Card";
 import UserPlaylist from "../UserPlaylist/UserPlaylist";
 import NewTreck from "../popups/newTreck/NewTreck";
 import AddAlbum from "../popups/addAlbum/addAlbum";
@@ -17,6 +18,7 @@ import {
   clikcState,
   newTrackRrecoState,
 } from "@/app/states";
+import { Divider } from "antd";
 import Tables from "../PlaylistTable/PlaylistTable";
 import Cookies from "js-cookie";
 

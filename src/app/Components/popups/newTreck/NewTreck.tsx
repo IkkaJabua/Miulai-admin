@@ -75,6 +75,7 @@ const NewTreck = (props: Props) => {
 
 
 
+
         axios.post(`https://interstellar-1-pdzj.onrender.com/music`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
