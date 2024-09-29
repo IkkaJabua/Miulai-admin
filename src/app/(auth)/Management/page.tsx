@@ -52,6 +52,9 @@ const Management = () => {
         console.log("there is something error", error);
       });
   }, []);
+<<<<<<< HEAD
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+>>>>>>> parent of d636ebb (build err fxd)
 
 export default Management

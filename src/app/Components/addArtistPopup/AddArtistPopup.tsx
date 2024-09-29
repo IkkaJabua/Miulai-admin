@@ -12,10 +12,12 @@ import { useRecoilState } from "recoil";
 import {
 <<<<<<< HEAD
   albumDataState,
+  albumIDState,
   authorIdStates,
   cardDataStates,
   clikcState,
   newTrackRrecoState,
+<<<<<<< HEAD
 =======
     albumDataState,
     albumIDState,
@@ -25,6 +27,8 @@ import {
     clikcState,
     newTrackRrecoState,
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+>>>>>>> parent of d636ebb (build err fxd)
 } from "@/app/states";
 import { Divider } from "antd";
 import Tables from "../PlaylistTable/PlaylistTable";
@@ -37,6 +41,7 @@ type Props = {
 };
 
 interface album {
+<<<<<<< HEAD
     title: string;
     img: string;
     id: number;
@@ -51,6 +56,21 @@ const AddArtistPopup = (props: Props) => {
     const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState);
 
 <<<<<<< HEAD
+=======
+  title: string;
+  img: string;
+  id: number;
+}
+
+const AddArtistPopup = (props: Props) => {
+  const [albums, setAlbums] = useState(true);
+  const [biography, setBiography] = useState(false);
+  const [active, setActive] = useState(false);
+  const [newTrack, setNewTrack] = useState(false);
+
+  const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState);
+
+>>>>>>> parent of d636ebb (build err fxd)
   const [createAlbum, setCreateAlbum] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [albumButton, setAlbumButton] = useState(false);
@@ -58,11 +78,24 @@ const AddArtistPopup = (props: Props) => {
   const [albumData, setAlbumdata] = useRecoilState(albumDataState);
   const [authorData, setAuthorData] = useState<any>();
   const [songs, setSongs] = useState<any>([]);
+<<<<<<< HEAD
   const [image, setimage] = useRecoilState(cardDataStates);
   const [edited, setEdited] = useState<boolean>(false);
   const [editedBiography, setEditedBiography] = useState<string>();
   const [click] = useRecoilState(clikcState);
   const [releaseDate, setReleaseDate] = useState<any>([]);
+=======
+  const [image, setimage] = useRecoilState<Props>(cardDataStates);
+  const [edited, setEdited] = useState<boolean>(false);
+  const [editedBiography, setEditedBiography] = useState<string>();
+  const [click, setClick] = useRecoilState(clikcState);
+  const [releaseDate, setReleaseDate] = useState<any>([]);
+  const [albumCover, setAlbumCover] = useState();
+  const [albumID, setAlbumID] = useRecoilState(albumIDState);
+  const [albumName, setAlbumName] = useState();
+  const [musics, setMusic] = useState();
+  const [releaseDateAlbum, setReleaseDateAlbum] = useState();
+>>>>>>> parent of d636ebb (build err fxd)
 
   useEffect(() => {
     axios
@@ -70,6 +103,10 @@ const AddArtistPopup = (props: Props) => {
       .then((r) => {
         setAuthorData(r.data);
         setAlbumdata(r.data.albums);
+<<<<<<< HEAD
+=======
+        // console.log(r.data.albums.file.url, "album");
+>>>>>>> parent of d636ebb (build err fxd)
         setimage(r.data);
         setSongs(r.data.musicCount);
       })
@@ -78,6 +115,7 @@ const AddArtistPopup = (props: Props) => {
       });
   }, [click]);
 
+<<<<<<< HEAD
   if (deleted) {
     return;
   }
@@ -143,6 +181,22 @@ const AddArtistPopup = (props: Props) => {
         );
     }
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+  useEffect(() => {
+    axios
+      .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
+      .then((r) => {
+        setAlbumName(r.data.albumName);
+        setAlbumCover(r.data.file?.url);
+        setReleaseDateAlbum(r.data.releaseDate);
+        setMusic(r.data.musics?.length);
+      });
+  }, [click]);
+
+  if (deleted) {
+    return;
+  }
+>>>>>>> parent of d636ebb (build err fxd)
 
     return (
 <<<<<<< HEAD
@@ -190,6 +244,7 @@ const AddArtistPopup = (props: Props) => {
       </div>
       <div className={styles.body}>
         <div className={styles.bodyTexture}>
+<<<<<<< HEAD
           <img
             className={styles.image}
             src={authorData?.files[0]?.url}
@@ -202,16 +257,61 @@ const AddArtistPopup = (props: Props) => {
           <div className={styles.artistInformation}>
             <div className={styles.text}>Tolat album</div>
             <div>{albumData.length}</div>
-          </div>
-          <div className={styles.artistInformation}>
-            <div className={styles.text}>Songs</div>
-            <div>{songs}</div>
-          </div>
+=======
+          {albumButton ? (
+            <img
+              className={styles.image}
+              src={albumCover}
+              width={240}
+              height={152}
+              alt="artist name"
+            />
+          ) : (
+            <img
+              className={styles.image}
+              src={authorData?.files[0]?.url}
+              width={240}
+              height={152}
+              alt="artist name"
+            />
+          )}
         </div>
+        {albumButton ? (
+          <div className={styles.albumGap}>
+            <div className={styles.artistInformationAlbum}>
+              <div className={styles.textAlbum}>Album Name:</div>
+              <div className={styles.textAlbum}>{albumName}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.textAlbum}>Release Date:</div>
+              <div className={styles.colorGray}>{releaseDateAlbum}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.textAlbum}>Number Of Tracks:</div>
+              <div className={styles.textAlbum}>{musics}</div>
+            </div>
+>>>>>>> parent of d636ebb (build err fxd)
+          </div>
+        ) : (
+          <div className={styles.bodyTextureTwo}>
+            <div className={styles.artistInformation}>
+              <div className={styles.text}>Tolat album</div>
+              <div>{albumData.length}</div>
+            </div>
+            <div className={styles.artistInformation}>
+              <div className={styles.text}>Songs</div>
+              <div>{songs}</div>
+            </div>
+          </div>
+        )}
       </div>
       {newTrackRreco && (
         <div className={styles.newTreck}>
+<<<<<<< HEAD
           <NewTreck onClick={() => setNewTrack(false)} />
+=======
+          <NewTreck onClick={() => setNewTrackRreco(false)} />
+>>>>>>> parent of d636ebb (build err fxd)
         </div>
       )}
       <div className={styles.footer}>
@@ -233,6 +333,7 @@ const AddArtistPopup = (props: Props) => {
             )}
             {!active && (
               <>
+<<<<<<< HEAD
 =======
         <div className={styles.container}>
             <div className={styles.header}>
@@ -319,6 +420,23 @@ const AddArtistPopup = (props: Props) => {
                 <div className={styles.newTreck}>
                     <NewTreck onClick={() => setNewTrackRreco(false)} />
                 </div>
+=======
+                <div
+                  onClick={() => {
+                    setAlbums(false);
+                    setBiography(true);
+                    setAlbumButton(false);
+                  }}
+                  className={
+                    biography
+                      ? styles.activefooterModeFont
+                      : styles.footerModeFont
+                  }
+                >
+                  Biography
+                </div>
+              </>
+>>>>>>> parent of d636ebb (build err fxd)
             )}
 <<<<<<< HEAD
             {active && <div>Album Tracks</div>}
@@ -335,7 +453,13 @@ const AddArtistPopup = (props: Props) => {
             )}
             {albumButton && (
               <Button
+<<<<<<< HEAD
                 onClick={() => setNewTrackRreco(!newTrackRreco)}
+=======
+                onClick={() => {
+                  setNewTrackRreco(!newTrackRreco);
+                }}
+>>>>>>> parent of d636ebb (build err fxd)
                 mode={"fill"}
                 title={"New Track"}
                 className={"button"}
@@ -355,6 +479,7 @@ const AddArtistPopup = (props: Props) => {
               />
             )}
           </div>
+<<<<<<< HEAD
 =======
             <div className={styles.footer}>
                 <div className={styles.foterHeader}>
@@ -452,6 +577,31 @@ const AddArtistPopup = (props: Props) => {
                 </div>
             </div>
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+        </div>
+        <div className={styles.footerPLaylist}>
+          {albums && (
+            <UserPlaylist
+              setAlbumButton={setAlbumButton}
+              setAlbums={setAlbums}
+              setActive={setActive}
+            />
+          )}
+          {biography &&
+            (edited ? (
+              <textarea
+                className={styles.inputText}
+                value={editedBiography}
+                rows={9}
+                onChange={(e) => setEditedBiography(e.target.value)}
+              />
+            ) : (
+              <div className={styles.biographyFont}>
+                {authorData?.biography}
+              </div>
+            ))}
+          {active && <Tables />}
+>>>>>>> parent of d636ebb (build err fxd)
         </div>
     );
 };

@@ -52,7 +52,11 @@ import { useForm } from "react-hook-form";
 import AddArtistPopup from "../addArtistPopup/AddArtistPopup";
 import AddAlbum from "../popups/addAlbum/addAlbum";
 import { useRecoilState, useRecoilValue } from "recoil";
+<<<<<<< HEAD
 import { artistNAmeState, authorIdStates, clikcState, deleteStates } from "@/app/states";
+=======
+import { authorIdStates, clikcState, deleteStates } from "@/app/states";
+>>>>>>> parent of d636ebb (build err fxd)
 import axios from "axios";
 
 interface DataType {
@@ -73,8 +77,11 @@ const MusicTable: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [all, setAll] = useState(false);
   const [click, setClick] = useRecoilState(clikcState);
+<<<<<<< HEAD
     const [artistName, setArtistName] = useRecoilState(artistNAmeState)
 
+=======
+>>>>>>> parent of d636ebb (build err fxd)
   const {
     register,
     handleSubmit,
@@ -86,7 +93,10 @@ const MusicTable: React.FC = () => {
   const [tableData, setTableData] = useState<any[]>([]);
   const [authorId, setAuthorId] = useRecoilState(authorIdStates);
   const [deletes, setDeletes] = useRecoilState(deleteStates);
+<<<<<<< HEAD
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+>>>>>>> parent of d636ebb (build err fxd)
 
     const fetchAuthors = async () => {
         try {
@@ -274,6 +284,13 @@ const MusicTable: React.FC = () => {
     // console.log('Values', values);
   };
 
+<<<<<<< HEAD
+=======
+  const onSubmit = (values: any) => {
+    // console.log('Values', values);
+  };
+
+>>>>>>> parent of d636ebb (build err fxd)
   const columns: ColumnsType<DataType> = [
     {
       title: () => (
@@ -381,7 +398,10 @@ const MusicTable: React.FC = () => {
         rowKey="id" // Important to uniquely identify rows
         onRow={(record: any) => ({
           onClick: () => {
+<<<<<<< HEAD
             setArtistName(record.id)
+=======
+>>>>>>> parent of d636ebb (build err fxd)
             setAuthorId(record.id);
           },
         })}

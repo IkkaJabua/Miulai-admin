@@ -1,9 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 "use client";
 import { title } from "process";
 // import styles from './UserPlaylist.module.scss'
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+"use client";
+import { title } from "process";
+// import styles from './UserPlaylist.module.scss'
+>>>>>>> parent of d636ebb (build err fxd)
 import Image from "next/image";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import styles from "./UserPlaylist.module.scss";
@@ -11,6 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import {
+<<<<<<< HEAD
 <<<<<<< HEAD
     albumDataState,
     authorIdStates,
@@ -25,11 +32,19 @@ import {
   cardDataStates,
   clikcState,
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+  albumDataState,
+  albumIDState,
+  authorIdStates,
+  cardDataStates,
+  clikcState,
+>>>>>>> parent of d636ebb (build err fxd)
 } from "@/app/states";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 interface Props {
+<<<<<<< HEAD
 <<<<<<< HEAD
     setActive: Dispatch<SetStateAction<boolean>>;
     setAlbums: Dispatch<SetStateAction<boolean>>;
@@ -116,6 +131,37 @@ const UserPlaylist = (props: Props) => {
       });
   };
 
+=======
+  setActive: Dispatch<SetStateAction<boolean>>;
+  setAlbums: Dispatch<SetStateAction<boolean>>;
+  setAlbumButton: Dispatch<SetStateAction<boolean>>;
+  image?: string;
+  title?: string;
+  id?: number;
+  category?: string;
+}
+
+const UserPlaylist = (props: Props) => {
+  const router = useRouter();
+  const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState);
+  const [albumID, setAlbumID] = useRecoilState(albumIDState);
+  const [click, setClick] = useRecoilState(clikcState);
+  const token = Cookies.get("accessToken");
+
+  const onDelete = (id: Number) => {
+    axios
+      .delete(`https://interstellar-1-pdzj.onrender.com/album/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((r) => {
+        alert("Are you sure you want to delete?");
+        setClick(!click);
+      });
+  };
+
+>>>>>>> parent of d636ebb (build err fxd)
   return (
     <>
       {albumData?.map((item: any) => (
@@ -136,7 +182,10 @@ const UserPlaylist = (props: Props) => {
                   props.setAlbums(false);
                   props.setActive(true);
                   props.setAlbumButton(true);
+<<<<<<< HEAD
                   setAlbumNameTwo(item.id)
+=======
+>>>>>>> parent of d636ebb (build err fxd)
                   setAlbumID(item.id);
                 }}
                 className={styles.cellEdit}
@@ -166,8 +215,11 @@ const UserPlaylist = (props: Props) => {
       ))}
     </>
   );
+<<<<<<< HEAD
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
+=======
+>>>>>>> parent of d636ebb (build err fxd)
 };
 
-UserPlaylist.displayName = 'UserPlaylist';
+UserPlaylist.displayName = "UserPlaylist";
 export default UserPlaylist;

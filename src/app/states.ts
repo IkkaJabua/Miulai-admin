@@ -1,6 +1,7 @@
 // import { atom } from "recoil";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // // Define appropriate types for the atoms based on your application's requirements
 // export const authorIdStates = atom<number>({
 //   key: "authorIdStates",
@@ -57,6 +58,8 @@
 //   default: null,
 // });
 =======
+=======
+>>>>>>> parent of d636ebb (build err fxd)
 export const authorIdStates = atom<any>({
   key: "authorIdStates",
   default: 0,
@@ -100,6 +103,7 @@ export const userIdState = atom({
   key: "userIdState",
   default: null,
 });
+<<<<<<< HEAD
 >>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
 
 export const albumNameState = atom({
@@ -158,3 +162,5 @@ export const userIdState = atom({
   key: "userIdState",
   default: null,
 });
+=======
+>>>>>>> parent of d636ebb (build err fxd)

@@ -1,3 +1,4 @@
+import { RecoilRoot } from 'recoil';
 import Menu from '../Components/Menu/Menu';
 import styles from './layout.module.scss';
 import RecoilWrapper from '../Components/RecoilWrapper/RecoilWrapper';
