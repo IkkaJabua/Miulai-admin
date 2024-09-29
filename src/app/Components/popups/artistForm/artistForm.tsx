@@ -3,8 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Button from '../../Button/Button';
 import Image from 'next/image';
 import { useState } from 'react';
-import AddAlbum from '../addAlbum/addAlbum';
 import axios from 'axios';
+import AddAlbum from '../addAlbum/addAlbum'
 
 interface Props {
   onClick?: () => void;
@@ -52,7 +52,6 @@ const ArtistForm = (props: Props) => {
   if (addAlbum) {
     return <AddAlbum onDelete={() => setDeleted(true)} />;
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
       <div className={styles.header}>

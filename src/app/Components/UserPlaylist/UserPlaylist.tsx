@@ -7,9 +7,8 @@ import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import {
   albumDataState,
-  albumIDState,
   albumNAmeState,
-  clikcState,
+  clickState,
 } from "@/app/states";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -29,8 +28,8 @@ interface Props {
 const UserPlaylist = (props: Props) => {
   const router = useRouter();
   const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState);
-  const [albumID, setAlbumID] = useRecoilState(albumIDState);
-  const [click, setClick] = useRecoilState(clikcState);
+  const [albumID, setAlbumID] = useRecoilState<any>(albumDataState);
+  const [click, setClick] = useRecoilState(clickState);
   const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNAmeState);
 
   const token = Cookies.get("accessToken");
@@ -52,7 +51,7 @@ const UserPlaylist = (props: Props) => {
   };
 
   // Map AlbumData to Album, renaming `title` to `albumName`
-  const mappedAlbumData: Album[] = albumData.map((data) => ({
+  const mappedAlbumData: Album[] = albumData.map((data: { id: any; title: any; file: any; }) => ({
     id: data.id,
     albumName: data.title, // Map `title` to `albumName`
     file: data.file,
@@ -60,7 +59,8 @@ const UserPlaylist = (props: Props) => {
 
   return (
     <>
-      {mappedAlbumData.map((item: Album) => (
+      {
+      mappedAlbumData.map((item: Album) => (
         <div key={item.id} className={styles.playlistItem}>
           <div className={styles.playlistDetails}>
             {item.file && (

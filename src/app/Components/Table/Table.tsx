@@ -9,6 +9,7 @@ import AddAlbum from "../popups/addAlbum/addAlbum";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { artistNAmeState, authorIdStates, clickState, deleteStates } from "@/app/states";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 interface Author {
   key: string;
@@ -26,7 +27,7 @@ const MusicTable: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [all, setAll] = useState(false);
   const [click, setClick] = useRecoilState(clickState);
-  const [artistName, setArtistName] = useRecoilState(artistNAmeState)
+  const [artistName, setArtistName] = useRecoilState<any>(artistNAmeState)
 
   const {
     register,
@@ -35,7 +36,6 @@ const MusicTable: React.FC = () => {
     formState: { errors },
   } = useForm();
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
-  const [click, setClick] = useRecoilState(clickState);
   const [tableData, setTableData] = useState<Author[]>([]);
   const [authorId, setAuthorId] = useRecoilState(authorIdStates); // Keep this if you plan to use it for editing
   const [active, setActive] = useState(false);

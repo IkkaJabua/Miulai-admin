@@ -15,8 +15,8 @@ interface Props {
 }
 
 interface FormValues {
-    albumName: string;
-    releaseDate: string;
+    albumName?: string;
+    releaseDate?: string;
     file?: FileList;  // Ensure you're expecting the correct file type
 }
 
@@ -78,13 +78,18 @@ const AddAlbum = (props: Props) => {
             };
         }
 
-        function fileChange(event: ChangeEvent<HTMLInputElement>): void {
-            throw new Error("Function not implemented.");
-        }
+        const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files && e.target.files.length > 0) {
+                setFile(e.target.files[0]);
+                setCoverFileName(e.target.files[0].name);
+            }
+        };
 
-        function handleDelete(event: MouseEvent<HTMLDivElement, MouseEvent>): void {
-            throw new Error("Function not implemented.");
-        }
+        const handleDelete = (e: React.MouseEvent) => {
+            e.preventDefault();
+            props.onDelete?.();
+        };
+
 
         return (
             <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
