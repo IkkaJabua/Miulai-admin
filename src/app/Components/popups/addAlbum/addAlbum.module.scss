@@ -1,3 +1,5 @@
+@import '../../colors/colors.scss';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -121,8 +123,18 @@
     padding: 16px;
     border: none;
     color: white;
+    cursor: pointer;
 }
 
+.buttonTwo:hover {
+    border-radius: 10px;
+    background-color: linear-gradient(90deg, $PassionatePink 0%, $indivioletSunset 100%);
+}
+
+.buttonTwo:active {
+    border-radius: 10px;
+    background: linear-gradient(90deg, $PassionatePink 0%, $indivioletSunset 100%);
+}
 
 .wrapper {
     height: 270px;
