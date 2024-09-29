@@ -101,6 +101,16 @@
   cursor: pointer;
 }
 
+.buttonTwo {
+  margin-top: 20px;
+  border-radius: 8px;
+  background: var(--Gradient-apolo,
+      linear-gradient(90deg, #f903d0 0%, #9a16f2 100%));
+  padding: 16px;
+  border: none;
+  color: white;
+}
+
 .photoFile {
   height: 270px;
   width: 334px;

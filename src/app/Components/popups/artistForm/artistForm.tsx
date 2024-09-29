@@ -49,6 +49,7 @@ const ArtistForm = (props: Props) => {
         },
       })
       .then((response) => {
+
         console.log("Successfully submitted:", response.data);
       })
       .catch((error) => {
@@ -127,7 +128,10 @@ const ArtistForm = (props: Props) => {
           />
         </div>
       </div>
-      <button>Save</button>
+      <button className={styles.buttonTwo}>
+        Save
+
+      </button>
       {/* <Button title={'Save'} className={styles.buttonTwo} /> */}
     </form>
   );

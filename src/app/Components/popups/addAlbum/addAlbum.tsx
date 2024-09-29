@@ -2,10 +2,10 @@ import styles from "./addAlbum.module.scss";
 import Button from "../../Button/Button";
 import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArtistForm from "../artistForm/artistForm";
 import { useRecoilState } from "recoil";
-import { authorIdStates, clikcState } from "@/app/states";
+import { artistNAmeState, authorIdStates, clikcState } from "@/app/states";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { Input } from "antd";
@@ -18,10 +18,25 @@ interface Props {
 const AddAlbum = (props: Props) => {
   const [artistForm, setArtistForm] = useState(false);
   const [authorId, setAuthorId] = useRecoilState(authorIdStates);
+  // const [artistName, setArtistName] = useState()
+  const [artistName, setArtistName] = useRecoilState(artistNAmeState)
+  console.log(artistName, 'artistname')
+
+
+
+
   const [message, setMessage] = useState<string>();
   const [click, setClick] = useRecoilState(clikcState);
   const [coverFileName, setCoverFileName] = useState(""); // Fix the typo and make sure it's a string or null
   const [file, setFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    axios.get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`). 
+    then((r) => {
+      setArtistName(r.data.firstName)
+      console.log(r.data.firstName,'firstname')
+    })
+  },[])
 
   const {
     register,
@@ -37,9 +52,9 @@ const AddAlbum = (props: Props) => {
   const onSubmit = (values: any) => {
     const data: any = new FormData();
     data.append("albumName", values.albumName);
-    // data.append('artistName', values.artistName)
     data.append("releaseDate", values.releaseDate);
     // data.append('file', values.file[0])
+    data.append('artistName', artistName)
     data.append("authorId", authorId);
 
     if (file) {

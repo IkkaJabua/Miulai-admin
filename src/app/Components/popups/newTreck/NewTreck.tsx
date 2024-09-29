@@ -2,8 +2,8 @@ import axios from 'axios'
 import styles from './NewTreck.module.scss'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useState } from 'react'
-import { albumIDState, clickckState, newTrackRrecoState } from '@/app/states'
+import { useEffect, useState } from 'react'
+import { albumIDState, albumNAmeState, artistNAmeState, clickckState, newTrackRrecoState } from '@/app/states'
 import { useRecoilState } from 'recoil'
 import Cookies from 'js-cookie'
 
@@ -27,7 +27,30 @@ const NewTreck = (props: Props) => {
     const [clickck, setClickck] = useRecoilState(clickckState)
 
     const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
+    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNAmeState)
+    const [artistName, setArtistName] = useRecoilState<any>(artistNAmeState)
+    const [albumNameNew, setAlbumNameNew] = useState<any>()
+    const [artistNameNew, setArtistNameNew] = useState<any>()
+    const [albumCover, setAlbumcover] = useState<any>()
+    const token = Cookies.get('accessToken');
 
+
+
+
+
+
+    useEffect(() => {
+
+        axios.get(`https://interstellar-1-pdzj.onrender.com/album/${albumNameTwo}`).
+            then((r) => {
+                // setAlbumName(r.data.albumName)
+                setAlbumNameNew(r.data.albumName)
+                setArtistNameNew(r.data.artistName)
+                setAlbumcover(r.data.file?.url)
+
+            })
+
+    }, [])
 
 
 
@@ -40,11 +63,15 @@ const NewTreck = (props: Props) => {
     const onSubmit = (value: any) => {
         const data = new FormData()
         data.append('name', value.name)
+        data.append('albumName', albumNameNew)
         // data.append('artistName', value.artistName)
+        data.append('albumCover', albumCover)
         data.append('file', value.file[0])
         data.append('albumId', albumID)
+        data.append('artistName', artistNameNew)
 
-        const token = Cookies.get('accessToken');
+
+
 
 
         axios.post(`https://interstellar-1-pdzj.onrender.com/music`, data, {

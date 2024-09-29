@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import AddArtistPopup from "../addArtistPopup/AddArtistPopup";
 import AddAlbum from "../popups/addAlbum/addAlbum";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { authorIdStates, clikcState, deleteStates } from "@/app/states";
+import { artistNAmeState, authorIdStates, clikcState, deleteStates } from "@/app/states";
 import axios from "axios";
 
 interface DataType {
@@ -29,6 +29,8 @@ const MusicTable: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [all, setAll] = useState(false);
   const [click, setClick] = useRecoilState(clikcState);
+    const [artistName, setArtistName] = useRecoilState(artistNAmeState)
+
   const {
     register,
     handleSubmit,
@@ -137,7 +139,7 @@ const MusicTable: React.FC = () => {
             alt={text}
           />
           <span>
-            {record.firstName} {record.lastName}
+            {record.firstName}
           </span>
         </div>
       ),
@@ -197,6 +199,7 @@ const MusicTable: React.FC = () => {
         rowKey="id" // Important to uniquely identify rows
         onRow={(record: any) => ({
           onClick: () => {
+            setArtistName(record.id)
             setAuthorId(record.id);
           },
         })}

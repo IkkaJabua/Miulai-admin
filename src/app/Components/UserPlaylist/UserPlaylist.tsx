@@ -10,6 +10,7 @@ import { useRecoilState } from "recoil";
 import {
   albumDataState,
   albumIDState,
+  albumNAmeState,
   authorIdStates,
   cardDataStates,
   clikcState,
@@ -32,7 +33,11 @@ const UserPlaylist = (props: Props) => {
   const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState);
   const [albumID, setAlbumID] = useRecoilState(albumIDState);
   const [click, setClick] = useRecoilState(clikcState);
+    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNAmeState)
+
   const token = Cookies.get("accessToken");
+
+
 
   const onDelete = (id: Number) => {
     axios
@@ -67,6 +72,7 @@ const UserPlaylist = (props: Props) => {
                   props.setAlbums(false);
                   props.setActive(true);
                   props.setAlbumButton(true);
+                  setAlbumNameTwo(item.id)
                   setAlbumID(item.id);
                 }}
                 className={styles.cellEdit}

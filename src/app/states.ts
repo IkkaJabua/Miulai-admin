@@ -43,3 +43,13 @@ export const userIdState = atom({
   key: "userIdState",
   default: null,
 });
+
+export const albumNAmeState = atom({
+  key: 'albumNAmeState',
+  default: null
+})
+
+export const artistNAmeState = atom({
+  key: 'artistNAmeState',
+  default: null
+})
