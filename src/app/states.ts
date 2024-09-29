@@ -128,4 +128,7 @@ export const autoCloseState = atom({
   key: 'autoCloseState',
   default: false
 })
-
+export const totalSongsState = atom({
+  key: 'totalSongsState',
+  default: 0
+})

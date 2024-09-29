@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Alert, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Image from 'next/image';
 import styles from './Table.module.scss';
@@ -8,11 +8,12 @@ import { useForm } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
 import AddAlbum from '../popups/addAlbum/addAlbum';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { authorIdStates, clikcState, deleteStates } from '@/app/states';
+import { authorIdStates, clikcState, deleteStates, totalSongsState } from '@/app/states';
 import axios from 'axios';
 
 
 interface DataType {
+    albums: any;
     key: string;
     artist: string;
     totalStreams: number;
@@ -36,6 +37,13 @@ const MusicTable: React.FC = () => {
     const [tableData, setTableData] = useState<any[]>([]);
     const [authorId, setAuthorId] = useRecoilState(authorIdStates);
     const [deletes, setDeletes] = useRecoilState(deleteStates);
+    const [totalSong, setTotalSong] = useRecoilState(totalSongsState)
+
+    const [showAlert, setShowAlert] = useState(false);
+
+
+
+ 
 
     useEffect(() => {
         fetchAuthors();
@@ -44,7 +52,14 @@ const MusicTable: React.FC = () => {
     const fetchAuthors = async () => {
         try {
             const response = await axios.get(`https://interstellar-1-pdzj.onrender.com/author`);
-            setTableData(response.data);
+
+            const formattedData = response.data.map((artist: DataType) => ({
+                ...artist,
+                totalAlbums: artist.albums ? artist.albums.length : 0,
+                totalSongs: artist.albums?.reduce((acc: any, album: { musics: string | any[]; }) => acc + (album.musics ? album.musics.length : 0), 0)
+            }));
+            setTableData(formattedData);
+            console.log(formattedData, 'aq raari tooooo')
         } catch (error) {
             console.error('Error fetching authors', error);
         }
@@ -55,7 +70,7 @@ const MusicTable: React.FC = () => {
         if (confirmDelete) {
             try {
                 await axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`);
-                setClick(!click); // Force re-fetch after delete
+                setClick(!click); 
             } catch (error) {
                 console.error('Error deleting author', error);
             }
@@ -128,25 +143,25 @@ const MusicTable: React.FC = () => {
             width: '30%',
         },
         {
-            title: 'Total Streams',
+            title: '',
             dataIndex: 'totalStreams',
             key: 'totalStreams',
-            width: '20%',
+            width: '10%',
             render: (text, record) => <div>{record.totalStreams}</div>,
         },
         {
             title: 'Total Albums',
             dataIndex: 'totalAlbums',
             key: 'totalAlbums',
-            width: '15%',
-            render: (text) => <div>{text}</div>,
+            width: '20%',
+            render: (text) => <div  className={styles.changeSize}>{text}</div>,
         },
         {
             title: 'Total Songs',
             dataIndex: 'totalSongs',
             key: 'totalSongs',
-            width: '15%',
-            render: (text) => <div>{text}</div>,
+            width: '20%',
+            render: (text) => <div className={styles.changeSize}>{text}</div>,
         },
         {
             title: 'Actions',
@@ -181,6 +196,10 @@ const MusicTable: React.FC = () => {
                     },
                 })}
             />
+            {
+                showAlert && 
+                <Alert />
+            }
             {active && (
                 <div className={styles.popup}>
                     <AddArtistPopup onClick={() => setActive(false)} setActive={setActive} />

@@ -24,6 +24,7 @@ import {
   numberOFMusicState,
   onBackWardState,
   releaseDateState,
+  totalSongsState,
 } from "@/app/states";
 import { Divider } from "antd";
 import Tables from "../PlaylistTable/PlaylistTable";
@@ -64,6 +65,29 @@ const AddArtistPopup = (props: Props) => {
   const [numberOfMusic, setNumberOfMusic] = useRecoilState(numberOFMusicState)
   const [musicCound, setMusicCound] = useRecoilState(musicCountState)
   const [nameOFArtist, setNameOfArtist] = useRecoilState(artistNameGlobalState)
+  const [totalSong, setTotalSong] = useRecoilState<any>(totalSongsState)
+  const [totalAlbum, setTotalAlbum] = useState()
+
+
+
+  // useEffect(() => {
+  //   fetchAuthors();
+  // }, [click]);
+
+  // const fetchAuthors = async () => {
+  //   try {
+  //     const response = await axios.get(`https://interstellar-1-pdzj.onrender.com/author`);
+
+  //     const formattedData = response.data.map((artist: DataType) => ({
+  //       ...artist,
+  //       totalAlbums: artist.albums ? artist.albums.length : 0,
+  //       totalSongs: artist.albums?.reduce((acc: any, album: { musics: string | any[]; }) => acc + (album.musics ? album.musics.length : 0), 0)
+  //     }));
+  //     setTableData(formattedData);
+  //   } catch (error) {
+  //     console.error('Error fetching authors', error);
+  //   }
+  // };
 
 
 
@@ -74,13 +98,20 @@ const AddArtistPopup = (props: Props) => {
 
   useEffect(() => {
     axios
-      .get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`)
-      .then((r) => {
+      .get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`).
+      then((r) => {
+        console.log(r.data.albums.length, 'moixode')
+        setTotalAlbum(r.data.albums.length)
         setNameOfArtist(r.data.firstName)
         setAuthorData(r.data);
         setAlbumdata(r.data.albums);
         setimage(r.data);
-        setSongs(r.data.musicCount);
+        setSongs(r.data.musics);
+        const totalMusic = r.data.albums.reduce((acc: any, album: { musics: string | any[]; }) => {
+          return acc + (album.musics ? album.musics.length : 0); // Sum up songs in each album
+        }, 0);
+        setTotalSong(totalMusic)
+
       })
       .catch((error) => {
         console.log("there is something error", error);
@@ -158,11 +189,11 @@ const AddArtistPopup = (props: Props) => {
         {albumButton ? (
           <div className={styles.albumGap}>
             <div className={styles.artistInformationAlbum}>
-              <div className={styles.textAlbum}>Album Name:</div>
+              <div className={styles.textAlbum}>Album Name :</div>
               <div className={styles.colorGray}>{nameOfAlbum}</div>
             </div>
             <div className={styles.artistInformation}>
-              <div className={styles.textAlbum}>Release Date:</div>
+              <div className={styles.textAlbum}>Release Date :</div>
               <div className={styles.colorGray}>{releaseDate}</div>
             </div>
             <div className={styles.artistInformation}>
@@ -173,12 +204,12 @@ const AddArtistPopup = (props: Props) => {
         ) : (
           <div className={styles.bodyTextureTwo}>
             <div className={styles.artistInformation}>
-              <div className={styles.text}>Tolat album</div>
-              <div>{albumData.length}</div>
+              <div className={styles.text}>Tolat album :</div>
+                <div>{totalAlbum}</div>
             </div>
             <div className={styles.artistInformation}>
-              <div className={styles.text}>Songs</div>
-                <div>{musicCound}</div>
+              <div className={styles.text}>Total Songs :</div>
+                <div>{totalSong}</div>
             </div>
           </div>
         )}

@@ -63,6 +63,13 @@ const Tables = () => {
   //     });
   // }, []);
 
+  const formatDuration = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
+
   const onDelete = (id: number) => {
     axios
       .delete(`https://interstellar-1-pdzj.onrender.com/music/${id}`, {
@@ -131,7 +138,7 @@ const Tables = () => {
       key: "time",
       width: "15%",
       render: (text: any, item: any) => (
-        <div className={styles.cellTimeName}>3.35</div>
+        <div className={styles.cellTimeName}>{formatDuration(item.duration)}</div>
       ),
     },
     {
@@ -153,7 +160,7 @@ const Tables = () => {
         dataSource={data}
         columns={columns}
         pagination={{
-          pageSize: 5,
+          pageSize: 3,
           position: ["bottomCenter"],
         }}
         rowClassName={styles.row111111}

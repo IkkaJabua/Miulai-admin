@@ -5,6 +5,8 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect, useState } from 'react'
 import { albumDataState, albumNameState, artistNAmeState, clikcState, newTrackRrecoState } from '@/app/states'
 import { useRecoilState } from 'recoil'
+import { Spin } from "antd"; // Importing Ant Design Spin component
+
 import Cookies from 'js-cookie'
 
 
@@ -25,7 +27,8 @@ const NewTreck = (props: Props) => {
     const [track, setTrack] = useState<boolean>()
     const [albumID, setAlbumID] = useRecoilState<any>(albumDataState)
     const [clickck, setClickck] = useRecoilState(clikcState)
-    
+    const [loading, setLoading] = useState<boolean>(false);
+
     const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
     const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
     const [artistName, setArtistName] = useRecoilState<any>(artistNAmeState)
@@ -70,6 +73,9 @@ const NewTreck = (props: Props) => {
         data.append('albumId', albumNameTwo)
         data.append('artistName', artistNameNew)
 
+        setLoading(true); // Start loading
+
+
 
 
 
@@ -84,6 +90,9 @@ const NewTreck = (props: Props) => {
                 setNewTrackRreco(false)
                 setClickck(!clickck)
             })
+            .finally(() => {
+                setLoading(false); // Stop loading
+            });
 
 
     }
@@ -110,7 +119,13 @@ const NewTreck = (props: Props) => {
                 </label>
                 <input id={'upload-file'} className={styles.file} type="file"  {...register('file')} />
             </div>
-            <input type='submit' value={'Save'} className={styles.button} />
+            {loading ? (
+                <div className={styles.loading}>
+                    <Spin tip="Submitting..." size="default" />
+                </div>
+            ) : (
+                <input type='submit' value={'Save'} className={styles.button} />
+            )}
         </form>
     );
 }

@@ -26,6 +26,13 @@
     border: 0.5px solid #363636;
     background: #141414;
 }
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px; // Adjust as necessary
+    margin-top: 31px;
+}
 
 .twoFile {
     margin-top: 24px;
