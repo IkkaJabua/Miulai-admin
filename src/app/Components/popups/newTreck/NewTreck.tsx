@@ -64,15 +64,11 @@ const NewTreck = (props: Props) => {
     const onSubmit = (value: any) => {
         const data = new FormData()
         data.append('name', value.name)
-        data.append('albumName', albumNameNew)
         // data.append('artistName', value.artistName)
-        data.append('albumCover', albumCover)
         data.append('file', value.file[0])
         data.append('albumId', albumID)
-        data.append('artistName', artistNameNew)
 
-
-
+        const token = Cookies.get('accessToken');
 
 
 

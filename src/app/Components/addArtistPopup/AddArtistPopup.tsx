@@ -42,7 +42,6 @@ const AddArtistPopup = (props: Props) => {
   const [songs, setSongs] = useState<any>([]);
   const [image, setimage] = useRecoilState(cardDataStates);
   const [edited, setEdited] = useState(false);
-  const [editedBiography, setEditedBiography] = useState<string>();
   const [click, setClick] = useRecoilState(clikcState);
   const [releaseDate, setReleaseDate] = useState<any>([]);
   const [albumCover, setAlbumCover] = useState<string | undefined>();
