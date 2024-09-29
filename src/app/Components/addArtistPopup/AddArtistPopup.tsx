@@ -10,13 +10,20 @@ import axios from "axios";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { useRecoilState } from "recoil";
 import {
+  albumCoverInAlbum,
   albumDataState,
   albumIDState,
   albumNameState,
+  artistNameGlobalState,
   authorIdStates,
   cardDataStates,
   clikcState,
+  musicCountState,
+  nameOfAlbumState,
   newTrackRrecoState,
+  numberOFMusicState,
+  onBackWardState,
+  releaseDateState,
 } from "@/app/states";
 import { Divider } from "antd";
 import Tables from "../PlaylistTable/PlaylistTable";
@@ -36,7 +43,7 @@ const AddArtistPopup = (props: Props) => {
 
   const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState);
 
-  const [createAlbum, setCreateAlbum] = useState(false);
+  const [createAlbum, setCreateAlbum] = useRecoilState(onBackWardState);
   const [deleted, setDeleted] = useState(false);
   const [albumButton, setAlbumButton] = useState(false);
   const [authorId, setAuthorId] = useRecoilState(authorIdStates);
@@ -47,36 +54,36 @@ const AddArtistPopup = (props: Props) => {
   const [edited, setEdited] = useState<boolean>(false);
   const [editedBiography, setEditedBiography] = useState<string>();
   const [click, setClick] = useRecoilState(clikcState);
-  const [releaseDate, setReleaseDate] = useState<any>([]);
   const [albumCover, setAlbumCover] = useState();
   const [albumID, setAlbumID] = useRecoilState(albumIDState);
   const [albumName, setAlbumName] = useState();
-  const [musics, setMusic] = useState();
   const [releaseDateAlbum, setReleaseDateAlbum] = useState();
+  const [albomImg, setAlbumImg] = useRecoilState<any>(albumCoverInAlbum)
+  const [nameOfAlbum, setNameOfAlbum] = useRecoilState(nameOfAlbumState)
+  const [releaseDate, setReleaseDate] = useRecoilState(releaseDateState)
+  const [numberOfMusic, setNumberOfMusic] = useRecoilState(numberOFMusicState)
+  const [musicCound, setMusicCound] = useRecoilState(musicCountState)
+  const [nameOFArtist, setNameOfArtist] = useRecoilState(artistNameGlobalState)
+
+
+
+
+
+
+
 
   useEffect(() => {
     axios
       .get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`)
       .then((r) => {
+        setNameOfArtist(r.data.firstName)
         setAuthorData(r.data);
         setAlbumdata(r.data.albums);
-        // console.log(r.data.albums.file.url, "album");
         setimage(r.data);
         setSongs(r.data.musicCount);
       })
       .catch((error) => {
         console.log("there is something error", error);
-      });
-  }, [click]);
-
-  useEffect(() => {
-    axios
-      .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
-      .then((r) => {
-        setAlbumName(r.data.albumName);
-        setAlbumCover(r.data.file?.url);
-        setReleaseDateAlbum(r.data.releaseDate);
-        setMusic(r.data.musics?.length);
       });
   }, [click]);
 
@@ -115,7 +122,7 @@ const AddArtistPopup = (props: Props) => {
           />
         </div>
         <div className={styles.font}>
-          {authorData?.firstName} {authorData?.lastName}
+          {authorData?.firstName}
         </div>
         <div>
           <Image
@@ -133,7 +140,7 @@ const AddArtistPopup = (props: Props) => {
           {albumButton ? (
             <img
               className={styles.image}
-              src={albumCover}
+              src={albomImg}
               width={240}
               height={152}
               alt="artist name"
@@ -152,15 +159,15 @@ const AddArtistPopup = (props: Props) => {
           <div className={styles.albumGap}>
             <div className={styles.artistInformationAlbum}>
               <div className={styles.textAlbum}>Album Name:</div>
-              <div className={styles.textAlbum}>{albumName}</div>
+              <div className={styles.colorGray}>{nameOfAlbum}</div>
             </div>
             <div className={styles.artistInformation}>
               <div className={styles.textAlbum}>Release Date:</div>
-              <div className={styles.colorGray}>{releaseDateAlbum}</div>
+              <div className={styles.colorGray}>{releaseDate}</div>
             </div>
             <div className={styles.artistInformation}>
               <div className={styles.textAlbum}>Number Of Tracks:</div>
-              <div className={styles.textAlbum}>{musics}</div>
+              <div className={styles.colorGray}>{numberOfMusic}</div>
             </div>
           </div>
         ) : (
@@ -171,7 +178,7 @@ const AddArtistPopup = (props: Props) => {
             </div>
             <div className={styles.artistInformation}>
               <div className={styles.text}>Songs</div>
-              <div>{songs}</div>
+                <div>{musicCound}</div>
             </div>
           </div>
         )}

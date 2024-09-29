@@ -47,7 +47,6 @@ const NewTreck = (props: Props) => {
                 setAlbumNameNew(r.data.albumName)
                 setArtistNameNew(r.data.artistName)
                 setAlbumcover(r.data.file?.url)
-                
 
             })
 
@@ -68,7 +67,7 @@ const NewTreck = (props: Props) => {
         // data.append('artistName', value.artistName)
         data.append('albumCover', albumCover)
         data.append('file', value.file[0])
-        data.append('albumId', albumID)
+        data.append('albumId', albumNameTwo)
         data.append('artistName', artistNameNew)
 
 

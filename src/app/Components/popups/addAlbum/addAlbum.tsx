@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import ArtistForm from "../artistForm/artistForm";
 import { useRecoilState } from "recoil";
-import { authorIdStates, clikcState } from "@/app/states";
+import { artistNameGlobalState, authorIdStates, clikcState, onBackWardState } from "@/app/states";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { Input } from "antd";
@@ -17,12 +17,18 @@ interface Props {
   secondOnDelete?: () => void;
 }
 const AddAlbum = (props: Props) => {
+  const token = Cookies.get("accessToken");
+
   const [artistForm, setArtistForm] = useState(false);
   const [authorId, setAuthorId] = useRecoilState(authorIdStates);
   const [message, setMessage] = useState<string>();
   const [click, setClick] = useRecoilState(clikcState);
   const [coverFileName, setCoverFileName] = useState(""); // Fix the typo and make sure it's a string or null
   const [file, setFile] = useState<File | null>(null);
+  const [nameOFArtist, setNameOfArtist] = useRecoilState(artistNameGlobalState)
+  const [createAlbum, setCreateAlbum] = useRecoilState(onBackWardState);
+
+
 
   const {
     register,
@@ -38,7 +44,7 @@ const AddAlbum = (props: Props) => {
   const onSubmit = (values: any) => {
     const data: any = new FormData();
     data.append("albumName", values.albumName);
-    // data.append('artistName', values.artistName)
+    data.append('artistName', nameOFArtist)
     data.append("releaseDate", values.releaseDate);
     // data.append('file', values.file[0])
     data.append("authorId", authorId);
@@ -49,7 +55,6 @@ const AddAlbum = (props: Props) => {
       console.log("ar midiiis");
     }
 
-    const token = Cookies.get("accessToken");
     axios
       .post(`https://interstellar-1-pdzj.onrender.com/album`, data, {
         headers: {
@@ -58,6 +63,7 @@ const AddAlbum = (props: Props) => {
       })
       .then((r) => {
         setMessage("Album are created");
+        setCreateAlbum(false)
         setClick(!click);
       })
       .catch((errors: string) => {
@@ -103,7 +109,7 @@ const AddAlbum = (props: Props) => {
                 height={90}
                 alt="screenshot"
               />
-              <span className={styles.imagePhoto}>{coverFileName || ""}</span>
+              <div className={styles.imagePhoto}>{coverFileName || "UPLOAD FILE!"}</div>
             </label>
             <input
               className={styles.photoInput}
@@ -114,6 +120,11 @@ const AddAlbum = (props: Props) => {
               })}
               onChange={fileChange}
             />
+            {
+              errors.file &&
+              <div></div>
+              // <div className={styles.fileError}>upload file!</div>
+            }
           </div>
         </div>
         <div className={styles.inputGap}>
@@ -127,10 +138,13 @@ const AddAlbum = (props: Props) => {
                   required: true,
                 })}
               />
+              {
+                errors.albumName &&
+                <div className={styles.gayError}>albumName is required</div>
+              }
             </div>
           </div>
           <div>Album Release Date</div>
-
           <input
             className={styles.date}
             type="text"
@@ -138,10 +152,16 @@ const AddAlbum = (props: Props) => {
               required: true,
             })}
           />
-          <div>{message}</div>
+          {
+            errors.releaseDate &&
+            <span className={styles.gayError}>releaseDate is required!</span>
+          }
+          <div>
+            {message}
+          </div>
         </div>
       </div>
-      <button className={styles.buttonTwo}>Save</button>
+      <button className={styles.buttonTwo}>SAVE</button>
     </form>
   );
 };

@@ -8,10 +8,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {
 
+  albumCoverInAlbum,
   albumIDState,
+  albumNameState,
   authorIdStates,
   cardDataStates,
   clikcState,
+  musicCountState,
+  nameOfAlbumState,
+  numberOFMusicState,
+  releaseDateState,
 } from "@/app/states";
 import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
@@ -38,6 +44,24 @@ const Tables = () => {
   const [clickck, setClickck] = useRecoilState(clikcState);
   const token = Cookies.get("accessToken");
   const [deletes, setDeletes] = useState<any>();
+  const [albomImg, setAlbumImg] = useRecoilState(albumCoverInAlbum)
+  const [nameOfAlbum, setNameOfAlbum] = useRecoilState(nameOfAlbumState)
+  const [releaseDate, setReleaseDate] = useRecoilState(releaseDateState)
+  const [numberOfMusic, setNumberOfMusic] = useRecoilState(numberOFMusicState)
+  const [musicCound, setMusicCound] = useRecoilState(musicCountState)
+  const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
+
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
+  //     .then((r) => {
+  //       setAlbumName(r.data.albumName);
+  //       setAlbumCover(r.data.file?.url);
+  //       setReleaseDateAlbum(r.data.releaseDate);
+  //       setMusic(r.data.musics?.length);
+  //     });
+  // }, []);
 
   const onDelete = (id: number) => {
     axios
@@ -59,8 +83,14 @@ const Tables = () => {
     axios
       .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
       .then((r) => {
+        console.log(r.data.file?.url, 'fileeeee')
+        setAlbumImg(r.data.file?.url)
+        setReleaseDate(r.data.releaseDate)
+        setNumberOfMusic(r.data.musics.length)
         setData(r.data.musics);
-        console.log(r.data, "musikebi");
+        setNameOfAlbum(r.data.albumName)
+        setMusicCound(r.data.musicCount)
+        console.log(r.data,'aesaa')
       });
   }, [clickck]); 
 
@@ -70,8 +100,8 @@ const Tables = () => {
       dataIndex: "id",
       key: "id",
       width: "1%",
-      render: (text: any, item: any) => (
-        <div className={styles.cellId}>{text}</div>
+      render: (text: any, item: any,index: number) => (
+        <div className={styles.cellId}>{index + 1}</div>
       ),
     },
 
@@ -84,7 +114,7 @@ const Tables = () => {
         <div className={styles.cellSongname}>
           <img
             className={styles.image}
-            src={image?.files[0]?.url}
+            src={item.albumCover}
             width={48}
             height={48}
             alt={text}

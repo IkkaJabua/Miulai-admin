@@ -99,6 +99,20 @@
 .buttonTwo {
     border-radius: 8px;
     background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+    border: none;
+    color: white;
+    padding: 16px;
+}
+.imagePhoto {
+    width: 330px;
+    height: 50px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 200px;
+    font-size: 15px;
+
+
 }
 
 .cursor {

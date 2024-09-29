@@ -1,60 +1,39 @@
-// import { atom } from "recoil";
+import { atom } from "recoil";
 
-// // Define appropriate types for the atoms based on your application's requirements
-// export const authorIdStates = atom<number>({
-//   key: "authorIdStates",
-//   default: 0,
-// });
+// Define appropriate types for the atoms based on your application's requirements
 
-// interface CardData {
-//   id: number;
-//   title: string;
-//   // Add other properties as needed
-// }
 
-// // In your recoil state definition
-// interface  {
-//   id: number;
-//   albumName: string; // Add this property to match Album interface
-//   file?: { url: string };
-//   // Add other properties as needed
-// }
+interface CardData {
+  id: number;
+  title: string;
+  // Add other properties as needed
+}
 
-// export const albumDataState = atom<AlbumData[]>({
-//   key: "albumDataState",
-//   default: [],
-// });
+// In your recoil state definition
 
-// export const cardDataStates = atom<CardData[]>({
-//   key: "cardDataStates",
-//   default: [],
-// });
 
-// export const deleteStates = atom<number>({
-//   key: "deleteStates",
-//   default: 0,
-// });
 
-// export const clickState = atom<boolean>({
-//   key: "clickState",
-//   default: false,
-// });
 
-// interface AlbumData {
-//   id: number;
-//   title: string;
-//   // Add other properties as needed
-// }
 
-// export const newTrackRecoState = atom<boolean>({
-//   key: "newTrackRecoState",
-//   default: false,
-// });
 
-// export const userIdState = atom<number | null>({
-//   key: "userIdState",
-//   default: null,
-// });
+
+export const clickState = atom<boolean>({
+  key: "clickState",
+  default: false,
+});
+
+interface AlbumData {
+  id: number;
+  title: string;
+  // Add other properties as needed
+}
+
+export const newTrackRecoState = atom<boolean>({
+  key: "newTrackRecoState",
+  default: false,
+});
+
+
 
 export const albumNameState = atom({
   key: 'albumNAmeState',
@@ -67,7 +46,6 @@ export const artistNAmeState = atom({
 })
 
 
-import { atom } from "recoil";
 
 export const authorIdStates = atom<any>({
   key: "authorIdStates",
@@ -112,3 +90,38 @@ export const userIdState = atom({
   key: "userIdState",
   default: null,
 });
+
+export const albumCoverInAlbum = atom({
+  key: 'albumCoverInAlbum',
+  default: null
+})
+export const nameOfAlbumState = atom({
+  key: 'albumNameState',
+  default: null
+
+})
+
+export const releaseDateState = atom({
+  key: 'releaseDateState',
+  default: ''
+
+})
+
+export const numberOFMusicState = atom({
+  key: 'numberOFMusicState',
+  default: 0
+})
+export const musicCountState = atom({
+  key: 'musicCountState',
+  default: null
+})
+export const artistNameGlobalState = atom({
+  key: 'artistNameGlobalState',
+  default: ''
+})
+export const onBackWardState = atom({
+  key: 'onBackWardState',
+  default: false
+})
+
+

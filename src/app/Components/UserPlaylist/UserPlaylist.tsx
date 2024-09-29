@@ -7,8 +7,12 @@ import styles from './UserPlaylist.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useRecoilState } from 'recoil'
-import { albumDataState, albumIDState, authorIdStates, cardDataStates } from '@/app/states'
+import { albumDataState, albumIDState, albumNameState, authorIdStates, cardDataStates, clikcState } from '@/app/states'
 import axios from 'axios'
+import { error } from 'console'
+import Cookies from "js-cookie";
+
+
 
 
 interface Album {
@@ -31,8 +35,28 @@ interface Props {
 
 const UserPlaylist = (props: Props) => {
     const router = useRouter()
+    const token = Cookies.get("accessToken");
+    const [click, setClick] = useRecoilState(clikcState);
+
+
     const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
     const [albumID, setAlbumID] = useRecoilState(albumIDState)
+    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
+
+    const onDelete = (id: number) => {
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/album/${id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }). 
+        then((r) => {
+            setClick(!click)
+            alert('do you really want to delete this album?')
+
+        }).catch(error => {
+            console.log(error, 'ar waishalaa')
+        })
+    }
 
 
     return (
@@ -48,11 +72,12 @@ const UserPlaylist = (props: Props) => {
                                     props.setAlbums(false)
                                     props.setActive(true)
                                     props.setAlbumButton(true)
+                                    setAlbumNameTwo(item.id)
                                     setAlbumID(item.id)
                                 }} className={styles.cellEdit}>
                                     <img src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
-                                <div className={styles.cellDelete}>
+                                <div onClick={() => onDelete(item.id)} className={styles.cellDelete}>
                                     <img src={'/icon/deletePlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
                             </div>

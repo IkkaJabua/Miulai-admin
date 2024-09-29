@@ -15,6 +15,10 @@ interface Props {
 const ArtistForm = (props: Props) => {
   const [deleted, setDeleted] = useState(false);
   const [addAlbum, setAddAlbum] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [coverFileName, setCoverFileName] = useState(""); // Fix the typo and make sure it's a string or null
+
+
 
   const {
     register,
@@ -34,7 +38,12 @@ const ArtistForm = (props: Props) => {
     data.append("firstName", String(values.firstName));
     data.append("lastName", String(values.lastName));
     data.append("biography", String(values.biography));
-    data.append("file", values.file[0]);
+    // data.append("file", values.file[0]);
+    if (file) {
+      data.append("file", file);
+    } else {
+      console.log("ar midiiis");
+    }
 
     axios
       .post("https://interstellar-1-pdzj.onrender.com/author", data, {
@@ -53,6 +62,14 @@ const ArtistForm = (props: Props) => {
       });
   };
 
+  const fileChange = (e: any) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e?.target.files[0]);
+      setCoverFileName(e.target.files[0].name);
+    }
+  };
+
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
       <div className={styles.header}>
@@ -70,24 +87,31 @@ const ArtistForm = (props: Props) => {
             <div>Artist Name</div>
             <input
               className={styles.nameInput}
-              {...register("firstName")}
+              {...register("firstName",{
+                required: true
+              })}
               type="text"
             />
+            {
+              
+            }
           </div>
-          <div className={styles.inputGap}>
+          {/* <div className={styles.inputGap}>
             <div>Last Name </div>
             <input
               className={styles.nameInput}
               {...register("lastName")}
               type="text"
             />
-          </div>
+          </div> */}
           <div>
             <div>Biography</div>
             <div className={styles.inputTwo}>
               <input
                 className={styles.biographyInput}
-                {...register("biography")}
+                {...register("biography", {
+                  required: true
+                })}
                 type="text"
               />
             </div>
@@ -99,9 +123,12 @@ const ArtistForm = (props: Props) => {
             <div className={styles.photoFile}>
               <input
                 className={styles.photoInput}
-                {...register("file")}
+                {...register("file",{
+                  required: true
+                })}
                 id="file-upload-file"
                 type="file"
+                onChange={fileChange}
               />
               <label htmlFor="file-upload-file">
                 <Image
@@ -110,6 +137,7 @@ const ArtistForm = (props: Props) => {
                   height={90}
                   alt="screenshot"
                 />
+                <div className={styles.imagePhoto}>{coverFileName || "UPLOAD FILE!"}</div>
               </label>
             </div>
           </div>
