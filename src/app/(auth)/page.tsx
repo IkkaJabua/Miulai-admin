@@ -11,6 +11,7 @@ export default function Home() {
         <h1 className={styles.h1}>User Managment</h1>
       </div>
       <Usertable />
+      
     </main>
   );
 }
