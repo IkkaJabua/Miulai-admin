@@ -1,7 +1,5 @@
 // import { atom } from "recoil";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // // Define appropriate types for the atoms based on your application's requirements
 // export const authorIdStates = atom<number>({
 //   key: "authorIdStates",
@@ -57,54 +55,6 @@
 //   key: "userIdState",
 //   default: null,
 // });
-=======
-=======
->>>>>>> parent of d636ebb (build err fxd)
-export const authorIdStates = atom<any>({
-  key: "authorIdStates",
-  default: 0,
-});
-
-export const cardDataStates = atom<any>({
-  key: "cardDataStates",
-  default: [],
-});
-
-export const deleteStates = atom<any>({
-  key: "deleteStates",
-  default: 0,
-});
-
-export const clikcState = atom({
-  key: "clikc",
-  default: false,
-});
-
-export const albumDataState = atom({
-  key: "albumDataState",
-  default: [],
-});
-
-export const albumIDState = atom({
-  key: "albumIDState",
-  default: "",
-});
-
-export const clickckState = atom({
-  key: "clickckState",
-  default: false,
-});
-
-export const newTrackRrecoState = atom({
-  key: "newTrackRrecoState",
-  default: false,
-});
-export const userIdState = atom({
-  key: "userIdState",
-  default: null,
-});
-<<<<<<< HEAD
->>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
 
 export const albumNameState = atom({
   key: 'albumNAmeState',
@@ -162,5 +112,3 @@ export const userIdState = atom({
   key: "userIdState",
   default: null,
 });
-=======
->>>>>>> parent of d636ebb (build err fxd)

@@ -2,17 +2,8 @@ import axios from 'axios'
 import styles from './NewTreck.module.scss'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from "react-hook-form"
-<<<<<<< HEAD
 import { useEffect, useState } from 'react'
-<<<<<<< HEAD
 import { albumDataState, albumNameState, artistNAmeState, clikcState, newTrackRrecoState } from '@/app/states'
-=======
-import { albumIDState, albumNAmeState, artistNAmeState, clickckState, newTrackRrecoState } from '@/app/states'
->>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
-=======
-import { useState } from 'react'
-import { albumIDState, clickckState, newTrackRrecoState } from '@/app/states'
->>>>>>> parent of d636ebb (build err fxd)
 import { useRecoilState } from 'recoil'
 import Cookies from 'js-cookie'
 
@@ -32,23 +23,11 @@ interface FormData {
 const NewTreck = (props: Props) => {
 
     const [track, setTrack] = useState<boolean>()
-<<<<<<< HEAD
-<<<<<<< HEAD
     const [albumID, setAlbumID] = useRecoilState<any>(albumDataState)
     const [clickck, setClickck] = useRecoilState(clikcState)
     
     const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
     const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
-=======
-=======
->>>>>>> parent of d636ebb (build err fxd)
-    const [albumID, setAlbumID] = useRecoilState<any>(albumIDState)
-    const [clickck, setClickck] = useRecoilState(clickckState)
-
-    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
-<<<<<<< HEAD
-    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNAmeState)
->>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
     const [artistName, setArtistName] = useRecoilState<any>(artistNAmeState)
     const [albumNameNew, setAlbumNameNew] = useState<any>()
     const [artistNameNew, setArtistNameNew] = useState<any>()
@@ -74,11 +53,6 @@ const NewTreck = (props: Props) => {
     }, [])
 
 
-=======
-
-
-
->>>>>>> parent of d636ebb (build err fxd)
 
     const {
         register,
@@ -89,7 +63,6 @@ const NewTreck = (props: Props) => {
     const onSubmit = (value: any) => {
         const data = new FormData()
         data.append('name', value.name)
-<<<<<<< HEAD
         data.append('albumName', albumNameNew)
         // data.append('artistName', value.artistName)
         data.append('albumCover', albumCover)
@@ -98,12 +71,6 @@ const NewTreck = (props: Props) => {
         data.append('artistName', artistNameNew)
 
 
-
-=======
-        // data.append('artistName', value.artistName)
-        data.append('file', value.file[0])
-        data.append('albumId', albumID)
->>>>>>> parent of d636ebb (build err fxd)
 
 
 
