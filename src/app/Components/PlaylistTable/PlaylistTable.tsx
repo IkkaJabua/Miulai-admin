@@ -1,39 +1,56 @@
 "use client";
 import { Table } from "antd";
+// import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
 import styles from "./PlaylistTable.module.scss";
+import { text } from "stream/consumers";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
+<<<<<<< HEAD
 
   albumIDState,
   authorIdStates,
   cardDataStates,
+=======
+  albumDataState,
+  albumIDState,
+  authorIdStates,
+  cardDataStates,
+  clickckState,
+>>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
   clikcState,
 } from "@/app/states";
 import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
 
-interface MusicItem {
-  id: number;
-  name: string;
-  artistName: string;
-}
+// type Props = {
+//   name?: string;
+//   id?: string;
+// };
 
-interface AlbumResponse {
-  musics: MusicItem[];
-  file: {
-    url: string;
-  };
-}
+// interface Song {
+//   icon: string;
+//   title: string;
+//   author: string;
+//   album: string;
+//   time: string;
+//   id: number;
+// }
 
 const Tables = () => {
   const [data, setData] = useState<any>([]);
   const [authorId, setAuthorId] = useRecoilState(authorIdStates);
   const [albumID, setAlbumID] = useRecoilState(albumIDState);
   const [image, setimage] = useRecoilState<any>(cardDataStates);
+<<<<<<< HEAD
   const [clickck, setClickck] = useRecoilState(clikcState);
+=======
+  const [img, setImg] = useState<any>();
+  const [clickck, setClickck] = useRecoilState(clickckState);
+>>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
   const token = Cookies.get("accessToken");
+  const [deletes, setDeletes] = useState<any>();
 
   const formatDuration = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -49,12 +66,12 @@ const Tables = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((r) => {
         setClickck(!clickck);
-        alert("Are you sure you want to delete?");
+        alert("are shure you want to delete?");
       })
-      .catch(() => {
-        console.log("Error occurred while deleting");
+      .catch((error) => {
+        console.log("ar shemodis then shi saertod ar shemodiiis");
       });
   };
 
@@ -63,9 +80,15 @@ const Tables = () => {
       .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
       .then((r) => {
         setData(r.data.musics);
+<<<<<<< HEAD
         console.log(r.data, "musikebi");
       });
   }, [clickck]); // include albumID here
+=======
+        setImg(r.data.file.url);
+      });
+  }, [clickck]);
+>>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
 
   const columns = [
     {
@@ -77,16 +100,21 @@ const Tables = () => {
         <div className={styles.cellId}>{index + 1}</div>
       ),
     },
+
     {
       title: "Song Name",
       dataIndex: "title",
       key: "title",
       width: "30%",
-      render: (text: string, item: MusicItem) => (
+      render: (text: any, item: any) => (
         <div className={styles.cellSongname}>
-          <Image
+          <img
             className={styles.image}
+<<<<<<< HEAD
             src={image?.files[0]?.url}
+=======
+            src={img}
+>>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
             width={48}
             height={48}
             alt={text}
@@ -110,7 +138,7 @@ const Tables = () => {
       title: "Actions",
       key: "like",
       width: "3%",
-      render: (record: MusicItem) => (
+      render: (record: any) => (
         <div onClick={() => onDelete(record.id)} className={styles.center}>
           <Image src={"/icon/trashsh.svg"} width={24} height={24} alt="trash" />
         </div>

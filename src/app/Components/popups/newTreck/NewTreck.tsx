@@ -3,7 +3,11 @@ import styles from './NewTreck.module.scss'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect, useState } from 'react'
+<<<<<<< HEAD
 import { albumDataState, albumNameState, artistNAmeState, clikcState, newTrackRrecoState } from '@/app/states'
+=======
+import { albumIDState, albumNAmeState, artistNAmeState, clickckState, newTrackRrecoState } from '@/app/states'
+>>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
 import { useRecoilState } from 'recoil'
 import Cookies from 'js-cookie'
 
@@ -23,11 +27,19 @@ interface FormData {
 const NewTreck = (props: Props) => {
 
     const [track, setTrack] = useState<boolean>()
+<<<<<<< HEAD
     const [albumID, setAlbumID] = useRecoilState<any>(albumDataState)
     const [clickck, setClickck] = useRecoilState(clikcState)
     
     const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
     const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
+=======
+    const [albumID, setAlbumID] = useRecoilState<any>(albumIDState)
+    const [clickck, setClickck] = useRecoilState(clickckState)
+
+    const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState)
+    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNAmeState)
+>>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
     const [artistName, setArtistName] = useRecoilState<any>(artistNAmeState)
     const [albumNameNew, setAlbumNameNew] = useState<any>()
     const [artistNameNew, setArtistNameNew] = useState<any>()
@@ -73,41 +85,45 @@ const NewTreck = (props: Props) => {
 
 
 
+
         axios.post(`https://interstellar-1-pdzj.onrender.com/music`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        })
-        .then(() => {
-            setClickck(!clickck); // This will trigger any reactivity needed
-        })
-        .catch((error) => {
-            console.error('Error submitting the form:', error);
-        });
-    };
+        }).
+            then((r) => {
+                setNewTrackRreco(false)
+                setClickck(!clickck)
+            })
+
+
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
             <div className={styles.header}>
-                <div className={styles.font}>Add New Track</div>
+                <div className={styles.font}>Add New track</div>
                 <Image onClick={props.onClick} src={'/icon/delete.svg'} width={24} height={24} alt='delete' />
             </div>
             <div className={styles.gap}>
-                <div>Track Name</div>
+                <div>Track Names</div>
                 <input className={styles.name} type="text" {...register('name', { required: true })} />
                 {errors.name && <span>This field is required</span>}
             </div>
+            {/* <div className={styles.gap}>
+                <div>Artist Name</div>
+                <input className={styles.name} type="text"  {...register('artistName')} />
+            </div> */}
             <div className={styles.twoFile}>
                 <div>Upload Music file</div>
                 <label htmlFor="upload-file">
                     <Image src={'/icon/Upload.svg'} width={24} height={24} alt='upload' />
                 </label>
-                <input id='upload-file' className={styles.file} type="file" {...register('file', { required: true })} />
-                {errors.file && <span>This field is required</span>}
+                <input id={'upload-file'} className={styles.file} type="file"  {...register('file')} />
             </div>
-            <input type='submit' value='Save' className={styles.button} />
+            <input type='submit' value={'Save'} className={styles.button} />
         </form>
     );
-};
+}
 
 export default NewTreck;

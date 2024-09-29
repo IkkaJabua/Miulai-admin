@@ -1,3 +1,4 @@
+// ArtistPopup.tsx
 import styles from "./ArtistPopup.module.scss";
 import Image from "next/image";
 import ArtistPopupData from "./ArtistPopupData/ArtistPopupData";
@@ -17,11 +18,11 @@ interface Props {
 
 const ArtistPopup = (props: Props) => {
   const [isPlaylistEdit, setPlaylistEdit] = useState<boolean>(false);
-  const [, setEditPlaylistId] = useState<number>(0);
+  const [editPlaylistId, setEditPlaylistId] = useState<number>(0);
   const token = Cookies.get("accessToken");
-  const [userId] = useRecoilState(userIdState);
-  const [email, setEmail] = useState<string | undefined>();
-  const [data, setDate] = useState<string | undefined>(); // Make it string | undefined
+  const [userId, setUserId] = useRecoilState(userIdState);
+  const [email, setEmail] = useState();
+  const [data, setDate] = useState<string>();
 
   useEffect(() => {
     axios
@@ -33,10 +34,12 @@ const ArtistPopup = (props: Props) => {
       .then((r) => {
         console.log(r.data, "=-=-=-=- use,id");
         setEmail(r.data.email);
-        const formattedDate = dayjs(r.data.createdAt).format("YYYY-MM-DD HH:mm:ss");
+        const formattedDate = dayjs(r.data.createdAt).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
         setDate(formattedDate);
       });
-  }, [userId, token]); // Include dependencies
+  }, []);
 
   return (
     <div className={styles.sss}>
@@ -66,9 +69,9 @@ const ArtistPopup = (props: Props) => {
         <div className={styles.wrapper}>
           <ArtistPopupData
             key1={!isPlaylistEdit ? "Email" : "Playlist Name"}
-            value1={`${email || 'N/A'}`} // Provide default value if email is undefined
+            value1={`${email}`}
             key2={"Registration Date"}
-            value2={data || 'N/A'} // Provide default value if data is undefined
+            value2={data}
             key3={"Playlists Created"}
             value3={"4"}
             userImage={"/image/userTestImage.png"}
@@ -85,6 +88,7 @@ const ArtistPopup = (props: Props) => {
             }}
           />
         ) : (
+          //   <PlaylistTable id={editPlaylistId} />
           <PlaylistTable />
         )}
       </div>

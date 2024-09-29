@@ -10,6 +10,7 @@ import ArtistForm from '@/app/Components/popups/artistForm/artistForm'
 const Management = () => {
     const [active, setActive] = useState(false)
 
+<<<<<<< HEAD
     return (
         <div className={styles.container} >
             <Header />
@@ -39,5 +40,18 @@ const Management = () => {
         </div>
     )
 }
+=======
+  useEffect(() => {
+    axios
+      .get(`https://interstellar-1-pdzj.onrender.com/author`)
+      .then((r) => {
+        setOnclick(!onclick);
+        setTotalArtists(r.data.length);
+      })
+      .catch((error) => {
+        console.log("there is something error", error);
+      });
+  }, []);
+>>>>>>> parent of cea225b (Merge branch 'master' of https://github.com/IkkaJabua/Miulai-admin)
 
 export default Management
