@@ -25,12 +25,12 @@ interface AlbumResponse {
   };
 }
 
-const Tables: React.FC = () => {
-  const [data, setData] = useState<MusicItem[]>([]);
-  const [] = useRecoilState(authorIdStates);
-  const [albumID] = useRecoilState(albumIDState);
-  const [img, setImg] = useState<string | undefined>();
-  const [clickck, setClickck] = useRecoilState(clickState);
+const Tables = () => {
+  const [data, setData] = useState<any>([]);
+  const [authorId, setAuthorId] = useRecoilState(authorIdStates);
+  const [albumID, setAlbumID] = useRecoilState(albumIDState);
+  const [image, setimage] = useRecoilState<any>(cardDataStates);
+  const [clickck, setClickck] = useRecoilState(clickckState);
   const token = Cookies.get("accessToken");
 
   const formatDuration = (seconds: number) => {
@@ -58,10 +58,10 @@ const Tables: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get<AlbumResponse>(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
-      .then((response) => {
-        setData(response.data.musics);
-        setImg(response.data.file.url);
+      .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
+      .then((r) => {
+        setData(r.data.musics);
+        console.log(r.data, "musikebi");
       });
   }, [clickck, albumID]); // include albumID here
 
@@ -84,7 +84,7 @@ const Tables: React.FC = () => {
         <div className={styles.cellSongname}>
           <Image
             className={styles.image}
-            src={img || ''}
+            src={image?.files[0]?.url}
             width={48}
             height={48}
             alt={text}

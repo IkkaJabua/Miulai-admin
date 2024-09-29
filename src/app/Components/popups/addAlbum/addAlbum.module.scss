@@ -1,133 +1,133 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  margin: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 40px;
 }
 
+
 .wrapper {
-  display: flex;
-  width: 334px;
-  padding: 92px 92px;
-  height: 270px;
-  align-items: flex-start;
-  border-radius: 8px;
-  border: 1px solid #363636;
-  background: #141414;
+    display: flex;
+    width: 334px;
+    padding: 92px 92px;
+    height: 270px;
+    align-items: flex-start;
+    border-radius: 8px;
+    border: 1px solid #363636;
+    background: #141414;
+
 }
 
 .photoInput {
-  height: 287px;
-  height: 287px;
-  color: white;
+    height: 287px;
+    height: 287px;
+    color: white;
+
 }
 
 .inputName {
-  width: 335px;
-  height: 52px;
-  border-radius: 8px;
+    width: 335px;
+    height: 52px;
+    border-radius: 8px;
 
-  border: 1px solid #363636;
+    border: 1px solid #363636;
 
-  background: #141414;
-  color: white;
+    background: #141414;
+    color: white;
 }
 
 .data {
-  width: 335px;
-  height: 52px;
-  border-radius: 8px;
+    width: 335px;
+    height: 52px;
+    border-radius: 8px;
 
-  border: 1px solid #363636;
+    border: 1px solid #363636;
 
-  background: #141414;
+    background: #141414;
 }
 
 .inputGap {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 50px;
 }
 
 .button {
-  display: flex;
-  padding: 16px 16px 16px 12px;
-  align-items: center;
+    display: flex;
+    padding: 16px 16px 16px 12px;
+    align-items: center;
 
-  border-radius: 8px;
+    border-radius: 8px;
 
-  border: 1px solid #757575;
-  margin-top: 30px;
-  background: #141414;
+    border: 1px solid #757575;
+    margin-top: 30px;
+    background: #141414;
 }
 
 .inputWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 18px;
 }
 
 .date {
-  border-radius: 8px;
-  border: 1px solid #363636;
-  background: #141414;
-  height: 52px;
-  padding: 0px 16px;
-  color: white;
+    border-radius: 8px;
+    border: 1px solid #363636;
+    background: #141414;
+    height: 52px;
+    padding: 0px 16px;
+    color: white;
+
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .formBody {
-  display: flex;
-  justify-content: center;
-  gap: 100px;
-  margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 20px;
 }
 
 .cursor {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .buttonTwo {
-  margin-top: 20px;
-  border-radius: 8px;
-  background: var(
-    --Gradient-apolo,
-    linear-gradient(90deg, #f903d0 0%, #9a16f2 100%)
-  );
-  padding: 16px;
-  border: none;
-  color: white;
+    margin-top: 20px;
+    border-radius: 8px;
+    background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+    padding: 16px;
+    border: none;
+    color: white;
 }
 
+
 .wrapper {
-  height: 270px;
-  width: 334px;
-
-  input[type="file"] {
-    display: none;
-  }
-
-  label {
-    display: flex;
-    justify-content: center;
     height: 270px;
     width: 334px;
-  }
+
+    input[type='file'] {
+        display: none;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        height: 270px;
+        width: 334px;
+
+    }
+
 }
 
 .upload {
-  bottom: 170px;
-  left: 215.5px;
-  position: absolute;
-}
-.imagePhoto {
-  position: absolute;
-  top: 240px;
+    bottom: 170px;
+    left: 215.5px;
+    position: absolute;
 }
