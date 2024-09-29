@@ -205,13 +205,14 @@ const UserTable: React.FC = () => {
               className={styles.unBorder}
               onClick={() => openModal(record)}
             >
-              <Image src={`/icon/Pen.svg`} width={24} height={24} alt="edit" />
+              <Image className={styles.curImg} src={`/icon/Pen.svg`} width={24} height={24} alt="edit" />
             </button>
             <button
               className={styles.unBorder}
               onClick={() => showDeleteModal(record)}
             >
               <Image
+              className={styles.curImg}
                 src={`/icon/trash.svg`}
                 width={24}
                 height={24}
@@ -227,6 +228,7 @@ const UserTable: React.FC = () => {
               }}
             >
               <Image
+              className={styles.curImg}
                 src={
                   record.block
                     ? "/icon/block-icon.svg"
