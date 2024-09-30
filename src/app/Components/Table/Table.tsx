@@ -42,7 +42,6 @@ const MusicTable: React.FC = () => {
     const [showAlert, setShowAlert] = useState(false);
 
 
-
  
 
     useEffect(() => {
@@ -66,15 +65,15 @@ const MusicTable: React.FC = () => {
     };
 
     const TableDelete = async (id: any) => {
-        const confirmDelete = confirm('Do you really want to delete?');
-        if (confirmDelete) {
-            try {
-                await axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`);
-                setClick(!click); 
-            } catch (error) {
-                console.error('Error deleting author', error);
-            }
-        }
+        axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`). 
+        then((r) => {
+            alert('Do you really want to delete it?')
+            
+            setClick(!click); 
+            console.log('waishala', id)
+        }).catch((error: string) => {
+            console.log(' ar waishala', id)
+        })
     };
 
     const handleSelectAll = (checked: boolean) => {
