@@ -70,32 +70,6 @@ const AddArtistPopup = (props: Props) => {
 
 
 
-  // useEffect(() => {
-  //   fetchAuthors();
-  // }, [click]);
-
-  // const fetchAuthors = async () => {
-  //   try {
-  //     const response = await axios.get(`https://interstellar-1-pdzj.onrender.com/author`);
-
-  //     const formattedData = response.data.map((artist: DataType) => ({
-  //       ...artist,
-  //       totalAlbums: artist.albums ? artist.albums.length : 0,
-  //       totalSongs: artist.albums?.reduce((acc: any, album: { musics: string | any[]; }) => acc + (album.musics ? album.musics.length : 0), 0)
-  //     }));
-  //     setTableData(formattedData);
-  //   } catch (error) {
-  //     console.error('Error fetching authors', error);
-  //   }
-  // };
-
-
-
-
-
-
-
-
   useEffect(() => {
     axios
       .get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`).
@@ -172,16 +146,16 @@ const AddArtistPopup = (props: Props) => {
             <img
               className={styles.image}
               src={albomImg}
-              width={240}
-              height={152}
+              width={250}
+              height={170}
               alt="artist name"
             />
           ) : (
             <img
               className={styles.image}
               src={authorData?.files[0]?.url}
-              width={240}
-              height={152}
+              width={250}
+              height={170}
               alt="artist name"
             />
           )}

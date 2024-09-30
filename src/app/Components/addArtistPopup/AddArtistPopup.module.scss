@@ -201,3 +201,37 @@
     font-size: 16px;
     font-weight: 500;
 }
+
+.imageContainer {
+    position: relative;
+    width: 240px;
+    height: 152px;
+}
+
+.image {
+    width:240;
+    height:152;
+    object-fit: cover;
+}
+
+.uploadButtonContainer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.uploadButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+}
