@@ -30,13 +30,11 @@ const Login = () => {
       .post("https://interstellar-1-pdzj.onrender.com/auth", values)
       .then((r) => {
         // Set the access token only if the role is "admin"
+        Cookies.set("accessToken", r.data.accessToken, {
+          expires: 3600,
+        }); /*ექსფაიერ როცა უწერია ტიკენი ინახება, რეფრეშზეც და იუზერი არ იშლება */
         if (r.data.role === "admin") {
-          Cookies.set("accessToken", r.data.accessToken, {
-            expires: 3600,
-          });
           router.push("/");
-        } else {
-          alert("Access denied: Admins only");
         }
       })
       .catch((error) => {
