@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import styles from './NewPassword.module.scss';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 type Password = {
     newPassword: string;
@@ -18,11 +20,16 @@ const NewPassword = (props: Props) => {
 
     const newPassword = watch('newPassword');
     const confirmPassword = watch('confirmPassword');
+    const accessToken = Cookies.get('accessToken')
 
     const onPassswordClick = async (values: Password) => { // Use Password type here
         if (newPassword === confirmPassword) {
             await axios.patch(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`, {
                 password: values.newPassword
+            }, {
+                headers: {
+                Authorization: `Bearer ${accessToken}`
+                }
             });
             props.closeModal?.();
         }

@@ -29,12 +29,14 @@ const Login = () => {
     axios
       .post("https://interstellar-1-pdzj.onrender.com/auth", values)
       .then((r) => {
-        // setCookie('token', r.data.accesToken, 60)
-        Cookies.set("accessToken", r.data.accessToken, {
-          expires: 3600,
-        }); /*ექსფაიერ როცა უწერია ტიკენი ინახება, რეფრეშზეც და იუზერი არ იშლება */
+        // Set the access token only if the role is "admin"
         if (r.data.role === "admin") {
+          Cookies.set("accessToken", r.data.accessToken, {
+            expires: 3600,
+          });
           router.push("/");
+        } else {
+          alert("Access denied: Admins only");
         }
       })
       .catch((error) => {
