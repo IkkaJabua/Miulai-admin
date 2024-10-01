@@ -291,10 +291,10 @@ const UserTable: React.FC = () => {
           )}
 
           <Table
-            rowSelection={{
-              selectedRowKeys: selectedRowKeysAll,
-              onChange: setSelectedRowKeysAll,
-            }}
+            // rowSelection={{
+            //   selectedRowKeys: selectedRowKeysAll,
+            //   onChange: setSelectedRowKeysAll,
+            // }}
             className={styles.wrapper}
             columns={columns}
             dataSource={memoizedUsers}
