@@ -71,7 +71,7 @@ const NewTreck: React.FC<Props> = (props) => {
                 console.error('Error submitting track:', error);
             })
             .finally(() => {
-                setLoading(false); // Stop loading
+                setLoading(false); 
             });
     };
 
