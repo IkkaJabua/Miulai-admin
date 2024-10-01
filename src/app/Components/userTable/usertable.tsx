@@ -21,7 +21,7 @@ type User = {
 };
 
 const UserTable: React.FC = () => {
-  const [selectedRowKeysAll, setSelectedRowKeysAll] = useState<React.Key[]>([]);
+  const [selectedRowKeysAll,] = useState<React.Key[]>([]);
   const [selectedRowKeysBlocked, setSelectedRowKeysBlocked] = useState<
     React.Key[]
   >([]);
@@ -46,7 +46,7 @@ const UserTable: React.FC = () => {
   };
   const hideDeleteModal = () => setDeleteModal(false);
 
-  const [, setUserId] = useRecoilState(userIdState);
+  const [, setUserId] = useRecoilState<null | number>(userIdState);
 
   const fetchUsers = async () => {
     try {
@@ -304,7 +304,7 @@ const UserTable: React.FC = () => {
             }}
             onRow={(record) => ({
               onClick: () => {
-                setUserId(record.id);
+                setUserId(record.id!);
               },
             })}
           />

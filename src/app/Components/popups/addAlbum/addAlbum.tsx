@@ -49,7 +49,7 @@ const AddAlbum = (props: Props) => {
     data.append('artistName', nameOFArtist)
     data.append("releaseDate", values.releaseDate);
     // data.append('file', values.file[0])
-    data.append("authorId", authorId);
+    data.append("authorId", String(authorId));
 
     if (file) {
       data.append("file", file);

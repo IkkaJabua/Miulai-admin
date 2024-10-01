@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Table } from "antd";
 // import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
@@ -93,13 +94,13 @@ const Tables = () => {
       });
   }, [clickck]); 
 
-  const columns = [
+  const columns : any= [
     {
       title: "#",
       dataIndex: "id",
       key: "id",
       width: "1%",
-      render: (text: any, item: any,index: number) => (
+      render: (text: 'string', item: object,index: number) => (
         <div className={styles.cellId}>{index + 1}</div>
       ),
     },
@@ -137,7 +138,7 @@ const Tables = () => {
       title: "Actions",
       key: "like",
       width: "3%",
-      render: (record) => (
+      render: (record: { id: number; }) => (
         <div onClick={() => onDelete(record.id)} className={styles.center}>
           <Image src={"/icon/trashsh.svg"} width={24} height={24} alt="trash" />
         </div>

@@ -1,7 +1,7 @@
 "use client";
 import styles from "./page.module.scss";
 import Header from "../Components/Header/Header";
-import Usertable from "../Components/UserTable/usertable";
+import Usertable from "../Components/userTable/usertable";
 
 export default function Home() {
   return (

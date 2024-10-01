@@ -1,3 +1,4 @@
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
 'use client'
 import { type Dispatch, type SetStateAction } from 'react'
 import styles from './UserPlaylist.module.scss'
@@ -49,7 +50,8 @@ const UserPlaylist = (props: Props) => {
     return (
         <>
             {
-                albumData?.map((item: Props) => (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                albumData?.map((item: any) => (
                     <div className={styles.container} key={item.id}>
                         <div className={styles.hoveredImage} >
                             <img className={styles.cellImage} src={`${item.file?.url}`} width={170} height={136} alt='image' />

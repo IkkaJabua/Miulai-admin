@@ -5,7 +5,7 @@ type Props = {
   key1: string;
   value1: string;
   key2: string;
-  value2: string;
+  value2?: string;
   key3: string;
   value3: string;
   userImage: string;

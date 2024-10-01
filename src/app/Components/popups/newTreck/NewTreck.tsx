@@ -25,7 +25,7 @@ const NewTreck: React.FC<Props> = (props) => {
     const [albumNameNew, setAlbumNameNew] = useState<string | undefined>();
     const [artistNameNew, setArtistNameNew] = useState<string | undefined>();
     const [albumCover, setAlbumCover] = useState<string | undefined>();
-    const [authorId] = useRecoilState<any>(authorIdStates);
+    const [authorId] = useRecoilState<number>(authorIdStates);
 
     const token: string | undefined = Cookies.get('accessToken');
 
@@ -52,7 +52,7 @@ const NewTreck: React.FC<Props> = (props) => {
     const onSubmit = (value: FormData) => {
         const data = new FormData();
         data.append('name', value.name);
-        data.append('authorId', authorId);
+        data.append('authorId', String(authorId));
         data.append('albumName', albumNameNew || ''); // Provide a fallback
         data.append('albumCover', albumCover || ''); // Provide a fallback
         data.append('file', value.file[0]);

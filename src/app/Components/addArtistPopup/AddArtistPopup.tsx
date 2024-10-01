@@ -1,7 +1,6 @@
 "use client";
 import styles from "./AddArtistPopup.module.scss";
 import Button from "../Button/Button";
-import Image from "next/image";
 import UserPlaylist from "../UserPlaylist/UserPlaylist";
 import NewTreck from "../popups/newTreck/NewTreck";
 import AddAlbum from "../popups/addAlbum/addAlbum";
@@ -43,9 +42,10 @@ const AddArtistPopup = (props: Props) => {
   const [albumButton, setAlbumButton] = useState(false);
   const [authorId] = useRecoilState(authorIdStates);
   const [, setAlbumdata] = useRecoilState(albumDataState);
-  const [authorData, setAuthorData] = useState();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [authorData, setAuthorData] = useState<any>();
   const [, setSongs] = useState([]);
-  const [, setimage] = useRecoilState<Props>(cardDataStates);
+  const [, setimage] = useRecoilState(cardDataStates);
   const [edited, setEdited] = useState<boolean>(false);
   const [editedBiography, setEditedBiography] = useState<string>();
   const [click,] = useRecoilState(clikcState);

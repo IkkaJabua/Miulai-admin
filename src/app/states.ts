@@ -42,7 +42,7 @@ export const authorIdStates = atom({
 
 
 
-export const cardDataStates = atom<any>({
+export const cardDataStates = atom({
   key: "cardDataStates",
   default: [],
 });
@@ -76,7 +76,7 @@ export const newTrackRrecoState = atom({
   key: "newTrackRrecoState",
   default: false,
 });
-export const userIdState = atom({
+export const userIdState = atom<null | number>({
   key: "userIdState",
   default: null,
 });

@@ -10,16 +10,14 @@ import { authorIdStates, clikcState } from "@/app/states";
 import axios from "axios";
 
 interface Music {
-  id: string; // or whatever your music identifier is
-  title: string; // title of the music
-  // Add other properties as needed
+  id: string;
+  title: string;
 }
 
 interface Album {
-  id: string; // or whatever your album identifier is
-  title: string; // title of the album
-  musics: Music[]; // Array of music items in the album
-  // Add other properties as needed
+  id: string;
+  title: string;
+  musics: Music[];
 }
 
 interface DataType {
@@ -34,13 +32,13 @@ interface DataType {
   id?: number;
   firstName?: string;
   lastName?: string;
-  files?: Array<{ url: string }>; // Adjusted type for files
+  files?: Array<{ url: string }>;
 }
 
 interface FormValues {
   selectAll?: boolean;
   key: string;
-  [key: string]: any; // Allows dynamic keys like `select-<record.id>`
+  [key: string]: unknown;
 }
 
 const MusicTable: React.FC = () => {
@@ -48,7 +46,7 @@ const MusicTable: React.FC = () => {
   const { register, handleSubmit } = useForm<FormValues>();
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
   const [active, setActive] = useState(false);
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState<DataType[]>([]);
   const [, setAuthorId] = useRecoilState(authorIdStates);
   const [showAlert] = useState(false);
 
@@ -72,29 +70,24 @@ const MusicTable: React.FC = () => {
         ),
       }));
       setTableData(formattedData);
-      console.log(formattedData, "aq raari tooooo");
     } catch (error) {
       console.error("Error fetching authors", error);
     }
   };
 
   const TableDelete = async (id: number) => {
-    axios
-      .delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`)
-      .then(() => {
-        alert("Do you really want to delete it?");
-
-        setClick(!click);
-        console.log("waishala", id);
-      })
-      .catch(() => {
-        console.log(" ar waishala", id);
-      });
+    try {
+      await axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`);
+      alert("Do you really want to delete it?");
+      setClick(!click);
+    } catch (error) {
+      console.error("Error deleting author", id);
+    }
   };
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedKeys(new Set(tableData.map((item: any) => item.key)));
+      setSelectedKeys(new Set(tableData.map((item) => item.key)));
     } else {
       setSelectedKeys(new Set());
     }
@@ -103,7 +96,11 @@ const MusicTable: React.FC = () => {
   const handleSelectOne = (key: string) => {
     setSelectedKeys((prev) => {
       const newSet = new Set(prev);
-      newSet.has(key) ? newSet.delete(key) : newSet.add(key);
+      if (newSet.has(key)) {
+        newSet.delete(key);
+      } else {
+        newSet.add(key);
+      }
       return newSet;
     });
   };
@@ -151,7 +148,6 @@ const MusicTable: React.FC = () => {
       key: "artist",
       render: (text, record: DataType) => (
         <div className={styles.artistCell}>
-          {/* <img className={styles.image} src={`${record.files[0]?.url}`} width={40} height={40} alt={text} /> */}
           {record.files && record.files.length > 0 ? (
             <img
               className={styles.image}
@@ -169,11 +165,11 @@ const MusicTable: React.FC = () => {
       width: "30%",
     },
     {
-      title: "",
+      title: "Total Streams",
       dataIndex: "totalStreams",
       key: "totalStreams",
       width: "10%",
-      render: (text, record) => <div>{record.totalStreams}</div>,
+      render: (text) => <div>{text}</div>,
     },
     {
       title: "Total Albums",
@@ -200,12 +196,6 @@ const MusicTable: React.FC = () => {
           >
             <img src={`/icon/Pen.svg`} width={24} height={24} alt="pen" />
           </button>
-          {/* <button
-            onClick={() => TableDelete(record.id)}
-            className={styles.unBorder}
-          >
-            <img src={`/icon/trash.svg`} width={24} height={24} alt="trash" />
-          </button> */}
           <button
             onClick={() => {
               if (typeof record.id === "number") {
@@ -226,21 +216,6 @@ const MusicTable: React.FC = () => {
 
   return (
     <>
-      {/* <Table
-        className={styles.wrapper}
-        columns={columns}
-        dataSource={tableData}
-        pagination={{
-          pageSize: 7,
-          position: ["bottomCenter"],
-        }}
-        rowKey="id" // Important to uniquely identify rows
-        onRow={(record) => ({
-          onClick: () => {
-            setAuthorId(record.id);
-          },
-        })}
-      /> */}
       <Table
         className={styles.wrapper}
         columns={columns}
