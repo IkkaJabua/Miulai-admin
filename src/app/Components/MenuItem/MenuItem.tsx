@@ -42,13 +42,6 @@ const MenuItem = () => {
             path: '/management',
             key: '/management',
         },
-        {
-            title: 'Home',
-            icon: '/icon/menu-logo3.svg',
-            activeIcon: '',
-            path: '/r',
-            key: '/r',
-        },
     ]
 
 
