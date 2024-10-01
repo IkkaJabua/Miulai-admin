@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useState } from "react";
+import { Spin } from "antd";
 
 type SignIn = {
   email: string;
@@ -15,6 +16,7 @@ type SignIn = {
 };
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -25,6 +27,7 @@ const Login = () => {
 
   const onLogin: SubmitHandler<SignIn> = (values) => {
     console.log(values, "Login attempt");
+    setLoading(true);
 
     axios
       .post("https://interstellar-1-pdzj.onrender.com/auth", values)
@@ -131,7 +134,17 @@ const Login = () => {
               )}
             </div>
 
-            <input type="submit" value={"SIGN IN"} className={styles.button} />
+            {loading ? (
+              <div className={styles.loading}>
+                <Spin tip="Submitting..." size="default" />
+              </div>
+            ) : (
+              <input
+                type="submit"
+                value={"SIGN IN"}
+                className={styles.button}
+              />
+            )}
           </form>
         </div>
       </div>
