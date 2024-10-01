@@ -3,18 +3,6 @@ import { atom } from "recoil";
 // Define appropriate types for the atoms based on your application's requirements
 
 
-interface CardData {
-  id: number;
-  title: string;
-  // Add other properties as needed
-}
-
-// In your recoil state definition
-
-
-
-
-
 
 
 export const clickState = atom<boolean>({
@@ -22,11 +10,11 @@ export const clickState = atom<boolean>({
   default: false,
 });
 
-interface AlbumData {
-  id: number;
-  title: string;
-  // Add other properties as needed
-}
+// interface AlbumData {
+//   id: number;
+//   title: string;
+//   // Add other properties as needed
+// }
 
 export const newTrackRecoState = atom<boolean>({
   key: "newTrackRecoState",
@@ -47,17 +35,19 @@ export const artistNAmeState = atom({
 
 
 
-export const authorIdStates = atom<any>({
+export const authorIdStates = atom({
   key: "authorIdStates",
   default: 0,
 });
+
+
 
 export const cardDataStates = atom<any>({
   key: "cardDataStates",
   default: [],
 });
 
-export const deleteStates = atom<any>({
+export const deleteStates = atom({
   key: "deleteStates",
   default: 0,
 });

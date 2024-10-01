@@ -1,25 +1,12 @@
 'use client'
-import { title } from 'process'
-// import styles from './UserPlaylist.module.scss'
-import Image from 'next/image'
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
+import { type Dispatch, type SetStateAction } from 'react'
 import styles from './UserPlaylist.module.scss'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useRecoilState } from 'recoil'
-import { albumDataState, albumIDState, albumNameState, authorIdStates, cardDataStates, clikcState } from '@/app/states'
+import { albumDataState, albumIDState, albumNameState, clikcState } from '@/app/states'
 import axios from 'axios'
-import { error } from 'console'
 import Cookies from "js-cookie";
+import Image from 'next/image'
 
-
-
-
-interface Album {
-  id: number;
-  albumName: string;
-  file?: { url: string };
-}
 
 interface Props {
     setActive: Dispatch<SetStateAction<boolean>>;
@@ -29,19 +16,19 @@ interface Props {
     title?: string;
     id?: number;
     category?: string;
-
-
+    albumName: string;
+    file?: { url: string };
 }
 
 const UserPlaylist = (props: Props) => {
-    const router = useRouter()
+  
     const token = Cookies.get("accessToken");
     const [click, setClick] = useRecoilState(clikcState);
 
 
-    const [albumData, setAlbumdata] = useRecoilState<any>(albumDataState)
-    const [albumID, setAlbumID] = useRecoilState(albumIDState)
-    const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
+    const [albumData, ] = useRecoilState(albumDataState)
+    const [, setAlbumID] = useRecoilState(albumIDState)
+    const [, setAlbumNameTwo] = useRecoilState(albumNameState)
 
     const onDelete = (id: number) => {
         axios.delete(`https://interstellar-1-pdzj.onrender.com/album/${id}`,{
@@ -49,7 +36,7 @@ const UserPlaylist = (props: Props) => {
                 Authorization: `Bearer ${token}`,
             },
         }). 
-        then((r) => {
+        then(() => {
             setClick(!click)
             alert('do you really want to delete this album?')
 
@@ -62,10 +49,10 @@ const UserPlaylist = (props: Props) => {
     return (
         <>
             {
-                albumData?.map((item: any) => (
+                albumData?.map((item: Props) => (
                     <div className={styles.container} key={item.id}>
                         <div className={styles.hoveredImage} >
-                            <img className={styles.cellImage} src={item.file?.url} width={170} height={136} alt='image' />
+                            <Image className={styles.cellImage} src={`${item.file?.url}`} width={170} height={136} alt='image' />
 
                             <div className={styles.buttons}>
                                 <div onClick={() => {
@@ -75,10 +62,10 @@ const UserPlaylist = (props: Props) => {
                                     setAlbumNameTwo(item.id)
                                     setAlbumID(item.id)
                                 }} className={styles.cellEdit}>
-                                    <img src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
+                                    <Image src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
                                 <div onClick={() => onDelete(item.id)} className={styles.cellDelete}>
-                                    <img src={'/icon/deletePlaylist.svg'} width={24} height={24} alt={'edit button'} />
+                                    <Image src={'/icon/deletePlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
                             </div>
                         </div>

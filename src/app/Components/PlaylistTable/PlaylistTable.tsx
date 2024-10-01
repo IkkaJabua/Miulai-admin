@@ -2,7 +2,6 @@
 import { Table } from "antd";
 // import HeartShapeBtn from "../heatShapeIcon/HeartShapeIcn";
 import styles from "./PlaylistTable.module.scss";
-import { text } from "stream/consumers";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -10,9 +9,6 @@ import {
 
   albumCoverInAlbum,
   albumIDState,
-  albumNameState,
-  authorIdStates,
-  cardDataStates,
   clikcState,
   musicCountState,
   nameOfAlbumState,
@@ -22,34 +18,30 @@ import {
 import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
 
-// type Props = {
-//   name?: string;
-//   id?: string;
-// };
 
-// interface Song {
-//   icon: string;
-//   title: string;
-//   author: string;
-//   album: string;
-//   time: string;
-//   id: number;
-// }
+interface Song {
+  title: string;
+  albumCover: string;
+  name: string; // Song name
+  artistName: string; // Artist name
+}
+
+interface Duration {
+  duration: number; // Assuming duration is in seconds or milliseconds as a number
+}
+
+
 
 const Tables = () => {
-  const [data, setData] = useState<any>([]);
-  const [authorId, setAuthorId] = useRecoilState(authorIdStates);
-  const [albumID, setAlbumID] = useRecoilState(albumIDState);
-  const [image, setimage] = useRecoilState<any>(cardDataStates);
+  const [data, setData] = useState([]);
+  const [albumID] = useRecoilState(albumIDState);
   const [clickck, setClickck] = useRecoilState(clikcState);
   const token = Cookies.get("accessToken");
-  const [deletes, setDeletes] = useState<any>();
-  const [albomImg, setAlbumImg] = useRecoilState(albumCoverInAlbum)
-  const [nameOfAlbum, setNameOfAlbum] = useRecoilState(nameOfAlbumState)
-  const [releaseDate, setReleaseDate] = useRecoilState(releaseDateState)
-  const [numberOfMusic, setNumberOfMusic] = useRecoilState(numberOFMusicState)
-  const [musicCound, setMusicCound] = useRecoilState(musicCountState)
-  const [albumNameTwo, setAlbumNameTwo] = useRecoilState<any>(albumNameState)
+  const [, setAlbumImg] = useRecoilState(albumCoverInAlbum)
+  const [, setNameOfAlbum] = useRecoilState(nameOfAlbumState)
+  const [, setReleaseDate] = useRecoilState(releaseDateState)
+  const [, setNumberOfMusic] = useRecoilState(numberOFMusicState)
+  const [, setMusicCound] = useRecoilState(musicCountState)
 
 
   // useEffect(() => {
@@ -77,11 +69,11 @@ const Tables = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((r) => {
+      .then(() => {
         setClickck(!clickck);
         alert("are shure you want to delete?");
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("ar shemodis then shi saertod ar shemodiiis");
       });
   };
@@ -107,7 +99,7 @@ const Tables = () => {
       dataIndex: "id",
       key: "id",
       width: "1%",
-      render: (text: any, item: any,index: number) => (
+      render: (/*text: any, item: any,*/index: number) => (
         <div className={styles.cellId}>{index + 1}</div>
       ),
     },
@@ -117,7 +109,7 @@ const Tables = () => {
       dataIndex: "title",
       key: "title",
       width: "30%",
-      render: (text: any, item: any) => (
+      render: (text: string, item: Song) => (
         <div className={styles.cellSongname}>
           <img
             className={styles.image}
@@ -137,7 +129,7 @@ const Tables = () => {
       title: "Time",
       key: "time",
       width: "15%",
-      render: (text: any, item: any) => (
+      render: (text: string, item: Duration) => (
         <div className={styles.cellTimeName}>{formatDuration(item.duration)}</div>
       ),
     },
@@ -145,7 +137,7 @@ const Tables = () => {
       title: "Actions",
       key: "like",
       width: "3%",
-      render: (record: any) => (
+      render: (record) => (
         <div onClick={() => onDelete(record.id)} className={styles.center}>
           <Image src={"/icon/trashsh.svg"} width={24} height={24} alt="trash" />
         </div>

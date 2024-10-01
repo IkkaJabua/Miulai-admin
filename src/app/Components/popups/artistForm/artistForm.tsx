@@ -1,25 +1,31 @@
 'use client'
 import styles from './artistForm.module.scss'
-import { useForm, SubmitHandler } from "react-hook-form"
-import Button from '../../Button/Button'
+import { useForm } from "react-hook-form"
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AddAlbum from '../addAlbum/addAlbum'
 import axios from 'axios'
 import { useRecoilState } from 'recoil'
 import { autoCloseState, clikcState } from '@/app/states'
 
+interface FormValues {
+  firstName: string;
+  lastName?: string;
+  biography: string;
+  file?: FileList;
+}
 
 
 interface Props {
   onClick?: () => void;
 }
+
 const ArtistForm = (props: Props) => {
   const [deleted, setDeleted] = useState(false);
-  const [addAlbum, setAddAlbum] = useState(false);
+  const [addAlbum, ] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [coverFileName, setCoverFileName] = useState(""); 
-  const [autoClose, setAutoClose] = useRecoilState(autoCloseState)
+  const [, setAutoClose] = useRecoilState(autoCloseState)
   const [click, setClick] = useRecoilState(clikcState);
 
 
@@ -30,7 +36,7 @@ const ArtistForm = (props: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>();
+  } = useForm<FormValues>();
   if (deleted) {
     return null;
   }
@@ -39,7 +45,7 @@ const ArtistForm = (props: Props) => {
     return <AddAlbum onDelete={() => setDeleted(true)} />;
   }
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: FormValues) => {
     const data = new FormData();
     data.append("firstName", String(values.firstName));
     data.append("lastName", String(values.lastName));
@@ -70,7 +76,7 @@ const ArtistForm = (props: Props) => {
       });
   };
 
-  const fileChange = (e: any) => {
+  const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e?.target.files[0]);
       console.log(e?.target.files[0],file)

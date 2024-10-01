@@ -10,7 +10,7 @@ import { useRecoilState } from 'recoil'
 import { autoCloseState } from '@/app/states'
 
 const Management = () => {
-    const [active, setActive] = useState(false)
+    const [active] = useState(false)
     const [autoClose, setAutoClose] = useRecoilState(autoCloseState)
 
     // useEffect(() => {

@@ -18,9 +18,9 @@ interface Props {
 
 const ArtistPopup = (props: Props) => {
   const [isPlaylistEdit, setPlaylistEdit] = useState<boolean>(false);
-  const [editPlaylistId, setEditPlaylistId] = useState<number>(0);
+  const [, setEditPlaylistId] = useState<number>(0);
   const token = Cookies.get("accessToken");
-  const [userId, setUserId] = useRecoilState(userIdState);
+  const [userId, ] = useRecoilState(userIdState);
   const [email, setEmail] = useState();
   const [data, setDate] = useState<string>();
 
@@ -88,7 +88,6 @@ const ArtistPopup = (props: Props) => {
             }}
           />
         ) : (
-          //   <PlaylistTable id={editPlaylistId} />
           <PlaylistTable />
         )}
       </div>

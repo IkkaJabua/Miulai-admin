@@ -1,5 +1,4 @@
 import styles from "./addAlbum.module.scss";
-import Button from "../../Button/Button";
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,8 +7,12 @@ import { useRecoilState } from "recoil";
 import { artistNameGlobalState, authorIdStates, clikcState, onBackWardState } from "@/app/states";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
-import { Input } from "antd";
 
+interface FormValues {
+  albumName: string;
+  releaseDate: string;
+  file?: FileList; // Assuming it's an optional file input, you may need to adjust this type if it's different
+}
 
 interface Props {
   onClick?: () => void;
@@ -20,29 +23,28 @@ const AddAlbum = (props: Props) => {
   const token = Cookies.get("accessToken");
 
   const [artistForm, setArtistForm] = useState(false);
-  const [authorId, setAuthorId] = useRecoilState(authorIdStates);
+  const [authorId, ] = useRecoilState(authorIdStates);
   const [message, setMessage] = useState<string>();
   const [click, setClick] = useRecoilState(clikcState);
   const [coverFileName, setCoverFileName] = useState(""); // Fix the typo and make sure it's a string or null
   const [file, setFile] = useState<File | null>(null);
-  const [nameOFArtist, setNameOfArtist] = useRecoilState(artistNameGlobalState)
-  const [createAlbum, setCreateAlbum] = useRecoilState(onBackWardState);
+  const [nameOFArtist, ] = useRecoilState(artistNameGlobalState)
+  const [, setCreateAlbum] = useRecoilState(onBackWardState);
 
 
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<any>();
+  } = useForm<FormValues>();
 
   if (artistForm) {
     return <ArtistForm />;
   }
 
-  const onSubmit = (values: any) => {
-    const data: any = new FormData();
+  const onSubmit = (values: FormValues) => {
+    const data = new FormData();
     data.append("albumName", values.albumName);
     data.append('artistName', nameOFArtist)
     data.append("releaseDate", values.releaseDate);
@@ -61,12 +63,12 @@ const AddAlbum = (props: Props) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((r) => {
+      .then(() => {
         setMessage("Album are created");
         setCreateAlbum(false)
         setClick(!click);
       })
-      .catch((errors: string) => {
+      .catch(() => {
         setMessage("The album could not be created");
       });
   };
@@ -78,7 +80,7 @@ const AddAlbum = (props: Props) => {
     }
   };
 
-  const fileChange = (e: any) => {
+  const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e?.target.files[0]);
       setCoverFileName(e.target.files[0].name);

@@ -2,7 +2,6 @@
 import styles from "./AddArtistPopup.module.scss";
 import Button from "../Button/Button";
 import Image from "next/image";
-import Card from "../Card/Card";
 import UserPlaylist from "../UserPlaylist/UserPlaylist";
 import NewTreck from "../popups/newTreck/NewTreck";
 import AddAlbum from "../popups/addAlbum/addAlbum";
@@ -13,7 +12,6 @@ import {
   albumCoverInAlbum,
   albumDataState,
   albumIDState,
-  albumNameState,
   artistNameGlobalState,
   authorIdStates,
   cardDataStates,
@@ -26,9 +24,8 @@ import {
   releaseDateState,
   totalSongsState,
 } from "@/app/states";
-import { Divider } from "antd";
 import Tables from "../PlaylistTable/PlaylistTable";
-import Cookies from "js-cookie";
+
 
 type Props = {
   setActive: Dispatch<SetStateAction<boolean>>;
@@ -40,32 +37,26 @@ const AddArtistPopup = (props: Props) => {
   const [albums, setAlbums] = useState(true);
   const [biography, setBiography] = useState(false);
   const [active, setActive] = useState(false);
-  const [newTrack, setNewTrack] = useState(false);
-
   const [newTrackRreco, setNewTrackRreco] = useRecoilState(newTrackRrecoState);
-
   const [createAlbum, setCreateAlbum] = useRecoilState(onBackWardState);
   const [deleted, setDeleted] = useState(false);
   const [albumButton, setAlbumButton] = useState(false);
-  const [authorId, setAuthorId] = useRecoilState(authorIdStates);
-  const [albumData, setAlbumdata] = useRecoilState(albumDataState);
-  const [authorData, setAuthorData] = useState<any>();
-  const [songs, setSongs] = useState<any>([]);
-  const [image, setimage] = useRecoilState<Props>(cardDataStates);
+  const [authorId] = useRecoilState(authorIdStates);
+  const [, setAlbumdata] = useRecoilState(albumDataState);
+  const [authorData, setAuthorData] = useState();
+  const [, setSongs] = useState([]);
+  const [, setimage] = useRecoilState<Props>(cardDataStates);
   const [edited, setEdited] = useState<boolean>(false);
   const [editedBiography, setEditedBiography] = useState<string>();
-  const [click, setClick] = useRecoilState(clikcState);
-  const [albumCover, setAlbumCover] = useState();
-  const [albumID, setAlbumID] = useRecoilState(albumIDState);
-  const [albumName, setAlbumName] = useState();
-  const [releaseDateAlbum, setReleaseDateAlbum] = useState();
-  const [albomImg, setAlbumImg] = useRecoilState<any>(albumCoverInAlbum)
-  const [nameOfAlbum, setNameOfAlbum] = useRecoilState(nameOfAlbumState)
-  const [releaseDate, setReleaseDate] = useRecoilState(releaseDateState)
-  const [numberOfMusic, setNumberOfMusic] = useRecoilState(numberOFMusicState)
-  const [musicCound, setMusicCound] = useRecoilState(musicCountState)
-  const [nameOFArtist, setNameOfArtist] = useRecoilState(artistNameGlobalState)
-  const [totalSong, setTotalSong] = useRecoilState<any>(totalSongsState)
+  const [click,] = useRecoilState(clikcState);
+  const [] = useRecoilState(albumIDState);
+  const [albomImg] = useRecoilState(albumCoverInAlbum)
+  const [nameOfAlbum] = useRecoilState(nameOfAlbumState)
+  const [releaseDate] = useRecoilState(releaseDateState)
+  const [numberOfMusic,] = useRecoilState(numberOFMusicState)
+  const [] = useRecoilState(musicCountState)
+  const [, setNameOfArtist] = useRecoilState(artistNameGlobalState)
+  const [totalSong, setTotalSong] = useRecoilState(totalSongsState)
   const [totalAlbum, setTotalAlbum] = useState()
 
 
@@ -81,7 +72,7 @@ const AddArtistPopup = (props: Props) => {
         setAlbumdata(r.data.albums);
         setimage(r.data);
         setSongs(r.data.musics);
-        const totalMusic = r.data.albums.reduce((acc: any, album: { musics: string | any[]; }) => {
+        const totalMusic = r.data.albums.reduce((acc: number, album: { musics: string | []; }) => {
           return acc + (album.musics ? album.musics.length : 0); // Sum up songs in each album
         }, 0);
         setTotalSong(totalMusic)
@@ -151,7 +142,7 @@ const AddArtistPopup = (props: Props) => {
               alt="artist name"
             />
           ) : (
-            <img
+            <Image
               className={styles.image}
               src={authorData?.files[0]?.url}
               width={250}

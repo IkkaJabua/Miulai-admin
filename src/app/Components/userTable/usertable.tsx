@@ -46,7 +46,7 @@ const UserTable: React.FC = () => {
   };
   const hideDeleteModal = () => setDeleteModal(false);
 
-  const [userId, setUserId] = useRecoilState(userIdState);
+  const [, setUserId] = useRecoilState(userIdState);
 
   const fetchUsers = async () => {
     try {
@@ -302,7 +302,7 @@ const UserTable: React.FC = () => {
               pageSize: 9, // Set page size to 8
               position: ["bottomCenter"],
             }}
-            onRow={(record: any) => ({
+            onRow={(record) => ({
               onClick: () => {
                 setUserId(record.id);
               },

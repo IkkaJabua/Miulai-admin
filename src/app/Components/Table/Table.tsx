@@ -6,40 +6,53 @@ import Image from 'next/image';
 import styles from './Table.module.scss';
 import { useForm } from "react-hook-form";
 import AddArtistPopup from '../addArtistPopup/AddArtistPopup';
-import AddAlbum from '../popups/addAlbum/addAlbum';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { authorIdStates, clikcState, deleteStates, totalSongsState } from '@/app/states';
+import { useRecoilState } from 'recoil';
+import { authorIdStates, clikcState } from '@/app/states';
 import axios from 'axios';
+
+interface Music {
+    id: string; // or whatever your music identifier is
+    title: string; // title of the music
+    // Add other properties as needed
+}
+
+interface Album {
+    id: string; // or whatever your album identifier is
+    title: string; // title of the album
+    musics: Music[]; // Array of music items in the album
+    // Add other properties as needed
+}
 
 
 interface DataType {
-    albums: any;
+    albums: Album[];
     key: string;
     artist: string;
     totalStreams: number;
     totalAlbums: number;
     totalSongs: number;
     image: string;
-    name?: any;
-    id?: any;
-    files?: any;
-    firstName?: any
-    lastName?: any
+    name?: string;
+    id?: number | string;
+    firstName?: string;
+    lastName?: string;
+    files?: Array<{ url: string }>; // Adjusted type for files
+}
+
+
+interface FormValues {
+    selectAll?: boolean;
+    key: string; // This allows for dynamic keys like `select-<record.id>`
 }
 
 const MusicTable: React.FC = () => {
-    const [selectedKey, setSelectedKey] = useState<string | null>(null);
-    const [all, setAll] = useState(false);
     const [click, setClick] = useRecoilState(clikcState);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
     const [active, setActive] = useState(false);
-    const [tableData, setTableData] = useState<any[]>([]);
-    const [authorId, setAuthorId] = useRecoilState(authorIdStates);
-    const [deletes, setDeletes] = useRecoilState(deleteStates);
-    const [totalSong, setTotalSong] = useRecoilState(totalSongsState)
-
-    const [showAlert, setShowAlert] = useState(false);
+    const [tableData, setTableData] = useState([]);
+    const [, setAuthorId] = useRecoilState(authorIdStates);
+    const [showAlert] = useState(false);
 
 
  
@@ -55,7 +68,7 @@ const MusicTable: React.FC = () => {
             const formattedData = response.data.map((artist: DataType) => ({
                 ...artist,
                 totalAlbums: artist.albums ? artist.albums.length : 0,
-                totalSongs: artist.albums?.reduce((acc: any, album: { musics: string | any[]; }) => acc + (album.musics ? album.musics.length : 0), 0)
+                totalSongs: artist.albums?.reduce((acc: number, album: Album) => acc + (album.musics ? album.musics.length : 0), 0)
             }));
             setTableData(formattedData);
             console.log(formattedData, 'aq raari tooooo')
@@ -64,21 +77,21 @@ const MusicTable: React.FC = () => {
         }
     };
 
-    const TableDelete = async (id: any) => {
+    const TableDelete = async (id: number) => {
         axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`). 
-        then((r) => {
+        then(() => {
             alert('Do you really want to delete it?')
             
             setClick(!click); 
             console.log('waishala', id)
-        }).catch((error: string) => {
+        }).catch(() => {
             console.log(' ar waishala', id)
         })
     };
 
     const handleSelectAll = (checked: boolean) => {
         if (checked) {
-            setSelectedKeys(new Set(tableData.map((item: any) => item.key)));
+            setSelectedKeys(new Set(tableData.map((item) => item.key)));
         } else {
             setSelectedKeys(new Set());
         }
@@ -92,8 +105,8 @@ const MusicTable: React.FC = () => {
         });
     };
 
-    const onSubmit = (values: any) => {
-        // console.log('Values', values);
+    const onSubmit = (values: FormValues) => {
+        console.log('Values', values);
     };
 
     const columns: ColumnsType<DataType> = [
@@ -113,7 +126,7 @@ const MusicTable: React.FC = () => {
             ),
             dataIndex: 'checkbox',
             key: 'checkbox',
-            render: (text, record) => (
+            render: (text: string, record) => (
                 <form className={styles.wrapperTwo} onSubmit={handleSubmit(onSubmit)}>
                     <input
                         type='checkbox'
@@ -133,9 +146,9 @@ const MusicTable: React.FC = () => {
             title: 'Artist',
             dataIndex: 'artist',
             key: 'artist',
-            render: (text, record) => (
+            render: (text, record:DataType) => (
                 <div className={styles.artistCell}>
-                    <img className={styles.image} src={record.files[0]?.url} width={40} height={40} alt={text} />
+                    <Image className={styles.image} src={`${record.files[0]?.url}`} width={40} height={40} alt={text} />
                     <span>{record.firstName}</span>
                 </div>
             ),
@@ -165,7 +178,7 @@ const MusicTable: React.FC = () => {
         {
             title: 'Actions',
             key: 'actions',
-            render: (text, record) => (
+            render: (text: string, record: DataType) => (
                 <div className={styles.actions}>
                     <button onClick={() => setActive(true)} className={styles.unBorderPen}>
                         <Image src={`/icon/Pen.svg`} width={24} height={24} alt='pen' />
@@ -189,7 +202,7 @@ const MusicTable: React.FC = () => {
                     pageSize: 7,
                     position: ['bottomCenter'] }}
                 rowKey="id" // Important to uniquely identify rows
-                onRow={(record: any) => ({
+                onRow={(record) => ({
                     onClick: () => {
                         setAuthorId(record.id);
                     },

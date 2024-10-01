@@ -1,7 +1,6 @@
 
 
 import React from 'react';
-import { Spin } from 'antd';
 
 const CustomSpinner = () => (
     <div className="custom-spinner">
