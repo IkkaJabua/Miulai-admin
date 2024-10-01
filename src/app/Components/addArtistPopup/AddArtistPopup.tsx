@@ -109,7 +109,7 @@ const AddArtistPopup = (props: Props) => {
             setAlbumButton(false);
           }}
         >
-          <Image
+          <img
             className={styles.cursor}
             src={"/icon/back.svg"}
             width={24}
@@ -121,7 +121,7 @@ const AddArtistPopup = (props: Props) => {
           {authorData?.firstName}
         </div>
         <div>
-          <Image
+          <img
             className={styles.cursor}
             onClick={props.onClick}
             src={"/icon/delete.svg"}
@@ -136,15 +136,15 @@ const AddArtistPopup = (props: Props) => {
           {albumButton ? (
             <img
               className={styles.image}
-              src={albomImg}
+              src={`${albomImg}`}
               width={250}
               height={170}
               alt="artist name"
             />
           ) : (
-            <Image
+            <img
               className={styles.image}
-              src={authorData?.files[0]?.url}
+              src={`${authorData?.files[0]?.url}`}
               width={250}
               height={170}
               alt="artist name"
@@ -260,8 +260,7 @@ const AddArtistPopup = (props: Props) => {
             <UserPlaylist
               setAlbumButton={setAlbumButton}
               setAlbums={setAlbums}
-              setActive={setActive}
-            />
+              setActive={setActive} albumName={""}            />
           )}
           {biography &&
             (edited ? (

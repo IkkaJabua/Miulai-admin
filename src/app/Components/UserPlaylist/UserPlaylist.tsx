@@ -52,7 +52,7 @@ const UserPlaylist = (props: Props) => {
                 albumData?.map((item: Props) => (
                     <div className={styles.container} key={item.id}>
                         <div className={styles.hoveredImage} >
-                            <Image className={styles.cellImage} src={`${item.file?.url}`} width={170} height={136} alt='image' />
+                            <img className={styles.cellImage} src={`${item.file?.url}`} width={170} height={136} alt='image' />
 
                             <div className={styles.buttons}>
                                 <div onClick={() => {
@@ -62,10 +62,10 @@ const UserPlaylist = (props: Props) => {
                                     setAlbumNameTwo(item.id)
                                     setAlbumID(item.id)
                                 }} className={styles.cellEdit}>
-                                    <Image src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
+                                    <img src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
                                 <div onClick={() => onDelete(item.id)} className={styles.cellDelete}>
-                                    <Image src={'/icon/deletePlaylist.svg'} width={24} height={24} alt={'edit button'} />
+                                    <img src={'/icon/deletePlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
                             </div>
                         </div>
