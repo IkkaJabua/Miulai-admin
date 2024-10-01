@@ -3,7 +3,7 @@ import styles from './NewTreck.module.scss';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { albumNameState, clikcState, newTrackRrecoState } from '@/app/states';
+import { albumNameState, authorIdStates, clikcState, newTrackRrecoState } from '@/app/states';
 import { useRecoilState } from 'recoil';
 import { Spin } from 'antd'; // Importing Ant Design Spin component
 import Cookies from 'js-cookie';
@@ -25,6 +25,8 @@ const NewTreck: React.FC<Props> = (props) => {
     const [albumNameNew, setAlbumNameNew] = useState<string | undefined>();
     const [artistNameNew, setArtistNameNew] = useState<string | undefined>();
     const [albumCover, setAlbumCover] = useState<string | undefined>();
+    const [authorId] = useRecoilState<any>(authorIdStates);
+
     const token: string | undefined = Cookies.get('accessToken');
 
     useEffect(() => {
@@ -50,6 +52,7 @@ const NewTreck: React.FC<Props> = (props) => {
     const onSubmit = (value: FormData) => {
         const data = new FormData();
         data.append('name', value.name);
+        data.append('authorId', authorId);
         data.append('albumName', albumNameNew || ''); // Provide a fallback
         data.append('albumCover', albumCover || ''); // Provide a fallback
         data.append('file', value.file[0]);
@@ -71,7 +74,7 @@ const NewTreck: React.FC<Props> = (props) => {
                 console.error('Error submitting track:', error);
             })
             .finally(() => {
-                setLoading(false); // Stop loading
+                setLoading(false); 
             });
     };
 
