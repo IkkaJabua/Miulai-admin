@@ -5,7 +5,6 @@ import { useRecoilState } from 'recoil'
 import { albumDataState, albumIDState, albumNameState, clikcState } from '@/app/states'
 import axios from 'axios'
 import Cookies from "js-cookie";
-import Image from 'next/image'
 
 
 interface Props {
@@ -29,6 +28,7 @@ const UserPlaylist = (props: Props) => {
     const [albumData, ] = useRecoilState(albumDataState)
     const [, setAlbumID] = useRecoilState(albumIDState)
     const [, setAlbumNameTwo] = useRecoilState(albumNameState)
+    
 
     const onDelete = (id: number) => {
         axios.delete(`https://interstellar-1-pdzj.onrender.com/album/${id}`,{
@@ -64,7 +64,7 @@ const UserPlaylist = (props: Props) => {
                                 }} className={styles.cellEdit}>
                                     <img src={'/icon/penPlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
-                                <div onClick={() => onDelete(item.id)} className={styles.cellDelete}>
+                                <div onClick={() => item.id && onDelete(item.id)} className={styles.cellDelete}>
                                     <img src={'/icon/deletePlaylist.svg'} width={24} height={24} alt={'edit button'} />
                                 </div>
                             </div>
