@@ -16,7 +16,7 @@ interface Props {
     title?: string;
     id?: number;
     category?: string;
-    albumName: string;
+    albumName?: string;
     file?: { url: string };
 }
 
