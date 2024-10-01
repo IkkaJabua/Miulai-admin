@@ -99,7 +99,7 @@ const Tables = () => {
       dataIndex: "id",
       key: "id",
       width: "1%",
-      render: (/*text: any, item: any,*/index: number) => (
+      render: (text: any, item: any,index: number) => (
         <div className={styles.cellId}>{index + 1}</div>
       ),
     },
