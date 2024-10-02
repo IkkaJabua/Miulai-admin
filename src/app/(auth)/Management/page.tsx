@@ -9,7 +9,7 @@ import ArtistForm from '@/app/Components/popups/artistForm/artistForm'
 import { useRecoilState } from 'recoil'
 import { autoCloseState } from '@/app/states'
 
-const management = () => {
+const Management = () => {
     const [active] = useState(false)
     const [autoClose, setAutoClose] = useRecoilState(autoCloseState)
 
@@ -55,4 +55,4 @@ const management = () => {
     )
 }
 
-export default management
+export default Management

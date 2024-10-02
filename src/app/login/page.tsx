@@ -32,7 +32,6 @@ const Login = () => {
     axios
       .post("https://interstellar-1-pdzj.onrender.com/auth", values)
       .then((r) => {
-        // Set the access token only if the role is "admin"
         setLoading(false)
         Cookies.set("accessToken", r.data.accessToken, {
           expires: 3600,
