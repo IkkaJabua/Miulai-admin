@@ -84,7 +84,7 @@ const Tables = () => {
       .then((r) => {
         setAlbumImg(r.data.file?.url)
         setReleaseDate(r.data.releaseDate)
-        setNumberOfMusic(r.data.musics.length)
+        setNumberOfMusic(r.data.musics?.length)
         setData(r.data.musics);
         setNameOfAlbum(r.data.albumName)
         setMusicCound(r.data.musicCount)

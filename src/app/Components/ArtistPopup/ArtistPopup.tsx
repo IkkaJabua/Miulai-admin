@@ -80,7 +80,7 @@ const ArtistPopup = (props: Props) => {
             value2={data}
             key3={"Playlists Created"}
             value3={`${playlistLength}`}
-            userImage={"/image/userTestImage.png"}
+            userImage={'/icon/userHeaderIcon.svg'}
             imageStyle={"round"}
             id={0}
           />

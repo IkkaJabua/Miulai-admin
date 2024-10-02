@@ -39,8 +39,8 @@ const MenuItem = () => {
             title: 'Content Management',
             icon: '/icon/menu-logo2.svg',
             activeIcon: '/icon/active-contents.svg',
-            path: '/management',
-            key: '/management',
+            path: '/Management',
+            key: '/Management',
         },
     ]
 

@@ -11,8 +11,8 @@ const CardItems = (props: Props) => {
 
     return(
         <div className={styles.container}>
-            <CardEdit onClick={props.onEdit} />
-            <CardDelete onClick={props.onDelete}  />
+            {/* <CardEdit onClick={props.onEdit} />
+            <CardDelete onClick={props.onDelete}  /> */}
         </div>
     )
 }
