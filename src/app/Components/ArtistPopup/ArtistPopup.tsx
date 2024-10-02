@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import PlaylistTable from "../PlaylistTable/PlaylistTable";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { RecoilState, useRecoilState } from "recoil";
+import {useRecoilState } from "recoil";
 import { playilistMainState, userIdState } from "@/app/states";
 import dayjs from "dayjs";
 
@@ -23,6 +23,7 @@ const ArtistPopup = (props: Props) => {
   const [userId, ] = useRecoilState(userIdState);
   const [email, setEmail] = useState();
   const [data, setDate] = useState<string>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [userPlaylist, setPlaylist] = useRecoilState(playilistMainState)
   const [playlistLength, setPlaylistLength] = useState()
 

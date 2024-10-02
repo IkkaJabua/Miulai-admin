@@ -62,7 +62,7 @@ const ArtistForm = (props: Props) => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => {
+      .then(() => {
         setClick(!click)
         setAutoClose(false)
       })

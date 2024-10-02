@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import Card from '../../Card/Card';
 import styles from './ArtPopupCards.module.scss';
 import axios from 'axios';
@@ -18,6 +18,7 @@ const ArtPopupCards = (props: Props) => {
     // Specify the type for the playlist state
     // const [playlist, setPlaylist] = useState<any[]>([]);
     const token = Cookies.get('accessToken')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [userPlaylistE, setPlaylistE] = useRecoilState<any>(playilistMainState)
 
 
@@ -38,6 +39,7 @@ const ArtPopupCards = (props: Props) => {
     return (
         <div className={styles.container}>
             {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 userPlaylistE?.map((item: any) => (
                     <Card
                         key={item.id} // Ensure each Card has a unique key

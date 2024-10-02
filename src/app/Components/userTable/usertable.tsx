@@ -87,7 +87,7 @@ const UserTable: React.FC = () => {
       })
       .then(() => {
       })
-      .catch((err) => {
+      .catch(() => {
       });
   };
 
@@ -113,7 +113,7 @@ const UserTable: React.FC = () => {
       )
       .then(() => {
       })
-      .catch((err) => {
+      .catch(() => {
       });
   };
 

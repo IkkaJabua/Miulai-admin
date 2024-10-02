@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import styles from './UserPopup.module.scss';
 import Image from 'next/image';

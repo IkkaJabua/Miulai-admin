@@ -5,7 +5,7 @@ interface BlockButtonProps {
   userId: string; // Unique identifier for the user
 }
 
-const BlockButton: React.FC<BlockButtonProps> = ({ userId }) => {
+const BlockButton: React.FC<BlockButtonProps> = ({}) => {
   const [isBlocked, setIsBlocked] = useState(false);
 
   const handleBlockUser = () => {
