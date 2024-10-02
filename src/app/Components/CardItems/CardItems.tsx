@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import CardDelete from './CardDelete/CardDelete';
 import CardEdit from './CardEdit/CardEdit';
 import styles from './CardItems.module.scss';
