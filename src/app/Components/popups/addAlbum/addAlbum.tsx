@@ -54,7 +54,6 @@ const AddAlbum = (props: Props) => {
     if (file) {
       data.append("file", file);
     } else {
-      console.log("ar midiiis");
     }
 
     axios

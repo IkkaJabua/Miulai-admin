@@ -26,7 +26,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onLogin: SubmitHandler<SignIn> = (values) => {
-    console.log(values, "Login attempt");
     setLoading(true);
 
     axios

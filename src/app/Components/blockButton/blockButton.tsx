@@ -10,7 +10,7 @@ const BlockButton: React.FC<BlockButtonProps> = ({ userId }) => {
 
   const handleBlockUser = () => {
     // Here you can make an API call to block/unblock the user using userId
-    console.log(`${isBlocked ? "Unblocking" : "Blocking"} user with ID: ${userId}`);
+    // console.log(`${isBlocked ? "Unblocking" : "Blocking"} user with ID: ${userId}`);
     setIsBlocked(!isBlocked);
   };
 

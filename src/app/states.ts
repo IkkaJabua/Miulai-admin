@@ -122,3 +122,11 @@ export const totalSongsState = atom({
   key: 'totalSongsState',
   default: 0
 })
+export const userDuration = atom({
+  key: 'userDuration', 
+  default: null
+})
+export const playilistMainState = atom({
+  key: 'playilistMainState',
+  default: []
+})

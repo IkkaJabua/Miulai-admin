@@ -51,8 +51,6 @@ const UserTable: React.FC = () => {
   const fetchUsers = async () => {
     try {
       const accessToken = Cookies.get("accessToken");
-
-      console.log("Access token", accessToken);
       const response = await axios.get(
         "https://interstellar-1-pdzj.onrender.com/user",
         {
@@ -67,7 +65,6 @@ const UserTable: React.FC = () => {
     }
   };
 
-  console.log(users, "useerrs");
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -89,10 +86,8 @@ const UserTable: React.FC = () => {
         },
       })
       .then(() => {
-        console.log(`Blocked user with ID: ${id}`);
       })
       .catch((err) => {
-        console.error("Error blocking user:", err);
       });
   };
 
@@ -117,10 +112,8 @@ const UserTable: React.FC = () => {
         }
       )
       .then(() => {
-        console.log(`Unblocked user with ID: ${id}`);
       })
       .catch((err) => {
-        console.error("Error unblocking user:", err);
       });
   };
 
@@ -198,7 +191,6 @@ const UserTable: React.FC = () => {
       key: "actions",
       width: "15%",
       render: (_, record) => (
-        console.log(record, "recordd"),
         (
           <div className={styles.actions}>
             <button

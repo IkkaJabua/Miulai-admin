@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { userDuration } from '@/app/states';
 
 type Props = {
     userName?: string;
@@ -13,19 +15,18 @@ type Props = {
 
 const UserPopup = ({}: Props) => {
     const [email, setEmail] = useState<string>('');
+    const [playDuration, setPlayDUration] = useRecoilState(userDuration)
     
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const token = getToken();
-                console.log(token , 'token ')
-
                 const response = await axios.get('https://interstellar-1-pdzj.onrender.com/user/me', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
-                });
-               
+                }); 
+                setPlayDUration(response.data)
                 setEmail(response.data.email);
             } catch (error) {
                 console.error('Error fetching user data:', error);

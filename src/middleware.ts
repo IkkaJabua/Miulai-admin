@@ -7,7 +7,6 @@ const publicRoutes = ['/login']
 export default async function middleware(req: NextRequest) {
     // NextResponse.redirect('/')
     // console.log(cookies().get('token'));
-    // console.log('ddd');
 
     const token = cookies().get('accessToken');
     const path = req.nextUrl.pathname

@@ -65,7 +65,6 @@ const AddArtistPopup = (props: Props) => {
     axios
       .get(`https://interstellar-1-pdzj.onrender.com/author/${authorId}`).
       then((r) => {
-        console.log(r.data.albums.length, 'moixode')
         setTotalAlbum(r.data.albums.length)
         setNameOfArtist(r.data.firstName)
         setAuthorData(r.data);
@@ -79,7 +78,6 @@ const AddArtistPopup = (props: Props) => {
 
       })
       .catch((error) => {
-        console.log("there is something error", error);
       });
   }, [click]);
 

@@ -54,7 +54,6 @@ const ArtistForm = (props: Props) => {
     if (file) {
       data.append("file", file);
     } else {
-      console.log("ar midiiis");
     }
 
     axios
@@ -66,7 +65,6 @@ const ArtistForm = (props: Props) => {
       .then((response) => {
         setClick(!click)
         setAutoClose(false)
-        console.log("Successfully submitted:", response.data);
       })
       .catch((error) => {
         console.error(
@@ -79,7 +77,6 @@ const ArtistForm = (props: Props) => {
   const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e?.target.files[0]);
-      console.log(e?.target.files[0],file)
       setCoverFileName(e.target.files[0].name);
     }
   };

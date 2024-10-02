@@ -106,41 +106,23 @@ const MusicTable: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<FormValues> = (values) => {
-    console.log("Values", values);
   };
 
   const columns: ColumnsType<DataType> = [
     {
       title: () => (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="checkbox"
-            className={styles.inp}
-            {...register("selectAll")}
-            onChange={(e) => {
-              handleSelectAll(e.target.checked);
-              handleSubmit(onSubmit)();
-            }}
-          />
-        </form>
+        <div>
+
+        </div>
       ),
       dataIndex: "checkbox",
       key: "checkbox",
       render: (text: string, record) => (
-        <form className={styles.wrapperTwo} onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="checkbox"
-            className={styles.inp}
-            {...register(`select-${record.id}`)}
-            checked={selectedKeys.has(record.key)}
-            onChange={() => {
-              handleSelectOne(record.key);
-              handleSubmit(onSubmit)();
-            }}
-          />
-        </form>
+        <div>
+
+        </div>
       ),
-      width: "5%",
+      width: "1%",
     },
     {
       title: "Artist",
@@ -162,10 +144,10 @@ const MusicTable: React.FC = () => {
           <span>{record.firstName}</span>
         </div>
       ),
-      width: "30%",
+      width: "10%",
     },
     {
-      title: "Total Streams",
+      title: "",
       dataIndex: "totalStreams",
       key: "totalStreams",
       width: "10%",

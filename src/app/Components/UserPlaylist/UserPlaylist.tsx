@@ -42,7 +42,6 @@ const UserPlaylist = (props: Props) => {
             alert('do you really want to delete this album?')
 
         }).catch(error => {
-            console.log(error, 'ar waishalaa')
         })
     }
 

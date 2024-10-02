@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import PlaylistTable from "../PlaylistTable/PlaylistTable";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRecoilState } from "recoil";
-import { userIdState } from "@/app/states";
+import { RecoilState, useRecoilState } from "recoil";
+import { playilistMainState, userIdState } from "@/app/states";
 import dayjs from "dayjs";
 
 interface Props {
@@ -23,6 +23,8 @@ const ArtistPopup = (props: Props) => {
   const [userId, ] = useRecoilState(userIdState);
   const [email, setEmail] = useState();
   const [data, setDate] = useState<string>();
+  const [userPlaylist, setPlaylist] = useRecoilState(playilistMainState)
+  const [playlistLength, setPlaylistLength] = useState()
 
   useEffect(() => {
     axios
@@ -34,6 +36,9 @@ const ArtistPopup = (props: Props) => {
       .then((r) => {
         console.log(r.data, "=-=-=-=- use,id");
         setEmail(r.data.email);
+        setPlaylist(r.data.playlists)
+        setPlaylistLength(r.data.playlists.length)
+
         const formattedDate = dayjs(r.data.createdAt).format(
           "YYYY-MM-DD HH:mm:ss"
         );
@@ -73,7 +78,7 @@ const ArtistPopup = (props: Props) => {
             key2={"Registration Date"}
             value2={data}
             key3={"Playlists Created"}
-            value3={"4"}
+            value3={`${playlistLength}`}
             userImage={"/image/userTestImage.png"}
             imageStyle={"round"}
             id={0}

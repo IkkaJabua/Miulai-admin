@@ -12,19 +12,6 @@ import { autoCloseState } from '@/app/states'
 const Management = () => {
     const [active] = useState(false)
     const [autoClose, setAutoClose] = useRecoilState(autoCloseState)
-
-    // useEffect(() => {
-    //     axios
-    //         .get(`https://interstellar-1-pdzj.onrender.com/author`)
-    //         .then((r) => {
-    //             setOnclick(!onclick);
-    //             setTotalArtists(r.data.length);
-    //         })
-    //         .catch((error) => {
-    //             console.log("there is something error", error);
-    //         });
-    // }, []);
-
     return (
         <div className={styles.container} >
             <Header />
