@@ -33,4 +33,4 @@ export default function RootLayout({
 //         <IndexPage />
 //     </div>
 //     <MobileMenu />
-// </div> */}
+// </div> */
