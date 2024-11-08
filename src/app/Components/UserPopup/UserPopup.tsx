@@ -22,7 +22,7 @@ const UserPopup = ({}: Props) => {
         const fetchUserData = async () => {
             try {
                 const token = getToken();
-                const response = await axios.get('https://interstellar-1-pdzj.onrender.com/user/me', {
+                const response = await axios.get('https://interstellar-1-pdzj..com/user/me', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }

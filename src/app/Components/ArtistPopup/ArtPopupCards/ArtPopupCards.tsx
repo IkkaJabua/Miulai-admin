@@ -23,7 +23,7 @@ const ArtPopupCards = (props: Props) => {
 
 
     useEffect(() => {
-        axios.get(`https://interstellar-1-pdzj.onrender.com/user/me`, {
+        axios.get(`http://49.12.148.222:30469/user/me`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

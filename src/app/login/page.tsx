@@ -29,7 +29,7 @@ const Login = () => {
     setLoading(true);
 
     axios
-      .post("https://interstellar-1-pdzj.onrender.com/auth", values)
+      .post("http://49.12.148.222:30469/auth", values)
       .then((r) => {
         setLoading(false)
         Cookies.set("accessToken", r.data.accessToken, {

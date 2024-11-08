@@ -33,7 +33,7 @@ const UserPlaylist = (props: Props) => {
     
 
     const onDelete = (id: number) => {
-        axios.delete(`https://interstellar-1-pdzj.onrender.com/album/${id}`,{
+        axios.delete(`http://49.12.148.222:30469/album/${id}`,{
             headers: {
                 Authorization: `Bearer ${token}`,
             },

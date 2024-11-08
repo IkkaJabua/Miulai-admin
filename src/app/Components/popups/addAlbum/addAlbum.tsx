@@ -57,7 +57,7 @@ const AddAlbum = (props: Props) => {
     }
 
     axios
-      .post(`https://interstellar-1-pdzj.onrender.com/album`, data, {
+      .post(`http://49.12.148.222:30469/album`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

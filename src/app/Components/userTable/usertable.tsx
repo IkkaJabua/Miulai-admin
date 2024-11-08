@@ -52,7 +52,7 @@ const UserTable: React.FC = () => {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.get(
-        "https://interstellar-1-pdzj.onrender.com/user",
+        "http://49.12.148.222:30469/user",
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -80,7 +80,7 @@ const UserTable: React.FC = () => {
     });
     const accessToken = Cookies.get("accessToken");
     axios
-      .patch(`https://interstellar-1-pdzj.onrender.com/user/block/${id}`, {
+      .patch(`http://49.12.148.222:30469/user/block/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -103,7 +103,7 @@ const UserTable: React.FC = () => {
 
     axios
       .patch(
-        `https://interstellar-1-pdzj.onrender.com/user/unblock/${id}`,
+        `http://49.12.148.222:30469/user/unblock/${id}`,
         {},
         {
           headers: {

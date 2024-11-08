@@ -47,7 +47,7 @@ const Tables = () => {
 
   // useEffect(() => {
   //   axios
-  //     .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
+  //     .get(`http://49.12.148.222:30469/album/${albumID}`)
   //     .then((r) => {
   //       setAlbumName(r.data.albumName);
   //       setAlbumCover(r.data.file?.url);
@@ -65,7 +65,7 @@ const Tables = () => {
 
   const onDelete = (id: number) => {
     axios
-      .delete(`https://interstellar-1-pdzj.onrender.com/music/${id}`, {
+      .delete(`http://49.12.148.222:30469/music/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -80,7 +80,7 @@ const Tables = () => {
 
   useEffect(() => {
     axios
-      .get(`https://interstellar-1-pdzj.onrender.com/album/${albumID}`)
+      .get(`http://49.12.148.222:30469/album/${albumID}`)
       .then((r) => {
         setAlbumImg(r.data.file?.url)
         setReleaseDate(r.data.releaseDate)

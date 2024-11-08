@@ -29,7 +29,7 @@ const ArtistPopup = (props: Props) => {
 
   useEffect(() => {
     axios
-      .get(`https://interstellar-1-pdzj.onrender.com/user/${userId}`, {
+      .get(`http://49.12.148.222:30469/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

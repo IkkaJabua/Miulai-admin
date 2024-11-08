@@ -10,7 +10,7 @@ type Props = {
 const CardDelete = (props: Props) => {
     const PlaylistDelete = async () => {
         if (props.id) { // Ensure there's an ID before attempting to delete
-            await axios.delete(`https://interstellar-1-pdzj.onrender.com/playlist/${props.id}`)
+            await axios.delete(`http://49.12.148.222:30469/playlist/${props.id}`)
                 .then(() => {
                     alert('Playlist has been deleted');
                 })

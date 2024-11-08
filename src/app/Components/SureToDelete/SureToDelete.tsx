@@ -12,7 +12,7 @@ const SureToDelete = (props: Props) => {
 
 
     const userDelete = async () => {
-        axios.delete(`https://interstellar-1-pdzj.onrender.com/user/${props.id}`)
+        axios.delete(`http://49.12.148.222:30469/user/${props.id}`)
         .then(() => {
             props.onDeleteClick?.()
             props.onCancelClick?.()

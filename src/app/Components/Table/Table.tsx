@@ -58,7 +58,7 @@ const MusicTable: React.FC = () => {
   const fetchAuthors = async () => {
     try {
       const response = await axios.get(
-        `https://interstellar-1-pdzj.onrender.com/author`
+        `http://49.12.148.222:30469/author`
       );
 
       const formattedData = response.data.map((artist: DataType) => ({
@@ -78,7 +78,7 @@ const MusicTable: React.FC = () => {
 
   const TableDelete = async (id: number) => {
     try {
-      await axios.delete(`https://interstellar-1-pdzj.onrender.com/author/${id}`);
+      await axios.delete(`http://49.12.148.222:30469/author/${id}`);
       alert("Do you really want to delete it?");
       setClick(!click);
     } catch (error) {

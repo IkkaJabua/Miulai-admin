@@ -57,7 +57,7 @@ const ArtistForm = (props: Props) => {
     }
 
     axios
-      .post("https://interstellar-1-pdzj.onrender.com/author", data, {
+      .post("http://49.12.148.222:30469/author", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
