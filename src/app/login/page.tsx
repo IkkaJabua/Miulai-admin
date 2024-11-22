@@ -29,7 +29,7 @@ const Login = () => {
     setLoading(true);
 
     axios
-      .post("http://49.12.148.222:30469/auth", values)
+      .post("https://backend.miulai.ge/auth", values)
       .then((r) => {
         setLoading(false)
         Cookies.set("accessToken", r.data.accessToken, {

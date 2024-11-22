@@ -31,7 +31,7 @@ const NewTreck: React.FC<Props> = (props) => {
 
     useEffect(() => {
         if (albumNameTwo) {
-            axios.get(`http://49.12.148.222:30469/album/${albumNameTwo}`)
+            axios.get(`https://backend.miulai.ge/album/${albumNameTwo}`)
                 .then((response) => {
                     setAlbumNameNew(response.data.albumName);
                     setArtistNameNew(response.data.artistName);
@@ -61,7 +61,7 @@ const NewTreck: React.FC<Props> = (props) => {
 
         setLoading(true); // Start loading
 
-        axios.post(`http://49.12.148.222:30469/music`, data, {
+        axios.post(`https://backend.miulai.ge/music`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

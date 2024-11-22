@@ -52,7 +52,7 @@ const UserTable: React.FC = () => {
     try {
       const accessToken = Cookies.get("accessToken");
       const response = await axios.get(
-        "http://49.12.148.222:30469/user",
+        "https://backend.miulai.ge/user",
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -80,7 +80,7 @@ const UserTable: React.FC = () => {
     });
     const accessToken = Cookies.get("accessToken");
     axios
-      .patch(`http://49.12.148.222:30469/user/block/${id}`, {
+      .patch(`https://backend.miulai.ge/user/block/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -103,7 +103,7 @@ const UserTable: React.FC = () => {
 
     axios
       .patch(
-        `http://49.12.148.222:30469/user/unblock/${id}`,
+        `https://backend.miulai.ge/user/unblock/${id}`,
         {},
         {
           headers: {

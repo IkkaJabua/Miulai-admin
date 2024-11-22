@@ -64,7 +64,7 @@ const AddArtistPopup = (props: Props) => {
 
   useEffect(() => {
     axios
-      .get(`http://49.12.148.222:30469/author/${authorId}`).
+      .get(`https://backend.miulai.ge/author/${authorId}`).
       then((r) => {
         setTotalAlbum(r.data.albums.length)
         setNameOfArtist(r.data.firstName)

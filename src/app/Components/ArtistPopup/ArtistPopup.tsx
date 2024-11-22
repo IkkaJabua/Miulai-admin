@@ -29,7 +29,7 @@ const ArtistPopup = (props: Props) => {
 
   useEffect(() => {
     axios
-      .get(`http://49.12.148.222:30469/user/${userId}`, {
+      .get(`https://backend.miulai.ge/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

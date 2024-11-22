@@ -57,7 +57,7 @@ const AddAlbum = (props: Props) => {
     }
 
     axios
-      .post(`http://49.12.148.222:30469/album`, data, {
+      .post(`https://backend.miulai.ge/album`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

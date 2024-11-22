@@ -24,7 +24,7 @@ const NewPassword = (props: Props) => {
 
     const onPassswordClick = async (values: Password) => { // Use Password type here
         if (newPassword === confirmPassword) {
-            await axios.patch(`http://49.12.148.222:30469/user/${props.id}`, {
+            await axios.patch(`https://backend.miulai.ge/user/${props.id}`, {
                 password: values.newPassword
             }, {
                 headers: {

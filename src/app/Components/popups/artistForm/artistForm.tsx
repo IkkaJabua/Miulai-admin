@@ -57,7 +57,7 @@ const ArtistForm = (props: Props) => {
     }
 
     axios
-      .post("http://49.12.148.222:30469/author", data, {
+      .post("https://backend.miulai.ge/author", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
